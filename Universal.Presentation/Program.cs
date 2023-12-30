@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Builder;
-//using Universal.Service;
+using Universal.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-//builder.Services.LoadServices();
-//builder.Services.AddSwaggerGen();
-//builder.Services.AddAutoMapper(typeof(AbilityMapper));
+builder.Services.LoadServices();
+builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(AbilityMapper));
 
 var app = builder.Build();
 
