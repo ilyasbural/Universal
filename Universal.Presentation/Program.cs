@@ -1,7 +1,13 @@
+using Microsoft.AspNetCore.Builder;
+//using Universal.Service;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//builder.Services.LoadServices();
+//builder.Services.AddSwaggerGen();
+//builder.Services.AddAutoMapper(typeof(AbilityMapper));
 
 var app = builder.Build();
 
@@ -15,13 +21,26 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
+//app.UseSwagger();
+//app.UseSwaggerUI();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}"
+);
+
+app.MapControllerRoute(
+    name: "api",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "backup",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
