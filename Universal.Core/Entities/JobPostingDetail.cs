@@ -1,0 +1,10 @@
+﻿namespace Universal.Core
+{
+    public class JobPostingDetail : Base<JobPostingDetail>, IEntity
+    {
+        public JobPostingDetail()
+        {
+
+        }
+    }
+}
