@@ -23,7 +23,8 @@
 
         public IActionResult Create()
         {
-            return View();
+            var Model = Tuple.Create<ManagementContactViewModel>(new ManagementContactViewModel());
+            return View(Model);
         }
 
         public IActionResult Update()

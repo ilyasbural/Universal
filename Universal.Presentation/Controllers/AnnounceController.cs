@@ -23,7 +23,8 @@
 
         public IActionResult Create()
         {
-            return View();
+            var Model = Tuple.Create<AnnounceViewModel>(new AnnounceViewModel());
+            return View(Model);
         }
 
         public IActionResult Update()
