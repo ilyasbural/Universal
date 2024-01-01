@@ -31,13 +31,11 @@
         [HttpPost]
         public async Task<IActionResult> Create([Bind(Prefix = "Item1")] AbilityViewModel Model)
         {
-            //AbilityRegisterDto BuildingType = new AbilityRegisterDto();
-            //BuildingType.Name = Model.Name;
-            //Response<Ability> Response = await Service.ıns(BuildingType);
-            ////if (Response.Success > 0) return RedirectToAction("Index");
-            ////else return View(Model);
-            //return View(Model);
-            return View(Model);
+            RestRequest = new RestRequest("api/ability", Method.Post);
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            return RedirectToAction("Index", "Ability");
         }
 
         public async Task<IActionResult> Update()

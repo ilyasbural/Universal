@@ -28,14 +28,13 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind(Prefix = "Item1")] AbilityViewModel Model)
+        public async Task<IActionResult> Create([Bind(Prefix = "Item1")] AnnounceDetailViewModel Model)
         {
-            //BuildingTypeRegisterDto BuildingType = new BuildingTypeRegisterDto();
-            //BuildingType.Name = Model.Name;
-            //Response<BuildingType> Response = await Service.InsertAsync(BuildingType);
-            //if (Response.Success > 0) return RedirectToAction("Index");
-            //else return View(Model);
-            return View(Model);
+            RestRequest = new RestRequest("api/announcedetail", Method.Post);
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            return RedirectToAction("Index", "AnnounceDetail");
         }
 
         public IActionResult Update()
