@@ -1,5 +1,6 @@
 ﻿namespace Universal.Presentation.Controllers
 {
+    using Core;
     using RestSharp;
     using Newtonsoft.Json.Linq;
     using Microsoft.AspNetCore.Mvc;
@@ -12,16 +13,16 @@
 
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             RestRequest = new RestRequest("api/ability", Method.Get);
-            RestResponse = Client.Execute(RestRequest);
+            RestResponse = await Client.ExecuteAsync(RestRequest);
             Array = JObject.Parse(RestResponse.Content!);
             ModelList = Array["collection"]!.ToObject<List<AbilityViewModel>>()!;
             return View(ModelList);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var Model = Tuple.Create<AbilityViewModel>(new AbilityViewModel());
             return View(Model);
@@ -30,12 +31,18 @@
         [HttpPost]
         public async Task<IActionResult> Create([Bind(Prefix = "Item1")] AbilityViewModel Model)
         {
-            //BuildingTypeRegisterDto BuildingType = new BuildingTypeRegisterDto();
+            //AbilityRegisterDto BuildingType = new AbilityRegisterDto();
             //BuildingType.Name = Model.Name;
-            //Response<BuildingType> Response = await Service.InsertAsync(BuildingType);
-            //if (Response.Success > 0) return RedirectToAction("Index");
-            //else return View(Model);
+            //Response<Ability> Response = await Service.ıns(BuildingType);
+            ////if (Response.Success > 0) return RedirectToAction("Index");
+            ////else return View(Model);
+            //return View(Model);
             return View(Model);
+        }
+
+        public async Task<IActionResult> Update()
+        {
+            return View();
         }
 
         [HttpPost]
