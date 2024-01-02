@@ -17,11 +17,6 @@
             Validator = validator;
         }
 
-        public Task<Response<JobPostingDetail>> DeleteAsync(JobPostingDetailDeleteDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Response<JobPostingDetail>> InsertAsync(JobPostingDetailRegisterDto Model)
         {
             Data = Mapper.Map<JobPostingDetail>(Model);
@@ -42,7 +37,17 @@
             };
         }
 
-        public async Task<Response<JobPostingDetail>> SelectAsync()
+        public Task<Response<JobPostingDetail>> UpdateAsync(JobPostingDetailUpdateDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<JobPostingDetail>> DeleteAsync(JobPostingDetailDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Response<JobPostingDetail>> SelectAsync(JobPostingDetailSelectDto Model)
         {
             Collection = await UnitOfWork.JobPostingDetail.SelectAsync(x => x.IsActive == true);
             return new Response<JobPostingDetail>
@@ -54,17 +59,7 @@
             };
         }
 
-        public Task<Response<JobPostingDetail>> SelectAsync(JobPostingDetailSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Response<JobPostingDetail>> SelectSingleAsync(JobPostingDetailSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<JobPostingDetail>> UpdateAsync(JobPostingDetailUpdateDto Model)
         {
             throw new NotImplementedException();
         }

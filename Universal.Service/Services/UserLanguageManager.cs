@@ -17,11 +17,6 @@
             Validator = validator;
         }
 
-        public Task<Response<UserLanguage>> DeleteAsync(UserLanguageDeleteDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Response<UserLanguage>> InsertAsync(UserLanguageRegisterDto Model)
         {
             Data = Mapper.Map<UserLanguage>(Model);
@@ -42,7 +37,17 @@
             };
         }
 
-        public async Task<Response<UserLanguage>> SelectAsync()
+        public Task<Response<UserLanguage>> UpdateAsync(UserLanguageUpdateDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<UserLanguage>> DeleteAsync(UserLanguageDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Response<UserLanguage>> SelectAsync(UserLanguageSelectDto Model)
         {
             Collection = await UnitOfWork.UserLanguage.SelectAsync(x => x.IsActive == true);
             return new Response<UserLanguage>
@@ -54,17 +59,7 @@
             };
         }
 
-        public Task<Response<UserLanguage>> SelectAsync(UserLanguageSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Response<UserLanguage>> SelectSingleAsync(UserLanguageSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<UserLanguage>> UpdateAsync(UserLanguageUpdateDto Model)
         {
             throw new NotImplementedException();
         }

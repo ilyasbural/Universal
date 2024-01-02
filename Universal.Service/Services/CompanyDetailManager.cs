@@ -15,12 +15,7 @@
             Mapper = mapper;
             UnitOfWork = unitOfWork;
             Validator = validator;
-        }
-
-        public Task<Response<CompanyDetail>> DeleteAsync(CompanyDetailDeleteDto Model)
-        {
-            throw new NotImplementedException();
-        }
+        }    
 
         public async Task<Response<CompanyDetail>> InsertAsync(CompanyDetailRegisterDto Model)
         {
@@ -42,7 +37,17 @@
             };
         }
 
-        public async Task<Response<CompanyDetail>> SelectAsync()
+        public Task<Response<CompanyDetail>> UpdateAsync(CompanyDetailUpdateDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<CompanyDetail>> DeleteAsync(CompanyDetailDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Response<CompanyDetail>> SelectAsync(CompanyDetailSelectDto Model)
         {
             Collection = await UnitOfWork.CompanyDetail.SelectAsync(x => x.IsActive == true);
             return new Response<CompanyDetail>
@@ -54,17 +59,7 @@
             };
         }
 
-        public Task<Response<CompanyDetail>> SelectAsync(CompanyDetailSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Response<CompanyDetail>> SelectSingleAsync(CompanyDetailSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<CompanyDetail>> UpdateAsync(CompanyDetailUpdateDto Model)
         {
             throw new NotImplementedException();
         }

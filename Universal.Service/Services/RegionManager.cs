@@ -17,11 +17,6 @@
             Validator = validator;
         }
 
-        public Task<Response<Region>> DeleteAsync(RegionDeleteDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Response<Region>> InsertAsync(RegionRegisterDto Model)
         {
             Data = Mapper.Map<Region>(Model);
@@ -42,7 +37,17 @@
             };
         }
 
-        public async Task<Response<Region>> SelectAsync()
+        public Task<Response<Region>> UpdateAsync(RegionUpdateDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<Region>> DeleteAsync(RegionDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Response<Region>> SelectAsync(RegionSelectDto Model)
         {
             Collection = await UnitOfWork.Region.SelectAsync(x => x.IsActive == true);
             return new Response<Region>
@@ -54,17 +59,7 @@
             };
         }
 
-        public Task<Response<Region>> SelectAsync(RegionSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Response<Region>> SelectSingleAsync(RegionSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<Region>> UpdateAsync(RegionUpdateDto Model)
         {
             throw new NotImplementedException();
         }

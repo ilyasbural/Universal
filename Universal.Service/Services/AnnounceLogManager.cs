@@ -17,11 +17,6 @@
             Validator = validator;
         }
 
-        public Task<Response<AnnounceLog>> DeleteAsync(AnnounceLogDeleteDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Response<AnnounceLog>> InsertAsync(AnnounceLogRegisterDto Model)
         {
             Data = Mapper.Map<AnnounceLog>(Model);
@@ -42,7 +37,17 @@
             };
         }
 
-        public async Task<Response<AnnounceLog>> SelectAsync()
+        public Task<Response<AnnounceLog>> UpdateAsync(AnnounceLogUpdateDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Response<AnnounceLog>> DeleteAsync(AnnounceLogDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Response<AnnounceLog>> SelectAsync(AnnounceLogSelectDto Model)
         {
             Collection = await UnitOfWork.AnnounceLog.SelectAsync(x => x.IsActive == true);
             return new Response<AnnounceLog>
@@ -54,19 +59,16 @@
             };
         }
 
-        public Task<Response<AnnounceLog>> SelectAsync(AnnounceLogSelectDto Model)
+        public async Task<Response<AnnounceLog>> SelectSingleAsync(AnnounceLogSelectDto Model)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<AnnounceLog>> SelectSingleAsync(AnnounceLogSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<AnnounceLog>> UpdateAsync(AnnounceLogUpdateDto Model)
-        {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.AnnounceLog.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<AnnounceLog>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

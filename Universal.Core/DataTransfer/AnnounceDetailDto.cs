@@ -17,6 +17,6 @@
 
     public class AnnounceDetailSelectDto
     {
-
+        public Guid Id { get; set; }
     }
 }

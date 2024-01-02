@@ -17,11 +17,6 @@
             Validator = validator;
         }
 
-        public Task<Response<ManagementContact>> DeleteAsync(ManagementContactDeleteDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Response<ManagementContact>> InsertAsync(ManagementContactRegisterDto Model)
         {
             Data = Mapper.Map<ManagementContact>(Model);
@@ -42,7 +37,17 @@
             };
         }
 
-        public async Task<Response<ManagementContact>> SelectAsync()
+        public Task<Response<ManagementContact>> UpdateAsync(ManagementContactUpdateDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<ManagementContact>> DeleteAsync(ManagementContactDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Response<ManagementContact>> SelectAsync(ManagementContactSelectDto Model)
         {
             Collection = await UnitOfWork.ManagementContact.SelectAsync(x => x.IsActive == true);
             return new Response<ManagementContact>
@@ -54,17 +59,7 @@
             };
         }
 
-        public Task<Response<ManagementContact>> SelectAsync(ManagementContactSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Response<ManagementContact>> SelectSingleAsync(ManagementContactSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<ManagementContact>> UpdateAsync(ManagementContactUpdateDto Model)
         {
             throw new NotImplementedException();
         }

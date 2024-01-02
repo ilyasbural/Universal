@@ -17,11 +17,6 @@
             Validator = validator;
         }
 
-        public Task<Response<Emoji>> DeleteAsync(EmojiDeleteDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Response<Emoji>> InsertAsync(EmojiRegisterDto Model)
         {
             Data = Mapper.Map<Emoji>(Model);
@@ -42,7 +37,17 @@
             };
         }
 
-        public async Task<Response<Emoji>> SelectAsync()
+        public Task<Response<Emoji>> UpdateAsync(EmojiUpdateDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<Emoji>> DeleteAsync(EmojiDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Response<Emoji>> SelectAsync(EmojiSelectDto Model)
         {
             Collection = await UnitOfWork.Emoji.SelectAsync(x => x.IsActive == true);
             return new Response<Emoji>
@@ -54,17 +59,7 @@
             };
         }
 
-        public Task<Response<Emoji>> SelectAsync(EmojiSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Response<Emoji>> SelectSingleAsync(EmojiSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<Emoji>> UpdateAsync(EmojiUpdateDto Model)
         {
             throw new NotImplementedException();
         }

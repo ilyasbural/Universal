@@ -17,6 +17,6 @@
 
     public class AnnounceLogSelectDto
     {
-
+        public Guid Id { get; set; }
     }
 }

@@ -17,10 +17,7 @@
             Validator = validator;
         }
 
-        public Task<Response<NetworkDetail>> DeleteAsync(NetworkDetailDeleteDto Model)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public async Task<Response<NetworkDetail>> InsertAsync(NetworkDetailRegisterDto Model)
         {
@@ -42,7 +39,17 @@
             };
         }
 
-        public async Task<Response<NetworkDetail>> SelectAsync()
+        public Task<Response<NetworkDetail>> UpdateAsync(NetworkDetailUpdateDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<NetworkDetail>> DeleteAsync(NetworkDetailDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Response<NetworkDetail>> SelectAsync(NetworkDetailSelectDto Model)
         {
             Collection = await UnitOfWork.NetworkDetail.SelectAsync(x => x.IsActive == true);
             return new Response<NetworkDetail>
@@ -54,17 +61,7 @@
             };
         }
 
-        public Task<Response<NetworkDetail>> SelectAsync(NetworkDetailSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Response<NetworkDetail>> SelectSingleAsync(NetworkDetailSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<NetworkDetail>> UpdateAsync(NetworkDetailUpdateDto Model)
         {
             throw new NotImplementedException();
         }

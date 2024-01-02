@@ -17,10 +17,7 @@
             Validator = validator;
         }
 
-        public Task<Response<Occupation>> DeleteAsync(OccupationDeleteDto Model)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public async Task<Response<Occupation>> InsertAsync(OccupationRegisterDto Model)
         {
@@ -42,7 +39,17 @@
             };
         }
 
-        public async Task<Response<Occupation>> SelectAsync()
+        public Task<Response<Occupation>> UpdateAsync(OccupationUpdateDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<Occupation>> DeleteAsync(OccupationDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Response<Occupation>> SelectAsync(OccupationSelectDto Model)
         {
             Collection = await UnitOfWork.Occupation.SelectAsync(x => x.IsActive == true);
             return new Response<Occupation>
@@ -54,17 +61,7 @@
             };
         }
 
-        public Task<Response<Occupation>> SelectAsync(OccupationSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Response<Occupation>> SelectSingleAsync(OccupationSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<Occupation>> UpdateAsync(OccupationUpdateDto Model)
         {
             throw new NotImplementedException();
         }

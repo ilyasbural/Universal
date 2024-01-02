@@ -15,12 +15,7 @@
             Mapper = mapper;
             UnitOfWork = unitOfWork;
             Validator = validator;
-        }
-
-        public Task<Response<AnnounceDetail>> DeleteAsync(AnnounceDetailDeleteDto Model)
-        {
-            throw new NotImplementedException();
-        }
+        }     
 
         public async Task<Response<AnnounceDetail>> InsertAsync(AnnounceDetailRegisterDto Model)
         {
@@ -42,7 +37,17 @@
             };
         }
 
-        public async Task<Response<AnnounceDetail>> SelectAsync()
+        public Task<Response<AnnounceDetail>> UpdateAsync(AnnounceDetailUpdateDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Response<AnnounceDetail>> DeleteAsync(AnnounceDetailDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Response<AnnounceDetail>> SelectAsync(AnnounceDetailSelectDto Model)
         {
             Collection = await UnitOfWork.AnnounceDetail.SelectAsync(x => x.IsActive == true);
             return new Response<AnnounceDetail>
@@ -54,19 +59,16 @@
             };
         }
 
-        public Task<Response<AnnounceDetail>> SelectAsync(AnnounceDetailSelectDto Model)
+        public async Task<Response<AnnounceDetail>> SelectSingleAsync(AnnounceDetailSelectDto Model)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<AnnounceDetail>> SelectSingleAsync(AnnounceDetailSelectDto Model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<AnnounceDetail>> UpdateAsync(AnnounceDetailUpdateDto Model)
-        {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.AnnounceDetail.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<AnnounceDetail>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }
