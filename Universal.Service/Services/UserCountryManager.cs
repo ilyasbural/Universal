@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<UserCountry>> UpdateAsync(UserCountryUpdateDto Model)
+        public async Task<Response<UserCountry>> UpdateAsync(UserCountryUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.UserCountry.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<UserCountry>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.UserCountry.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<UserCountry>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<UserCountry>> DeleteAsync(UserCountryDeleteDto Model)

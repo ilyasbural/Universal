@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<Certificate>> UpdateAsync(CertificateUpdateDto Model)
+        public async Task<Response<Certificate>> UpdateAsync(CertificateUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Certificate.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<Certificate>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.Certificate.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<Certificate>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<Certificate>> DeleteAsync(CertificateDeleteDto Model)

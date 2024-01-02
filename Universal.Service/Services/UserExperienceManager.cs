@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<UserExperience>> UpdateAsync(UserExperienceUpdateDto Model)
+        public async Task<Response<UserExperience>> UpdateAsync(UserExperienceUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.UserExperience.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<UserExperience>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.UserExperience.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<UserExperience>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<UserExperience>> DeleteAsync(UserExperienceDeleteDto Model)

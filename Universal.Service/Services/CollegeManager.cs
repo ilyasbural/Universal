@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<College>> UpdateAsync(CollegeUpdateDto Model)
+        public async Task<Response<College>> UpdateAsync(CollegeUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.College.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<College>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.College.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<College>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<College>> DeleteAsync(CollegeDeleteDto Model)

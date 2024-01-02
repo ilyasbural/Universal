@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<ManagementEmail>> UpdateAsync(ManagementEmailUpdateDto Model)
+        public async Task<Response<ManagementEmail>> UpdateAsync(ManagementEmailUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.ManagementEmail.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<ManagementEmail>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.ManagementEmail.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<ManagementEmail>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<ManagementEmail>> DeleteAsync(ManagementEmailDeleteDto Model)

@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<Emoji>> UpdateAsync(EmojiUpdateDto Model)
+        public async Task<Response<Emoji>> UpdateAsync(EmojiUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Emoji.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<Emoji>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.Emoji.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<Emoji>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<Emoji>> DeleteAsync(EmojiDeleteDto Model)

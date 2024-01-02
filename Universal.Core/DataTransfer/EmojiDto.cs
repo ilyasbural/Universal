@@ -7,16 +7,16 @@
 
     public class EmojiUpdateDto
     {
-
+        public Guid Id { get; set; }
     }
 
     public class EmojiDeleteDto
     {
-
+        public Guid Id { get; set; }
     }
 
     public class EmojiSelectDto
     {
-
+        public Guid Id { get; set; }
     }
 }

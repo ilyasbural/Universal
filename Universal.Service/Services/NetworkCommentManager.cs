@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<NetworkComment>> UpdateAsync(NetworkCommentUpdateDto Model)
+        public async Task<Response<NetworkComment>> UpdateAsync(NetworkCommentUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.NetworkComment.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<NetworkComment>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.NetworkComment.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<NetworkComment>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<NetworkComment>> DeleteAsync(NetworkCommentDeleteDto Model)

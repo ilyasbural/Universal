@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<NetworkAction>> UpdateAsync(NetworkActionUpdateDto Model)
+        public async Task<Response<NetworkAction>> UpdateAsync(NetworkActionUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.NetworkAction.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<NetworkAction>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.NetworkAction.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<NetworkAction>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<NetworkAction>> DeleteAsync(NetworkActionDeleteDto Model)

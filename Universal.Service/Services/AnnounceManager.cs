@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<Announce>> UpdateAsync(AnnounceUpdateDto Model)
+        public async Task<Response<Announce>> UpdateAsync(AnnounceUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Announce.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<Announce>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.Announce.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<Announce>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<Announce>> DeleteAsync(AnnounceDeleteDto Model)

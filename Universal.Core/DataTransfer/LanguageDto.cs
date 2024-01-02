@@ -7,16 +7,16 @@
 
     public class LanguageUpdateDto
     {
-
+        public Guid Id { get; set; }
     }
 
     public class LanguageDeleteDto
     {
-
+        public Guid Id { get; set; }
     }
 
     public class LanguageSelectDto
     {
-
+        public Guid Id { get; set; }
     }
 }

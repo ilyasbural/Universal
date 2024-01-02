@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<CompanyDetail>> UpdateAsync(CompanyDetailUpdateDto Model)
+        public async Task<Response<CompanyDetail>> UpdateAsync(CompanyDetailUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.CompanyDetail.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<CompanyDetail>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.CompanyDetail.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<CompanyDetail>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<CompanyDetail>> DeleteAsync(CompanyDetailDeleteDto Model)

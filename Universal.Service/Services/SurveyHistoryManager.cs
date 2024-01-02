@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<SurveyHistory>> UpdateAsync(SurveyHistoryUpdateDto Model)
+        public async Task<Response<SurveyHistory>> UpdateAsync(SurveyHistoryUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.SurveyHistory.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<SurveyHistory>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.SurveyHistory.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<SurveyHistory>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<SurveyHistory>> DeleteAsync(SurveyHistoryDeleteDto Model)

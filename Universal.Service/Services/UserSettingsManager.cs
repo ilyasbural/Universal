@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<UserSettings>> UpdateAsync(UserSettingsUpdateDto Model)
+        public async Task<Response<UserSettings>> UpdateAsync(UserSettingsUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.UserSettings.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<UserSettings>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.UserSettings.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<UserSettings>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<UserSettings>> DeleteAsync(UserSettingsDeleteDto Model)

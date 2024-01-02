@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<UserLanguage>> UpdateAsync(UserLanguageUpdateDto Model)
+        public async Task<Response<UserLanguage>> UpdateAsync(UserLanguageUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.UserLanguage.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<UserLanguage>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.UserLanguage.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<UserLanguage>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<UserLanguage>> DeleteAsync(UserLanguageDeleteDto Model)

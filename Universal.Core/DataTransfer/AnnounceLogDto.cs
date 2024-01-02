@@ -7,12 +7,12 @@
 
     public class AnnounceLogUpdateDto
     {
-
+        public Guid Id { get; set; }
     }
 
     public class AnnounceLogDeleteDto
     {
-
+        public Guid Id { get; set; }
     }
 
     public class AnnounceLogSelectDto

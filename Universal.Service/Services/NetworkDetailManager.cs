@@ -17,8 +17,6 @@
             Validator = validator;
         }
 
-        
-
         public async Task<Response<NetworkDetail>> InsertAsync(NetworkDetailRegisterDto Model)
         {
             Data = Mapper.Map<NetworkDetail>(Model);
@@ -39,9 +37,23 @@
             };
         }
 
-        public Task<Response<NetworkDetail>> UpdateAsync(NetworkDetailUpdateDto Model)
+        public async Task<Response<NetworkDetail>> UpdateAsync(NetworkDetailUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.NetworkDetail.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<NetworkDetail>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.NetworkDetail.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<NetworkDetail>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<NetworkDetail>> DeleteAsync(NetworkDetailDeleteDto Model)

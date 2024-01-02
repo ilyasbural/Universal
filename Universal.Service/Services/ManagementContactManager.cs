@@ -37,9 +37,23 @@
             };
         }
 
-        public Task<Response<ManagementContact>> UpdateAsync(ManagementContactUpdateDto Model)
+        public async Task<Response<ManagementContact>> UpdateAsync(ManagementContactUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.ManagementContact.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<ManagementContact>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.ManagementContact.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<ManagementContact>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<ManagementContact>> DeleteAsync(ManagementContactDeleteDto Model)

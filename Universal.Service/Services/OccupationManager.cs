@@ -17,8 +17,6 @@
             Validator = validator;
         }
 
-        
-
         public async Task<Response<Occupation>> InsertAsync(OccupationRegisterDto Model)
         {
             Data = Mapper.Map<Occupation>(Model);
@@ -39,9 +37,23 @@
             };
         }
 
-        public Task<Response<Occupation>> UpdateAsync(OccupationUpdateDto Model)
+        public async Task<Response<Occupation>> UpdateAsync(OccupationUpdateDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Occupation.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<Occupation>(Collection[0]);
+            Data.UpdateDate = DateTime.Now;
+            Validator.ValidateAndThrow(Data);
+
+            await UnitOfWork.Occupation.UpdateAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<Occupation>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public Task<Response<Occupation>> DeleteAsync(OccupationDeleteDto Model)

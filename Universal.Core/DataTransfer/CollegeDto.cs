@@ -7,16 +7,16 @@
 
     public class CollegeUpdateDto
     {
-
+        public Guid Id { get; set; }
     }
 
     public class CollegeDeleteDto
     {
-
+        public Guid Id { get; set; }
     }
 
     public class CollegeSelectDto
     {
-
+        public Guid Id { get; set; }
     }
 }
