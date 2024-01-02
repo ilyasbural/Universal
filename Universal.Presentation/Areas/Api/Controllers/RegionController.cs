@@ -24,6 +24,30 @@
             };
         }
 
+        [HttpPut]
+        [Route("api/region")]
+        public async Task<Response<Region>> Update([FromBody] RegionUpdateDto Model)
+        {
+            Response<Region> Response = await Service.UpdateAsync(Model);
+            return new Response<Region>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
+        [HttpDelete]
+        [Route("api/region")]
+        public async Task<Response<Region>> Delete([FromBody] RegionDeleteDto Model)
+        {
+            Response<Region> Response = await Service.DeleteAsync(Model);
+            return new Response<Region>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
         //[HttpPut]
         //[Route("api/region")]
         //public async Task<RegionWebResponse> Update([FromBody] RegionUpdateDataTransfer Model)
@@ -52,7 +76,7 @@
         [Route("api/region")]
         public async Task<Response<Region>> Get()
         {
-            Response<Region> Response = await Service.SelectAsync();
+            Response<Region> Response = await Service.SelectAsync(new RegionSelectDto { });
             return new Response<Region>
             {
                 Collection = Response.Collection,

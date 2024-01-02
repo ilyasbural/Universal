@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/userreferance")]
+        public async Task<Response<UserReferance>> Update([FromBody] UserReferanceUpdateDto Model)
+        {
+            Response<UserReferance> Response = await Service.UpdateAsync(Model);
+            return new Response<UserReferance>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/userreferance")]
+        public async Task<Response<UserReferance>> Delete([FromBody] UserReferanceDeleteDto Model)
+        {
+            Response<UserReferance> Response = await Service.DeleteAsync(Model);
+            return new Response<UserReferance>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/userreferance")]
         public async Task<Response<UserReferance>> Get()
         {
-            Response<UserReferance> Response = await Service.SelectAsync();
+            Response<UserReferance> Response = await Service.SelectAsync(new UserReferanceSelectDto { });
             return new Response<UserReferance>
             {
                 Collection = Response.Collection,

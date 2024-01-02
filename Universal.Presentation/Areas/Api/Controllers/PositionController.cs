@@ -24,6 +24,30 @@
             };
         }
 
+        [HttpPut]
+        [Route("api/position")]
+        public async Task<Response<Position>> Update([FromBody] PositionUpdateDto Model)
+        {
+            Response<Position> Response = await Service.UpdateAsync(Model);
+            return new Response<Position>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
+        [HttpDelete]
+        [Route("api/position")]
+        public async Task<Response<Position>> Delete([FromBody] PositionDeleteDto Model)
+        {
+            Response<Position> Response = await Service.DeleteAsync(Model);
+            return new Response<Position>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
         //[HttpPut]
         //[Route("api/position")]
         //public async Task<PositionWebResponse> Update([FromBody] PositionUpdateDataTransfer Model)
@@ -52,7 +76,7 @@
         [Route("api/position")]
         public async Task<Response<Position>> Get()
         {
-            Response<Position> Response = await Service.SelectAsync();
+            Response<Position> Response = await Service.SelectAsync(new PositionSelectDto { });
             return new Response<Position>
             {
                 Collection = Response.Collection,

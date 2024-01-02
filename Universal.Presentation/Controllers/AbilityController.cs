@@ -5,6 +5,7 @@
     using Newtonsoft.Json.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
 
     public class AbilityController : BaseController<AbilityViewModel>
     {
@@ -22,7 +23,7 @@
             return View(ModelList);
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             var Model = Tuple.Create<AbilityViewModel>(new AbilityViewModel());
             return View(Model);
@@ -38,9 +39,17 @@
             return RedirectToAction("Index", "Ability");
         }
 
-        public async Task<IActionResult> Update()
+        public async Task<IActionResult> Update(Guid Id)
         {
-            return View();
+            var Model = Tuple.Create<AbilityViewModel>(new AbilityViewModel());
+
+            RestRequest = new RestRequest("api/organizationdetailsingle", Method.Get);
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestRequest.AddQueryParameter("Id", Id);
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Response<Ability> Response = JsonConvert.DeserializeObject<Response<Ability>>(RestResponse.Content!)!;
+
+            return View(Model);
         }
 
         [HttpPost]

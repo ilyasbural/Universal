@@ -24,11 +24,35 @@
             };
         }
 
+        [HttpPut]
+        [Route("api/surveylog")]
+        public async Task<Response<SurveyLog>> Update([FromBody] SurveyLogUpdateDto Model)
+        {
+            Response<SurveyLog> Response = await Service.UpdateAsync(Model);
+            return new Response<SurveyLog>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
+        [HttpDelete]
+        [Route("api/surveylog")]
+        public async Task<Response<SurveyLog>> Delete([FromBody] SurveyLogDeleteDto Model)
+        {
+            Response<SurveyLog> Response = await Service.DeleteAsync(Model);
+            return new Response<SurveyLog>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
         [HttpGet]
         [Route("api/surveylog")]
         public async Task<Response<SurveyLog>> Get()
         {
-            Response<SurveyLog> Response = await Service.SelectAsync();
+            Response<SurveyLog> Response = await Service.SelectAsync(new SurveyLogSelectDto { });
             return new Response<SurveyLog>
             {
                 Collection = Response.Collection,

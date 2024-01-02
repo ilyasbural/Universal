@@ -17,6 +17,11 @@
             Validator = validator;
         }
 
+        public Task<Response<Region>> DeleteAsync(RegionDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Response<Region>> InsertAsync(RegionRegisterDto Model)
         {
             Data = Mapper.Map<Region>(Model);
@@ -47,6 +52,21 @@
                 Success = 1,
                 IsValidationError = false
             };
+        }
+
+        public Task<Response<Region>> SelectAsync(RegionSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<Region>> SelectSingleAsync(RegionSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<Region>> UpdateAsync(RegionUpdateDto Model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

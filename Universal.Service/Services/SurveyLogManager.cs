@@ -17,6 +17,11 @@
             Validator = validator;
         }
 
+        public Task<Response<SurveyLog>> DeleteAsync(SurveyLogDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Response<SurveyLog>> InsertAsync(SurveyLogRegisterDto Model)
         {
             Data = Mapper.Map<SurveyLog>(Model);
@@ -47,6 +52,21 @@
                 Success = 1,
                 IsValidationError = false
             };
+        }
+
+        public Task<Response<SurveyLog>> SelectAsync(SurveyLogSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<SurveyLog>> SelectSingleAsync(SurveyLogSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<SurveyLog>> UpdateAsync(SurveyLogUpdateDto Model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/networkdetail")]
+        public async Task<Response<NetworkDetail>> Update([FromBody] NetworkDetailUpdateDto Model)
+        {
+            Response<NetworkDetail> Response = await Service.UpdateAsync(Model);
+            return new Response<NetworkDetail>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/networkdetail")]
+        public async Task<Response<NetworkDetail>> Delete([FromBody] NetworkDetailDeleteDto Model)
+        {
+            Response<NetworkDetail> Response = await Service.DeleteAsync(Model);
+            return new Response<NetworkDetail>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/networkdetail")]
         public async Task<Response<NetworkDetail>> Get()
         {
-            Response<NetworkDetail> Response = await Service.SelectAsync();
+            Response<NetworkDetail> Response = await Service.SelectAsync(new NetworkDetailSelectDto { });
             return new Response<NetworkDetail>
             {
                 Collection = Response.Collection,

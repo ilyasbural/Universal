@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/userproject")]
+        public async Task<Response<UserProject>> Update([FromBody] UserProjectUpdateDto Model)
+        {
+            Response<UserProject> Response = await Service.UpdateAsync(Model);
+            return new Response<UserProject>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/userproject")]
+        public async Task<Response<UserProject>> Delete([FromBody] UserProjectDeleteDto Model)
+        {
+            Response<UserProject> Response = await Service.DeleteAsync(Model);
+            return new Response<UserProject>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/userproject")]
         public async Task<Response<UserProject>> Get()
         {
-            Response<UserProject> Response = await Service.SelectAsync();
+            Response<UserProject> Response = await Service.SelectAsync(new UserProjectSelectDto { });
             return new Response<UserProject>
             {
                 Collection = Response.Collection,

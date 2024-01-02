@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/usersettings")]
+        public async Task<Response<UserSettings>> Update([FromBody] UserSettingsUpdateDto Model)
+        {
+            Response<UserSettings> Response = await Service.UpdateAsync(Model);
+            return new Response<UserSettings>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/usersettings")]
+        public async Task<Response<UserSettings>> Delete([FromBody] UserSettingsDeleteDto Model)
+        {
+            Response<UserSettings> Response = await Service.DeleteAsync(Model);
+            return new Response<UserSettings>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/usersettings")]
         public async Task<Response<UserSettings>> Get()
         {
-            Response<UserSettings> Response = await Service.SelectAsync();
+            Response<UserSettings> Response = await Service.SelectAsync(new UserSettingsSelectDto { });
             return new Response<UserSettings>
             {
                 Collection = Response.Collection,

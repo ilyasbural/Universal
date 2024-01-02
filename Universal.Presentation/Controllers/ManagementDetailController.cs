@@ -37,7 +37,7 @@
             return RedirectToAction("Index", "Announce");
         }
 
-        public IActionResult Update()
+        public async Task<IActionResult> Update(Guid Id)
         {
             return View();
         }

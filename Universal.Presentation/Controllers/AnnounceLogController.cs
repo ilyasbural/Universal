@@ -28,7 +28,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind(Prefix = "Item1")] AbilityViewModel Model)
+        public async Task<IActionResult> Create([Bind(Prefix = "Item1")] AnnounceLogViewModel Model)
         {
             RestRequest = new RestRequest("api/announce", Method.Post);
             RestRequest.RequestFormat = DataFormat.Json;
@@ -37,13 +37,13 @@
             return RedirectToAction("Index", "Announce");
         }
 
-        public IActionResult Update()
+        public async Task<IActionResult> Update(Guid Id)
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update([Bind(Prefix = "Item1")] AbilityViewModel Model)
+        public async Task<IActionResult> Update([Bind(Prefix = "Item1")] AnnounceLogViewModel Model)
         {
             //BuildingTypeUpdateDto BuildingType = new BuildingTypeUpdateDto();
             //BuildingType.Id = Model.Id;
@@ -59,7 +59,7 @@
 
         public async Task<IActionResult> Delete(Guid Id)
         {
-            var Model = Tuple.Create<AbilityViewModel>(new AbilityViewModel());
+            var Model = Tuple.Create<AnnounceLogViewModel>(new AnnounceLogViewModel());
             //Response<BuildingType> Response = await Service.SelectSingleAsync(new BuildingTypeSelectDto { Id = Id });
 
             //Model.Item1.Id = Response.Collection.First().Id;
@@ -71,7 +71,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete([Bind(Prefix = "Item1")] AbilityViewModel Model)
+        public async Task<IActionResult> Delete([Bind(Prefix = "Item1")] AnnounceLogViewModel Model)
         {
             //BuildingTypeDeleteDto BuildingType = new BuildingTypeDeleteDto();
             //BuildingType.Id = Model.Id;

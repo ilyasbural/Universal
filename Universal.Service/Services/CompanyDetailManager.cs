@@ -17,6 +17,11 @@
             Validator = validator;
         }
 
+        public Task<Response<CompanyDetail>> DeleteAsync(CompanyDetailDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Response<CompanyDetail>> InsertAsync(CompanyDetailRegisterDto Model)
         {
             Data = Mapper.Map<CompanyDetail>(Model);
@@ -47,6 +52,21 @@
                 Success = 1,
                 IsValidationError = false
             };
+        }
+
+        public Task<Response<CompanyDetail>> SelectAsync(CompanyDetailSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<CompanyDetail>> SelectSingleAsync(CompanyDetailSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<CompanyDetail>> UpdateAsync(CompanyDetailUpdateDto Model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

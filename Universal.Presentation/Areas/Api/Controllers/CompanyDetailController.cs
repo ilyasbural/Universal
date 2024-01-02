@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/companydetail")]
+        public async Task<Response<CompanyDetail>> Update([FromBody] CompanyDetailUpdateDto Model)
+        {
+            Response<CompanyDetail> Response = await Service.UpdateAsync(Model);
+            return new Response<CompanyDetail>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/companydetail")]
+        public async Task<Response<CompanyDetail>> Delete([FromBody] CompanyDetailDeleteDto Model)
+        {
+            Response<CompanyDetail> Response = await Service.DeleteAsync(Model);
+            return new Response<CompanyDetail>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/companydetail")]
         public async Task<Response<CompanyDetail>> Get()
         {
-            Response<CompanyDetail> Response = await Service.SelectAsync();
+            Response<CompanyDetail> Response = await Service.SelectAsync(new CompanyDetailSelectDto { });
             return new Response<CompanyDetail>
             {
                 Collection = Response.Collection,

@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/userexperience")]
+        public async Task<Response<UserExperience>> Update([FromBody] UserExperienceUpdateDto Model)
+        {
+            Response<UserExperience> Response = await Service.UpdateAsync(Model);
+            return new Response<UserExperience>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/userexperience")]
+        public async Task<Response<UserExperience>> Delete([FromBody] UserExperienceDeleteDto Model)
+        {
+            Response<UserExperience> Response = await Service.DeleteAsync(Model);
+            return new Response<UserExperience>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/userexperience")]
         public async Task<Response<UserExperience>> Get()
         {
-            Response<UserExperience> Response = await Service.SelectAsync();
+            Response<UserExperience> Response = await Service.SelectAsync(new UserExperienceSelectDto { });
             return new Response<UserExperience>
             {
                 Collection = Response.Collection,

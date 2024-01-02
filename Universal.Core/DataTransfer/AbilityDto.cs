@@ -7,16 +7,16 @@
 
     public class AbilityUpdateDto
     {
-
+        public Guid Id { get; set; }
     }
 
     public class AbilityDeleteDto
     {
-
+        public Guid Id { get; set; }
     }
 
     public class AbilitySelectDto
     {
-
+        public Guid Id { get; set; }
     }
 }

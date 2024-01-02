@@ -24,11 +24,35 @@
             };
         }
 
+        [HttpPut]
+        [Route("api/country")]
+        public async Task<Response<Country>> Update([FromBody] CountryUpdateDto Model)
+        {
+            Response<Country> Response = await Service.UpdateAsync(Model);
+            return new Response<Country>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
+        [HttpDelete]
+        [Route("api/country")]
+        public async Task<Response<Country>> Delete([FromBody] CountryDeleteDto Model)
+        {
+            Response<Country> Response = await Service.DeleteAsync(Model);
+            return new Response<Country>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
         [HttpGet]
         [Route("api/country")]
         public async Task<Response<Country>> Get()
         {
-            Response<Country> Response = await Service.SelectAsync();
+            Response<Country> Response = await Service.SelectAsync(new CountrySelectDto { });
             return new Response<Country>
             {
                 Collection = Response.Collection,

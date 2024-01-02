@@ -24,11 +24,35 @@
             };
         }
 
+        [HttpPut]
+        [Route("api/surveyhistory")]
+        public async Task<Response<SurveyHistory>> Update([FromBody] SurveyHistoryUpdateDto Model)
+        {
+            Response<SurveyHistory> Response = await Service.UpdateAsync(Model);
+            return new Response<SurveyHistory>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
+        [HttpDelete]
+        [Route("api/surveyhistory")]
+        public async Task<Response<SurveyHistory>> Delete([FromBody] SurveyHistoryDeleteDto Model)
+        {
+            Response<SurveyHistory> Response = await Service.DeleteAsync(Model);
+            return new Response<SurveyHistory>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
         [HttpGet]
         [Route("api/surveyhistory")]
         public async Task<Response<SurveyHistory>> Get()
         {
-            Response<SurveyHistory> Response = await Service.SelectAsync();
+            Response<SurveyHistory> Response = await Service.SelectAsync(new SurveyHistorySelectDto { });
             return new Response<SurveyHistory>
             {
                 Collection = Response.Collection,

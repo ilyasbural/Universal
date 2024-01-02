@@ -17,6 +17,11 @@
             Validator = validator;
         }
 
+        public Task<Response<UserFollower>> DeleteAsync(UserFollowerDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Response<UserFollower>> InsertAsync(UserFollowerRegisterDto Model)
         {
             Data = Mapper.Map<UserFollower>(Model);
@@ -47,6 +52,21 @@
                 Success = 1,
                 IsValidationError = false
             };
+        }
+
+        public Task<Response<UserFollower>> SelectAsync(UserFollowerSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<UserFollower>> SelectSingleAsync(UserFollowerSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<UserFollower>> UpdateAsync(UserFollowerUpdateDto Model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

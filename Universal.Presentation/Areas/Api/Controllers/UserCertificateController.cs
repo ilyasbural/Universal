@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/usercertificate")]
-        //public async Task<UserCertificateWebResponse> Update([FromBody] UserCertificateUpdateDataTransfer Model)
-        //{
-        //    UserCertificateServiceResponse userCertificateServiceResponse = await Service.UpdateAsync(Model);
-        //    return new UserCertificateWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/usercertificate")]
+        public async Task<Response<UserCertificate>> Update([FromBody] UserCertificateUpdateDto Model)
+        {
+            Response<UserCertificate> Response = await Service.UpdateAsync(Model);
+            return new Response<UserCertificate>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/usercertificate")]
-        //public async Task<UserCertificateWebResponse> Delete([FromBody] UserCertificateDeleteDataTransfer Model)
-        //{
-        //    UserCertificateServiceResponse userCertificateServiceResponse = await Service.DeleteAsync(Model);
-        //    return new UserCertificateWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/usercertificate")]
+        public async Task<Response<UserCertificate>> Delete([FromBody] UserCertificateDeleteDto Model)
+        {
+            Response<UserCertificate> Response = await Service.DeleteAsync(Model);
+            return new Response<UserCertificate>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/usercertificate")]
         public async Task<Response<UserCertificate>> Get()
         {
-            Response<UserCertificate> Response = await Service.SelectAsync();
+            Response<UserCertificate> Response = await Service.SelectAsync(new UserCertificateSelectDto { });
             return new Response<UserCertificate>
             {
                 Collection = Response.Collection,

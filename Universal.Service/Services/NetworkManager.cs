@@ -17,6 +17,11 @@
             Validator = validator;
         }
 
+        public Task<Response<Network>> DeleteAsync(NetworkDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Response<Network>> InsertAsync(NetworkRegisterDto Model)
         {
             Data = Mapper.Map<Network>(Model);
@@ -47,6 +52,21 @@
                 Success = 1,
                 IsValidationError = false
             };
+        }
+
+        public Task<Response<Network>> SelectAsync(NetworkSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<Network>> SelectSingleAsync(NetworkSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<Network>> UpdateAsync(NetworkUpdateDto Model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

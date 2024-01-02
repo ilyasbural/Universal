@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/messagebox")]
+        public async Task<Response<MessageBox>> Update([FromBody] MessageBoxUpdateDto Model)
+        {
+            Response<MessageBox> Response = await Service.UpdateAsync(Model);
+            return new Response<MessageBox>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/messagebox")]
+        public async Task<Response<MessageBox>> Delete([FromBody] MessageBoxDeleteDto Model)
+        {
+            Response<MessageBox> Response = await Service.DeleteAsync(Model);
+            return new Response<MessageBox>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/messagebox")]
         public async Task<Response<MessageBox>> Get()
         {
-            Response<MessageBox> Response = await Service.SelectAsync();
+            Response<MessageBox> Response = await Service.SelectAsync(new MessageBoxSelectDto { });
             return new Response<MessageBox>
             {
                 Collection = Response.Collection,

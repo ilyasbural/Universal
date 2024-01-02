@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/emoji")]
+        public async Task<Response<Emoji>> Update([FromBody] EmojiUpdateDto Model)
+        {
+            Response<Emoji> Response = await Service.UpdateAsync(Model);
+            return new Response<Emoji>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/emoji")]
+        public async Task<Response<Emoji>> Delete([FromBody] EmojiDeleteDto Model)
+        {
+            Response<Emoji> Response = await Service.DeleteAsync(Model);
+            return new Response<Emoji>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/emoji")]
         public async Task<Response<Emoji>> Get()
         {
-            Response<Emoji> Response = await Service.SelectAsync();
+            Response<Emoji> Response = await Service.SelectAsync(new EmojiSelectDto { });
             return new Response<Emoji>
             {
                 Collection = Response.Collection,

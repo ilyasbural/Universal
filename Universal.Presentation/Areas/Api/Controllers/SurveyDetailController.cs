@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/surveydetail")]
+        public async Task<Response<SurveyDetail>> Update([FromBody] SurveyDetailUpdateDto Model)
+        {
+            Response<SurveyDetail> Response = await Service.UpdateAsync(Model);
+            return new Response<SurveyDetail>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/surveydetail")]
+        public async Task<Response<SurveyDetail>> Delete([FromBody] SurveyDetailDeleteDto Model)
+        {
+            Response<SurveyDetail> Response = await Service.DeleteAsync(Model);
+            return new Response<SurveyDetail>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/surveydetail")]
         public async Task<Response<SurveyDetail>> Get()
         {
-            Response<SurveyDetail> Response = await Service.SelectAsync();
+            Response<SurveyDetail> Response = await Service.SelectAsync(new SurveyDetailSelectDto { });
             return new Response<SurveyDetail>
             {
                 Collection = Response.Collection,

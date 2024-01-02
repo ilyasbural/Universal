@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/userfollower")]
+        public async Task<Response<UserFollower>> Update([FromBody] UserFollowerUpdateDto Model)
+        {
+            Response<UserFollower> Response = await Service.UpdateAsync(Model);
+            return new Response<UserFollower>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/userfollower")]
+        public async Task<Response<UserFollower>> Delete([FromBody] UserFollowerDeleteDto Model)
+        {
+            Response<UserFollower> Response = await Service.DeleteAsync(Model);
+            return new Response<UserFollower>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/userfollower")]
         public async Task<Response<UserFollower>> Get()
         {
-            Response<UserFollower> Response = await Service.SelectAsync();
+            Response<UserFollower> Response = await Service.SelectAsync(new UserFollowerSelectDto { });
             return new Response<UserFollower>
             {
                 Collection = Response.Collection,

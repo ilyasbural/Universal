@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse abilityServiceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-        //        Single = abilityServiceResponse.Single, 
-        //        Success = abilityServiceResponse.Success
-        //    };
-        //}
+        [HttpPut]
+        [Route("api/ability")]
+        public async Task<Response<Ability>> Update([FromBody] AbilityUpdateDto Model)
+        {
+            Response<Ability> Response = await Service.UpdateAsync(Model);
+            return new Response<Ability>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse abilityServiceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-        //        Single = abilityServiceResponse.Single,
-        //        Success = abilityServiceResponse.Success
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/ability")]
+        public async Task<Response<Ability>> Delete([FromBody] AbilityDeleteDto Model)
+        {
+            Response<Ability> Response = await Service.DeleteAsync(Model);
+            return new Response<Ability>
+            {
+                Data = Response.Data, 
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/ability")]
         public async Task<Response<Ability>> Get()
         {
-            Response<Ability> Response = await Service.SelectAsync();
+            Response<Ability> Response = await Service.SelectAsync(new AbilitySelectDto { });
             return new Response<Ability>
             {
                 Collection = Response.Collection,
@@ -60,16 +60,16 @@
             };
         }
 
-        //[HttpGet]
-        //[Route("api/ability/{id}")]
-        //public async Task<AbilityWebResponse> Get([FromBody] AbilityAnyDataTransfer Model)
-        //{
-        //    AbilityServiceResponse abilityServiceResponse = await Service.AnySelectAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-        //        Single = abilityServiceResponse.Single,
-        //        Success = abilityServiceResponse.Success
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/ability/{id}")]
+        public async Task<Response<Ability>> Get([FromBody] AbilitySelectDto Model)
+        {
+            Response<Ability> Response = await Service.SelectSingleAsync(Model);
+            return new Response<Ability>
+            {
+                Collection = Response.Collection, 
+                Success = Response.Success
+            };
+        }
     }
 }

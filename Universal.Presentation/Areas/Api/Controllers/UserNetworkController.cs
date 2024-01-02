@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/usernetwork")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/usernetwork")]
+        public async Task<Response<UserNetwork>> Update([FromBody] UserNetworkUpdateDto Model)
+        {
+            Response<UserNetwork> Response = await Service.UpdateAsync(Model);
+            return new Response<UserNetwork>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/usernetwork")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/usernetwork")]
+        public async Task<Response<UserNetwork>> Delete([FromBody] UserNetworkDeleteDto Model)
+        {
+            Response<UserNetwork> Response = await Service.DeleteAsync(Model);
+            return new Response<UserNetwork>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/usernetwork")]
         public async Task<Response<UserNetwork>> Get()
         {
-            Response<UserNetwork> Response = await Service.SelectAsync();
+            Response<UserNetwork> Response = await Service.SelectAsync(new UserNetworkSelectDto { });
             return new Response<UserNetwork>
             {
                 Collection = Response.Collection,

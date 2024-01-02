@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/college")]
-        //public async Task<CollegeWebResponse> Update([FromBody] CollegeUpdateDataTransfer Model)
-        //{
-        //    CollegeServiceResponse collegeServiceResponse = await Service.UpdateAsync(Model);
-        //    return new CollegeWebResponse
-        //    {
-        //        Single = collegeServiceResponse.Single,
-        //        Success = collegeServiceResponse.Success
-        //    };
-        //}
+        [HttpPut]
+        [Route("api/college")]
+        public async Task<Response<College>> Update([FromBody] CollegeUpdateDto Model)
+        {
+            Response<College> Response = await Service.UpdateAsync(Model);
+            return new Response<College>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-        //[HttpDelete]
-        //[Route("api/college")]
-        //public async Task<CollegeWebResponse> Delete([FromBody] CollegeDeleteDataTransfer Model)
-        //{
-        //    CollegeServiceResponse collegeServiceResponse = await Service.DeleteAsync(Model);
-        //    return new CollegeWebResponse
-        //    {
-        //        Single = collegeServiceResponse.Single,
-        //        Success = collegeServiceResponse.Success
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/college")]
+        public async Task<Response<College>> Delete([FromBody] CollegeDeleteDto Model)
+        {
+            Response<College> Response = await Service.DeleteAsync(Model);
+            return new Response<College>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/college")]
         public async Task<Response<College>> Get()
         {
-            Response<College> Response = await Service.SelectAsync();
+            Response<College> Response = await Service.SelectAsync(new CollegeSelectDto { });
             return new Response<College>
             {
                 Collection = Response.Collection,

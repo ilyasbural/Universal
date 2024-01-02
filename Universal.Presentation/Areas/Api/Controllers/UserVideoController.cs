@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/uservideo")]
+        public async Task<Response<UserVideo>> Update([FromBody] UserVideoUpdateDto Model)
+        {
+            Response<UserVideo> Response = await Service.UpdateAsync(Model);
+            return new Response<UserVideo>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/uservideo")]
+        public async Task<Response<UserVideo>> Delete([FromBody] UserVideoDeleteDto Model)
+        {
+            Response<UserVideo> Response = await Service.DeleteAsync(Model);
+            return new Response<UserVideo>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/uservideo")]
         public async Task<Response<UserVideo>> Get()
         {
-            Response<UserVideo> Response = await Service.SelectAsync();
+            Response<UserVideo> Response = await Service.SelectAsync(new UserVideoSelectDto { });
             return new Response<UserVideo>
             {
                 Collection = Response.Collection,

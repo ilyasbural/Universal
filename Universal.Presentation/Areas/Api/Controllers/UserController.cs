@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/user")]
-        //public async Task<UserWebResponse> Update([FromBody] UserUpdateDataTransfer Model)
-        //{
-        //    UserServiceResponse userServiceResponse = await Service.UpdateAsync(Model);
-        //    return new UserWebResponse
-        //    {
-        //        Single = userServiceResponse.Single,
-        //        Success = userServiceResponse.Success
-        //    };
-        //}
+        [HttpPut]
+        [Route("api/user")]
+        public async Task<Response<User>> Update([FromBody] UserUpdateDto Model)
+        {
+            Response<User> Response = await Service.UpdateAsync(Model);
+            return new Response<User>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-        //[HttpDelete]
-        //[Route("api/user")]
-        //public async Task<UserWebResponse> Delete([FromBody] UserDeleteDataTransfer Model)
-        //{
-        //    UserServiceResponse userServiceResponse = await Service.DeleteAsync(Model);
-        //    return new UserWebResponse
-        //    {
-        //        Single = userServiceResponse.Single,
-        //        Success = userServiceResponse.Success
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/user")]
+        public async Task<Response<User>> Delete([FromBody] UserDeleteDto Model)
+        {
+            Response<User> Response = await Service.DeleteAsync(Model);
+            return new Response<User>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/user")]
         public async Task<Response<User>> Get()
         {
-            Response<User> Response = await Service.SelectAsync();
+            Response<User> Response = await Service.SelectAsync(new UserSelectDto { });
             return new Response<User>
             {
                 Collection = Response.Collection,

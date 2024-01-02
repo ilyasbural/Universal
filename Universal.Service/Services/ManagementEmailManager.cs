@@ -17,6 +17,11 @@
             Validator = validator;
         }
 
+        public Task<Response<ManagementEmail>> DeleteAsync(ManagementEmailDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Response<ManagementEmail>> InsertAsync(ManagementEmailRegisterDto Model)
         {
             Data = Mapper.Map<ManagementEmail>(Model);
@@ -47,6 +52,21 @@
                 Success = 1,
                 IsValidationError = false
             };
+        }
+
+        public Task<Response<ManagementEmail>> SelectAsync(ManagementEmailSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<ManagementEmail>> SelectSingleAsync(ManagementEmailSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<ManagementEmail>> UpdateAsync(ManagementEmailUpdateDto Model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

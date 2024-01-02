@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/jobposting")]
+        public async Task<Response<JobPosting>> Update([FromBody] JobPostingUpdateDto Model)
+        {
+            Response<JobPosting> Response = await Service.UpdateAsync(Model);
+            return new Response<JobPosting>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/jobposting")]
+        public async Task<Response<JobPosting>> Delete([FromBody] JobPostingDeleteDto Model)
+        {
+            Response<JobPosting> Response = await Service.DeleteAsync(Model);
+            return new Response<JobPosting>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/jobposting")]
         public async Task<Response<JobPosting>> Get()
         {
-            Response<JobPosting> Response = await Service.SelectAsync();
+            Response<JobPosting> Response = await Service.SelectAsync(new JobPostingSelectDto { });
             return new Response<JobPosting>
             {
                 Collection = Response.Collection,

@@ -17,6 +17,11 @@
             Validator = validator;
         }
 
+        public Task<Response<UserCertificate>> DeleteAsync(UserCertificateDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Response<UserCertificate>> InsertAsync(UserCertificateRegisterDto Model)
         {
             Data = Mapper.Map<UserCertificate>(Model);
@@ -47,6 +52,21 @@
                 Success = 1,
                 IsValidationError = false
             };
+        }
+
+        public Task<Response<UserCertificate>> SelectAsync(UserCertificateSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<UserCertificate>> SelectSingleAsync(UserCertificateSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<UserCertificate>> UpdateAsync(UserCertificateUpdateDto Model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -17,6 +17,11 @@
             Validator = validator;
         }
 
+        public Task<Response<UserAbility>> DeleteAsync(UserAbilityDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Response<UserAbility>> InsertAsync(UserAbilityRegisterDto Model)
         {
             Data = Mapper.Map<UserAbility>(Model);
@@ -47,6 +52,21 @@
                 Success = 1,
                 IsValidationError = false
             };
+        }
+
+        public Task<Response<UserAbility>> SelectAsync(UserAbilitySelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<UserAbility>> SelectSingleAsync(UserAbilitySelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<UserAbility>> UpdateAsync(UserAbilityUpdateDto Model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

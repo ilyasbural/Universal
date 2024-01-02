@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/userdetail")]
-        //public async Task<UserDetailWebResponse> Update([FromBody] UserDetailUpdateDataTransfer Model)
-        //{
-        //    UserDetailServiceResponse userDetailServiceResponse = await Service.UpdateAsync(Model);
-        //    return new UserDetailWebResponse
-        //    {
-        //        Single = userDetailServiceResponse.Single,
-        //        Success = userDetailServiceResponse.Success
-        //    };
-        //}
+        [HttpPut]
+        [Route("api/userdetail")]
+        public async Task<Response<UserDetail>> Update([FromBody] UserDetailUpdateDto Model)
+        {
+            Response<UserDetail> Response = await Service.UpdateAsync(Model);
+            return new Response<UserDetail>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-        //[HttpDelete]
-        //[Route("api/userdetail")]
-        //public async Task<UserDetailWebResponse> Delete([FromBody] UserDetailDeleteDataTransfer Model)
-        //{
-        //    UserDetailServiceResponse userDetailServiceResponse = await Service.DeleteAsync(Model);
-        //    return new UserDetailWebResponse
-        //    {
-        //        Single = userDetailServiceResponse.Single,
-        //        Success = userDetailServiceResponse.Success
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/userdetail")]
+        public async Task<Response<UserDetail>> Delete([FromBody] UserDetailDeleteDto Model)
+        {
+            Response<UserDetail> Response = await Service.DeleteAsync(Model);
+            return new Response<UserDetail>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/userdetail")]
         public async Task<Response<UserDetail>> Get()
         {
-            Response<UserDetail> Response = await Service.SelectAsync();
+            Response<UserDetail> Response = await Service.SelectAsync(new UserDetailSelectDto { });
             return new Response<UserDetail>
             {
                 Collection = Response.Collection,

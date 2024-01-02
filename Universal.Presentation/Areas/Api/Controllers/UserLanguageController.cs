@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/userlanguage")]
+        public async Task<Response<UserLanguage>> Update([FromBody] UserLanguageUpdateDto Model)
+        {
+            Response<UserLanguage> Response = await Service.UpdateAsync(Model);
+            return new Response<UserLanguage>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/userlanguage")]
+        public async Task<Response<UserLanguage>> Delete([FromBody] UserLanguageDeleteDto Model)
+        {
+            Response<UserLanguage> Response = await Service.DeleteAsync(Model);
+            return new Response<UserLanguage>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/userlanguage")]
         public async Task<Response<UserLanguage>> Get()
         {
-            Response<UserLanguage> Response = await Service.SelectAsync();
+            Response<UserLanguage> Response = await Service.SelectAsync(new UserLanguageSelectDto { });
             return new Response<UserLanguage>
             {
                 Collection = Response.Collection,

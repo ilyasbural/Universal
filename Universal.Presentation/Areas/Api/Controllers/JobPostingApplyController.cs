@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
+        [HttpPut]
+        [Route("api/jobpostingapply")]
+        public async Task<Response<JobPostingApply>> Update([FromBody] JobPostingApplyUpdateDto Model)
+        {
+            Response<JobPostingApply> Response = await Service.UpdateAsync(Model);
+            return new Response<JobPostingApply>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/jobpostingapply")]
+        public async Task<Response<JobPostingApply>> Delete([FromBody] JobPostingApplyDeleteDto Model)
+        {
+            Response<JobPostingApply> Response = await Service.DeleteAsync(Model);
+            return new Response<JobPostingApply>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/jobpostingapply")]
         public async Task<Response<JobPostingApply>> Get()
         {
-            Response<JobPostingApply> Response = await Service.SelectAsync();
+            Response<JobPostingApply> Response = await Service.SelectAsync(new JobPostingApplySelectDto { });
             return new Response<JobPostingApply>
             {
                 Collection = Response.Collection,

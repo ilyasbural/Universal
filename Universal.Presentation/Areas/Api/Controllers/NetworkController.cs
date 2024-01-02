@@ -24,6 +24,30 @@
             };
         }
 
+        [HttpPut]
+        [Route("api/network")]
+        public async Task<Response<Network>> Update([FromBody] NetworkUpdateDto Model)
+        {
+            Response<Network> Response = await Service.UpdateAsync(Model);
+            return new Response<Network>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
+        [HttpDelete]
+        [Route("api/network")]
+        public async Task<Response<Network>> Delete([FromBody] NetworkDeleteDto Model)
+        {
+            Response<Network> Response = await Service.DeleteAsync(Model);
+            return new Response<Network>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
         //[HttpPut]
         //[Route("api/ability")]
         //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
@@ -52,7 +76,7 @@
         [Route("api/network")]
         public async Task<Response<Network>> Get()
         {
-            Response<Network> Response = await Service.SelectAsync();
+            Response<Network> Response = await Service.SelectAsync(new NetworkSelectDto { });
             return new Response<Network>
             {
                 Collection = Response.Collection,

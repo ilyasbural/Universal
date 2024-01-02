@@ -24,11 +24,35 @@
             };
         }
 
+        [HttpPut]
+        [Route("api/managementcontact")]
+        public async Task<Response<ManagementContact>> Update([FromBody] ManagementContactUpdateDto Model)
+        {
+            Response<ManagementContact> Response = await Service.UpdateAsync(Model);
+            return new Response<ManagementContact>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
+        [HttpDelete]
+        [Route("api/managementcontact")]
+        public async Task<Response<ManagementContact>> Delete([FromBody] ManagementContactDeleteDto Model)
+        {
+            Response<ManagementContact> Response = await Service.DeleteAsync(Model);
+            return new Response<ManagementContact>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
         [HttpGet]
         [Route("api/managementcontact")]
         public async Task<Response<ManagementContact>> Get()
         {
-            Response<ManagementContact> Response = await Service.SelectAsync();
+            Response<ManagementContact> Response = await Service.SelectAsync(new ManagementContactSelectDto { });
             return new Response<ManagementContact>
             {
                 Collection = Response.Collection,

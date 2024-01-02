@@ -24,6 +24,30 @@
             };
         }
 
+        [HttpPut]
+        [Route("api/occupation")]
+        public async Task<Response<Occupation>> Update([FromBody] OccupationUpdateDto Model)
+        {
+            Response<Occupation> Response = await Service.UpdateAsync(Model);
+            return new Response<Occupation>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
+        [HttpDelete]
+        [Route("api/occupation")]
+        public async Task<Response<Occupation>> Delete([FromBody] OccupationDeleteDto Model)
+        {
+            Response<Occupation> Response = await Service.DeleteAsync(Model);
+            return new Response<Occupation>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
         //[HttpPut]
         //[Route("api/occupation")]
         //public async Task<OccupationWebResponse> Update([FromBody] OccupationUpdateDataTransfer Model)
@@ -52,7 +76,7 @@
         [Route("api/occupation")]
         public async Task<Response<Occupation>> Get()
         {
-            Response<Occupation> Response = await Service.SelectAsync();
+            Response<Occupation> Response = await Service.SelectAsync(new OccupationSelectDto { });
             return new Response<Occupation>
             {
                 Collection = Response.Collection,

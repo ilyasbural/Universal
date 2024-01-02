@@ -17,6 +17,11 @@
             Validator = validator;
         }
 
+        public Task<Response<College>> DeleteAsync(CollegeDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Response<College>> InsertAsync(CollegeRegisterDto Model)
         {
             Data = Mapper.Map<College>(Model);
@@ -47,6 +52,21 @@
                 Success = 1,
                 IsValidationError = false
             };
+        }
+
+        public Task<Response<College>> SelectAsync(CollegeSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<College>> SelectSingleAsync(CollegeSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<College>> UpdateAsync(CollegeUpdateDto Model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/companyabout")]
-        //public async Task<CompanyAboutWebResponse> Update([FromBody] CompanyAboutUpdateDataTransfer Model)
-        //{
-        //    CompanyAboutServiceResponse companyAboutServiceResponse = await Service.UpdateAsync(Model);
-        //    return new CompanyAboutWebResponse
-        //    {
-        //        Single = companyAboutServiceResponse.Single,
-        //        Success = companyAboutServiceResponse.Success
-        //    };
-        //}
+        [HttpPut]
+        [Route("api/companyabout")]
+        public async Task<Response<CompanyAbout>> Update([FromBody] CompanyAboutUpdateDto Model)
+        {
+            Response<CompanyAbout> Response = await Service.UpdateAsync(Model);
+            return new Response<CompanyAbout>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-        //[HttpDelete]
-        //[Route("api/companyabout")]
-        //public async Task<CompanyAboutWebResponse> Delete([FromBody] CompanyAboutDeleteDataTransfer Model)
-        //{
-        //    CompanyAboutServiceResponse companyAboutServiceResponse = await Service.DeleteAsync(Model);
-        //    return new CompanyAboutWebResponse
-        //    {
-        //        Single = companyAboutServiceResponse.Single,
-        //        Success = companyAboutServiceResponse.Success
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/companyabout")]
+        public async Task<Response<CompanyAbout>> Delete([FromBody] CompanyAboutDeleteDto Model)
+        {
+            Response<CompanyAbout> Response = await Service.DeleteAsync(Model);
+            return new Response<CompanyAbout>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/companyabout")]
         public async Task<Response<CompanyAbout>> Get()
         {
-            Response<CompanyAbout> Response = await Service.SelectAsync();
+            Response<CompanyAbout> Response = await Service.SelectAsync(new CompanyAboutSelectDto { });
             return new Response<CompanyAbout>
             {
                 Collection = Response.Collection,

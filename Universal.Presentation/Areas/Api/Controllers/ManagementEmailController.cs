@@ -24,11 +24,35 @@
             };
         }
 
+        [HttpPut]
+        [Route("api/managementemail")]
+        public async Task<Response<ManagementEmail>> Update([FromBody] ManagementEmailUpdateDto Model)
+        {
+            Response<ManagementEmail> Response = await Service.UpdateAsync(Model);
+            return new Response<ManagementEmail>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
+        [HttpDelete]
+        [Route("api/managementemail")]
+        public async Task<Response<ManagementEmail>> Delete([FromBody] ManagementEmailDeleteDto Model)
+        {
+            Response<ManagementEmail> Response = await Service.DeleteAsync(Model);
+            return new Response<ManagementEmail>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
         [HttpGet]
         [Route("api/managementemail")]
         public async Task<Response<ManagementEmail>> Get()
         {
-            Response<ManagementEmail> Response = await Service.SelectAsync();
+            Response<ManagementEmail> Response = await Service.SelectAsync(new ManagementEmailSelectDto { });
             return new Response<ManagementEmail>
             {
                 Collection = Response.Collection,

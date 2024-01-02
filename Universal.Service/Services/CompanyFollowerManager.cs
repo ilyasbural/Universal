@@ -17,6 +17,11 @@
             Validator = validator;
         }
 
+        public Task<Response<CompanyFollower>> DeleteAsync(CompanyFollowerDeleteDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Response<CompanyFollower>> InsertAsync(CompanyFollowerRegisterDto Model)
         {
             Data = Mapper.Map<CompanyFollower>(Model);
@@ -47,6 +52,21 @@
                 Success = 1,
                 IsValidationError = false
             };
+        }
+
+        public Task<Response<CompanyFollower>> SelectAsync(CompanyFollowerSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<CompanyFollower>> SelectSingleAsync(CompanyFollowerSelectDto Model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<CompanyFollower>> UpdateAsync(CompanyFollowerUpdateDto Model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

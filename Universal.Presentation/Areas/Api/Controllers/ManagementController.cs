@@ -24,11 +24,35 @@
             };
         }
 
+        [HttpPut]
+        [Route("api/management")]
+        public async Task<Response<Management>> Update([FromBody] ManagementUpdateDto Model)
+        {
+            Response<Management> Response = await Service.UpdateAsync(Model);
+            return new Response<Management>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
+        [HttpDelete]
+        [Route("api/management")]
+        public async Task<Response<Management>> Delete([FromBody] ManagementDeleteDto Model)
+        {
+            Response<Management> Response = await Service.DeleteAsync(Model);
+            return new Response<Management>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
         [HttpGet]
         [Route("api/management")]
         public async Task<Response<Management>> Get()
         {
-            Response<Management> Response = await Service.SelectAsync();
+            Response<Management> Response = await Service.SelectAsync(new ManagementSelectDto { });
             return new Response<Management>
             {
                 Collection = Response.Collection,

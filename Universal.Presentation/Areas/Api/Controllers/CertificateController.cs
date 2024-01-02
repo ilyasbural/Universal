@@ -24,35 +24,35 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/certificate")]
-        //public async Task<CertificateWebResponse> Update([FromBody] CertificateUpdateDataTransfer Model)
-        //{
-        //    CertificateServiceResponse certificateServiceResponse = await Service.UpdateAsync(Model);
-        //    return new CertificateWebResponse
-        //    {
-        //        Single = certificateServiceResponse.Single,
-        //        Success = certificateServiceResponse.Success
-        //    };
-        //}
+        [HttpPut]
+        [Route("api/certificate")]
+        public async Task<Response<Certificate>> Update([FromBody] CertificateUpdateDto Model)
+        {
+            Response<Certificate> Response = await Service.UpdateAsync(Model);
+            return new Response<Certificate>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
-        //[HttpDelete]
-        //[Route("api/certificate")]
-        //public async Task<CertificateWebResponse> Delete([FromBody] CertificateDeleteDataTransfer Model)
-        //{
-        //    CertificateServiceResponse certificateServiceResponse = await Service.DeleteAsync(Model);
-        //    return new CertificateWebResponse
-        //    {
-        //        Single = certificateServiceResponse.Single,
-        //        Success = certificateServiceResponse.Success
-        //    };
-        //}
+        [HttpDelete]
+        [Route("api/certificate")]
+        public async Task<Response<Certificate>> Delete([FromBody] CertificateDeleteDto Model)
+        {
+            Response<Certificate> Response = await Service.DeleteAsync(Model);
+            return new Response<Certificate>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
 
         [HttpGet]
         [Route("api/certificate")]
         public async Task<Response<Certificate>> Get()
         {
-            Response<Certificate> Response = await Service.SelectAsync();
+            Response<Certificate> Response = await Service.SelectAsync(new CertificateSelectDto { });
             return new Response<Certificate>
             {
                 Collection = Response.Collection,

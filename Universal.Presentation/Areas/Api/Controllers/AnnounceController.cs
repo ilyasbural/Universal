@@ -24,11 +24,47 @@
             };
         }
 
+        [HttpPut]
+        [Route("api/announce")]
+        public async Task<Response<Announce>> Update([FromBody] AnnounceUpdateDto Model)
+        {
+            Response<Announce> Response = await Service.UpdateAsync(Model);
+            return new Response<Announce>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
+        [HttpDelete]
+        [Route("api/announce")]
+        public async Task<Response<Announce>> Delete([FromBody] AnnounceDeleteDto Model)
+        {
+            Response<Announce> Response = await Service.DeleteAsync(Model);
+            return new Response<Announce>
+            {
+                Data = Response.Data,
+                Success = Response.Success
+            };
+        }
+
         [HttpGet]
         [Route("api/announce")]
         public async Task<Response<Announce>> Get()
         {
-            Response<Announce> Response = await Service.SelectAsync();
+            Response<Announce> Response = await Service.SelectAsync(new AnnounceSelectDto { });
+            return new Response<Announce>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
+
+        [HttpGet]
+        [Route("api/announce/{id}")]
+        public async Task<Response<Announce>> Get([FromBody] AnnounceSelectDto Model)
+        {
+            Response<Announce> Response = await Service.SelectSingleAsync(Model);
             return new Response<Announce>
             {
                 Collection = Response.Collection,
