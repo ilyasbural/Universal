@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<ManagementEmail>> DeleteAsync(ManagementEmailDeleteDto Model)
+        public async Task<Response<ManagementEmail>> DeleteAsync(ManagementEmailDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.ManagementEmail.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<ManagementEmail>(Collection[0]);
+
+            await UnitOfWork.ManagementEmail.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<ManagementEmail>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<ManagementEmail>> SelectAsync(ManagementEmailSelectDto Model)

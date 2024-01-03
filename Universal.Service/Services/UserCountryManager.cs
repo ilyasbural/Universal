@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<UserCountry>> DeleteAsync(UserCountryDeleteDto Model)
+        public async Task<Response<UserCountry>> DeleteAsync(UserCountryDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.UserCountry.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<UserCountry>(Collection[0]);
+
+            await UnitOfWork.UserCountry.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<UserCountry>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<UserCountry>> SelectAsync(UserCountrySelectDto Model)

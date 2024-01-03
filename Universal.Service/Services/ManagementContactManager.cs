@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<ManagementContact>> DeleteAsync(ManagementContactDeleteDto Model)
+        public async Task<Response<ManagementContact>> DeleteAsync(ManagementContactDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.ManagementContact.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<ManagementContact>(Collection[0]);
+
+            await UnitOfWork.ManagementContact.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<ManagementContact>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<ManagementContact>> SelectAsync(ManagementContactSelectDto Model)

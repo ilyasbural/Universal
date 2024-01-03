@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<UserFollower>> DeleteAsync(UserFollowerDeleteDto Model)
+        public async Task<Response<UserFollower>> DeleteAsync(UserFollowerDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.UserFollower.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<UserFollower>(Collection[0]);
+
+            await UnitOfWork.UserFollower.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<UserFollower>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<UserFollower>> SelectAsync(UserFollowerSelectDto Model)

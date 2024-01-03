@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<CompanyAbout>> DeleteAsync(CompanyAboutDeleteDto Model)
+        public async Task<Response<CompanyAbout>> DeleteAsync(CompanyAboutDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.CompanyAbout.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<CompanyAbout>(Collection[0]);
+
+            await UnitOfWork.CompanyAbout.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<CompanyAbout>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<CompanyAbout>> SelectAsync(CompanyAboutSelectDto Model)

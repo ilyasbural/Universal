@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<Emoji>> DeleteAsync(EmojiDeleteDto Model)
+        public async Task<Response<Emoji>> DeleteAsync(EmojiDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Emoji.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<Emoji>(Collection[0]);
+
+            await UnitOfWork.Emoji.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<Emoji>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<Emoji>> SelectAsync(EmojiSelectDto Model)

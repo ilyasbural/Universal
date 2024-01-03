@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<Region>> DeleteAsync(RegionDeleteDto Model)
+        public async Task<Response<Region>> DeleteAsync(RegionDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Region.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<Region>(Collection[0]);
+
+            await UnitOfWork.Region.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<Region>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<Region>> SelectAsync(RegionSelectDto Model)

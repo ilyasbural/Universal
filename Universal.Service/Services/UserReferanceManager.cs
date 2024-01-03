@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<UserReferance>> DeleteAsync(UserReferanceDeleteDto Model)
+        public async Task<Response<UserReferance>> DeleteAsync(UserReferanceDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.UserReferance.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<UserReferance>(Collection[0]);
+
+            await UnitOfWork.UserReferance.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<UserReferance>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<UserReferance>> SelectAsync(UserReferanceSelectDto Model)

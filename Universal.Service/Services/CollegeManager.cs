@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<College>> DeleteAsync(CollegeDeleteDto Model)
+        public async Task<Response<College>> DeleteAsync(CollegeDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.College.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<College>(Collection[0]);
+
+            await UnitOfWork.College.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<College>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<College>> SelectAsync(CollegeSelectDto Model)

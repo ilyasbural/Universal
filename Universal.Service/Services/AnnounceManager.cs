@@ -58,7 +58,19 @@
 
         public async Task<Response<Announce>> DeleteAsync(AnnounceDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Announce.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<Announce>(Collection[0]);
+
+            await UnitOfWork.Announce.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<Announce>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<Announce>> SelectAsync(AnnounceSelectDto Model)

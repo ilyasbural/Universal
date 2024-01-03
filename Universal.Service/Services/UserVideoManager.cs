@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<UserVideo>> DeleteAsync(UserVideoDeleteDto Model)
+        public async Task<Response<UserVideo>> DeleteAsync(UserVideoDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.UserVideo.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<UserVideo>(Collection[0]);
+
+            await UnitOfWork.UserVideo.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<UserVideo>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<UserVideo>> SelectAsync(UserVideoSelectDto Model)

@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<UserSettings>> DeleteAsync(UserSettingsDeleteDto Model)
+        public async Task<Response<UserSettings>> DeleteAsync(UserSettingsDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.UserSettings.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<UserSettings>(Collection[0]);
+
+            await UnitOfWork.UserSettings.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<UserSettings>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<UserSettings>> SelectAsync(UserSettingsSelectDto Model)

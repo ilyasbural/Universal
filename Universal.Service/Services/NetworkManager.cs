@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<Network>> DeleteAsync(NetworkDeleteDto Model)
+        public async Task<Response<Network>> DeleteAsync(NetworkDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Network.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<Network>(Collection[0]);
+
+            await UnitOfWork.Network.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<Network>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<Network>> SelectAsync(NetworkSelectDto Model)

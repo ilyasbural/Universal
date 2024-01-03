@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<UserCertificate>> DeleteAsync(UserCertificateDeleteDto Model)
+        public async Task<Response<UserCertificate>> DeleteAsync(UserCertificateDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.UserCertificate.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<UserCertificate>(Collection[0]);
+
+            await UnitOfWork.UserCertificate.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<UserCertificate>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<UserCertificate>> SelectAsync(UserCertificateSelectDto Model)

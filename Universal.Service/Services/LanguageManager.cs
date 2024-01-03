@@ -56,9 +56,21 @@
             };
         }
 
-        public Task<Response<Language>> DeleteAsync(LanguageDeleteDto Model)
+        public async Task<Response<Language>> DeleteAsync(LanguageDeleteDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Language.SelectAsync(x => x.Id == Model.Id);
+            Data = Mapper.Map<Language>(Collection[0]);
+
+            await UnitOfWork.Language.DeleteAsync(Data);
+            await UnitOfWork.SaveChangesAsync();
+
+            return new Response<Language>
+            {
+                Message = "Success",
+                Data = Data,
+                Success = 1,
+                IsValidationError = false
+            };
         }
 
         public async Task<Response<Language>> SelectAsync(LanguageSelectDto Model)
