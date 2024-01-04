@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<Network>> SelectSingleAsync(NetworkSelectDto Model)
+        public async Task<Response<Network>> SelectSingleAsync(NetworkSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Network.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<Network>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

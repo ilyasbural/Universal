@@ -1,6 +1,8 @@
 ﻿namespace Universal.Presentation.Controllers
 {
+    using Core;
     using RestSharp;
+    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
@@ -39,7 +41,15 @@
 
         public async Task<IActionResult> Update(Guid Id)
         {
-            return View();
+            var Model = Tuple.Create<AnnounceViewModel>(new AnnounceViewModel());
+
+            RestRequest = new RestRequest("api/announcesingle", Method.Get);
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestRequest.AddQueryParameter("Id", Id);
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Response<Announce> Response = JsonConvert.DeserializeObject<Response<Announce>>(RestResponse.Content!)!;
+
+            return View(Model);
         }
 
         [HttpPost]

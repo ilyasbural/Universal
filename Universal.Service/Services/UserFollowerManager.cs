@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<UserFollower>> SelectSingleAsync(UserFollowerSelectDto Model)
+        public async Task<Response<UserFollower>> SelectSingleAsync(UserFollowerSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.UserFollower.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<UserFollower>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

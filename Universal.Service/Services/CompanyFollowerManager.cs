@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<CompanyFollower>> SelectSingleAsync(CompanyFollowerSelectDto Model)
+        public async Task<Response<CompanyFollower>> SelectSingleAsync(CompanyFollowerSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.CompanyFollower.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<CompanyFollower>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

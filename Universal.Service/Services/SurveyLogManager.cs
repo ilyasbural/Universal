@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<SurveyLog>> SelectSingleAsync(SurveyLogSelectDto Model)
+        public async Task<Response<SurveyLog>> SelectSingleAsync(SurveyLogSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.SurveyLog.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<SurveyLog>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

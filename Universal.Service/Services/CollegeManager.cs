@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<College>> SelectSingleAsync(CollegeSelectDto Model)
+        public async Task<Response<College>> SelectSingleAsync(CollegeSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.College.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<College>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

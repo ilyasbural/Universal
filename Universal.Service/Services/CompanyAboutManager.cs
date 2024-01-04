@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<CompanyAbout>> SelectSingleAsync(CompanyAboutSelectDto Model)
+        public async Task<Response<CompanyAbout>> SelectSingleAsync(CompanyAboutSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.CompanyAbout.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<CompanyAbout>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

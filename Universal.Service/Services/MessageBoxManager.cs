@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<MessageBox>> SelectSingleAsync(MessageBoxSelectDto Model)
+        public async Task<Response<MessageBox>> SelectSingleAsync(MessageBoxSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.MessageBox.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<MessageBox>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

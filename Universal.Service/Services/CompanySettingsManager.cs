@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<CompanySettings>> SelectSingleAsync(CompanySettingsSelectDto Model)
+        public async Task<Response<CompanySettings>> SelectSingleAsync(CompanySettingsSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.CompanySettings.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<CompanySettings>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<Certificate>> SelectSingleAsync(CertificateSelectDto Model)
+        public async Task<Response<Certificate>> SelectSingleAsync(CertificateSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Certificate.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<Certificate>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

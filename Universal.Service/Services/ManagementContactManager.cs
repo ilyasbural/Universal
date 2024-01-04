@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<ManagementContact>> SelectSingleAsync(ManagementContactSelectDto Model)
+        public async Task<Response<ManagementContact>> SelectSingleAsync(ManagementContactSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.ManagementContact.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<ManagementContact>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<ManagementEmail>> SelectSingleAsync(ManagementEmailSelectDto Model)
+        public async Task<Response<ManagementEmail>> SelectSingleAsync(ManagementEmailSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.ManagementEmail.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<ManagementEmail>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

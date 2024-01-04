@@ -1,6 +1,8 @@
 ﻿namespace Universal.Presentation.Controllers
 {
+    using Core;
     using RestSharp;
+    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
@@ -21,7 +23,7 @@
             return View(ModelList);
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             var Model = Tuple.Create<AnnounceDetailViewModel>(new AnnounceDetailViewModel());
             return View(Model);
@@ -39,11 +41,19 @@
 
         public async Task<IActionResult> Update(Guid Id)
         {
-            return View();
+            var Model = Tuple.Create<AnnounceDetailViewModel>(new AnnounceDetailViewModel());
+
+            RestRequest = new RestRequest("api/announcedetailsingle", Method.Get);
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestRequest.AddQueryParameter("Id", Id);
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Response<AnnounceDetail> Response = JsonConvert.DeserializeObject<Response<AnnounceDetail>>(RestResponse.Content!)!;
+
+            return View(Model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update([Bind(Prefix = "Item1")] AbilityViewModel Model)
+        public async Task<IActionResult> Update([Bind(Prefix = "Item1")] AnnounceDetailViewModel Model)
         {
             //BuildingTypeUpdateDto BuildingType = new BuildingTypeUpdateDto();
             //BuildingType.Id = Model.Id;
@@ -59,7 +69,7 @@
 
         public async Task<IActionResult> Delete(Guid Id)
         {
-            var Model = Tuple.Create<AbilityViewModel>(new AbilityViewModel());
+            var Model = Tuple.Create<AnnounceDetailViewModel>(new AnnounceDetailViewModel());
             //Response<BuildingType> Response = await Service.SelectSingleAsync(new BuildingTypeSelectDto { Id = Id });
 
             //Model.Item1.Id = Response.Collection.First().Id;
@@ -71,7 +81,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete([Bind(Prefix = "Item1")] AbilityViewModel Model)
+        public async Task<IActionResult> Delete([Bind(Prefix = "Item1")] AnnounceDetailViewModel Model)
         {
             //BuildingTypeDeleteDto BuildingType = new BuildingTypeDeleteDto();
             //BuildingType.Id = Model.Id;

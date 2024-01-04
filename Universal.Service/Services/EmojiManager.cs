@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<Emoji>> SelectSingleAsync(EmojiSelectDto Model)
+        public async Task<Response<Emoji>> SelectSingleAsync(EmojiSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Emoji.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<Emoji>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

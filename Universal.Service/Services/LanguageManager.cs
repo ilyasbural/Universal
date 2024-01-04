@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<Language>> SelectSingleAsync(LanguageSelectDto Model)
+        public async Task<Response<Language>> SelectSingleAsync(LanguageSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Language.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<Language>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

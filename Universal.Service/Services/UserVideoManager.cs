@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<UserVideo>> SelectSingleAsync(UserVideoSelectDto Model)
+        public async Task<Response<UserVideo>> SelectSingleAsync(UserVideoSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.UserVideo.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<UserVideo>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

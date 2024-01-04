@@ -2,10 +2,10 @@
 {
     using Core;
     using RestSharp;
+    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
-    using Newtonsoft.Json;
 
     public class AbilityController : BaseController<AbilityViewModel>
     {
@@ -43,7 +43,7 @@
         {
             var Model = Tuple.Create<AbilityViewModel>(new AbilityViewModel());
 
-            RestRequest = new RestRequest("api/organizationdetailsingle", Method.Get);
+            RestRequest = new RestRequest("api/abilitysingle", Method.Get);
             RestRequest.RequestFormat = DataFormat.Json;
             RestRequest.AddQueryParameter("Id", Id);
             RestResponse = await Client.ExecuteAsync(RestRequest);

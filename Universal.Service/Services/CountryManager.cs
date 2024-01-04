@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<Country>> SelectSingleAsync(CountrySelectDto Model)
+        public async Task<Response<Country>> SelectSingleAsync(CountrySelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.Country.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<Country>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

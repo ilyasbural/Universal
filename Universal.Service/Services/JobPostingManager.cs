@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<JobPosting>> SelectSingleAsync(JobPostingSelectDto Model)
+        public async Task<Response<JobPosting>> SelectSingleAsync(JobPostingSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.JobPosting.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<JobPosting>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿namespace Universal.Presentation.Controllers
 {
+    using Core;
     using RestSharp;
+    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
@@ -28,22 +30,30 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind(Prefix = "Item1")] AbilityViewModel Model)
+        public async Task<IActionResult> Create([Bind(Prefix = "Item1")] UserNetworkViewModel Model)
         {
-            RestRequest = new RestRequest("api/announce", Method.Post);
+            RestRequest = new RestRequest("api/usernetwork", Method.Post);
             RestRequest.RequestFormat = DataFormat.Json;
             RestRequest.AddJsonBody(new { Name = Model.Name });
             RestResponse = await Client.ExecuteAsync(RestRequest);
-            return RedirectToAction("Index", "Announce");
+            return RedirectToAction("Index", "UserNetwork");
         }
 
         public async Task<IActionResult> Update(Guid Id)
         {
-            return View();
+            var Model = Tuple.Create<UserNetworkViewModel>(new UserNetworkViewModel());
+
+            RestRequest = new RestRequest("api/usernetworksingle", Method.Get);
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestRequest.AddQueryParameter("Id", Id);
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Response<UserNetwork> Response = JsonConvert.DeserializeObject<Response<UserNetwork>>(RestResponse.Content!)!;
+
+            return View(Model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update([Bind(Prefix = "Item1")] AbilityViewModel Model)
+        public async Task<IActionResult> Update([Bind(Prefix = "Item1")] UserNetworkViewModel Model)
         {
             //BuildingTypeUpdateDto BuildingType = new BuildingTypeUpdateDto();
             //BuildingType.Id = Model.Id;
@@ -59,7 +69,7 @@
 
         public async Task<IActionResult> Delete(Guid Id)
         {
-            var Model = Tuple.Create<AbilityViewModel>(new AbilityViewModel());
+            var Model = Tuple.Create<UserNetworkViewModel>(new UserNetworkViewModel());
             //Response<BuildingType> Response = await Service.SelectSingleAsync(new BuildingTypeSelectDto { Id = Id });
 
             //Model.Item1.Id = Response.Collection.First().Id;
@@ -71,7 +81,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete([Bind(Prefix = "Item1")] AbilityViewModel Model)
+        public async Task<IActionResult> Delete([Bind(Prefix = "Item1")] UserNetworkViewModel Model)
         {
             //BuildingTypeDeleteDto BuildingType = new BuildingTypeDeleteDto();
             //BuildingType.Id = Model.Id;

@@ -85,9 +85,16 @@
             };
         }
 
-        public Task<Response<NetworkComment>> SelectSingleAsync(NetworkCommentSelectDto Model)
+        public async Task<Response<NetworkComment>> SelectSingleAsync(NetworkCommentSelectDto Model)
         {
-            throw new NotImplementedException();
+            Collection = await UnitOfWork.NetworkComment.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            return new Response<NetworkComment>
+            {
+                Message = "Success",
+                Collection = Collection,
+                Success = 1,
+                IsValidationError = false
+            };
         }
     }
 }
