@@ -11,8 +11,8 @@
         protected RestRequest RestRequest { get; set; } = null!;
         protected RestResponse RestResponse { get; set; } = null!;
         protected JObject Array { get; set; } = null!;
-        protected List<T> ModelList { get; set; } = null!;
         protected T Model { get; set; } = default!;
+        protected List<T> ModelList { get; set; } = null!;
 
         public BaseController(IConfiguration configuration)
         {

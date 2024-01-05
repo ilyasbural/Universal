@@ -43,11 +43,15 @@
         {
             var Model = Tuple.Create<CountryViewModel>(new CountryViewModel());
 
-            RestRequest = new RestRequest("api/countrysingle", Method.Get);
-            RestRequest.RequestFormat = DataFormat.Json;
+            RestRequest = new RestRequest("api/countrysingle", Method.Get);         
             RestRequest.AddQueryParameter("Id", Id);
+            RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
             Response<Country> Response = JsonConvert.DeserializeObject<Response<Country>>(RestResponse.Content!)!;
+
+            Model.Item1.Id = Response.Collection.First().Id;
+            Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
+            Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
 
             return View(Model);
         }

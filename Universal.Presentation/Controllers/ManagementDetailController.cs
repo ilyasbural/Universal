@@ -44,10 +44,14 @@
             var Model = Tuple.Create<ManagementDetailViewModel>(new ManagementDetailViewModel());
 
             RestRequest = new RestRequest("api/managementdetailsingle", Method.Get);
-            RestRequest.RequestFormat = DataFormat.Json;
             RestRequest.AddQueryParameter("Id", Id);
+            RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
             Response<ManagementDetail> Response = JsonConvert.DeserializeObject<Response<ManagementDetail>>(RestResponse.Content!)!;
+
+            Model.Item1.Id = Response.Collection.First().Id;
+            Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
+            Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
 
             return View(Model);
         }
