@@ -59,5 +59,17 @@
                 Success = Response.Success
             };
         }
+
+        [HttpGet]
+        [Route("api/announcedetailsingle")]
+        public async Task<Response<AnnounceDetail>> Get([FromQuery] AnnounceDetailSelectDto Model)
+        {
+            Response<AnnounceDetail> Response = await Service.SelectSingleAsync(Model);
+            return new Response<AnnounceDetail>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

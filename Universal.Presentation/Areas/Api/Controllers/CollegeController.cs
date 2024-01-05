@@ -60,16 +60,16 @@
             };
         }
 
-        //[HttpGet]
-        //[Route("api/college/{id}")]
-        //public async Task<CollegeWebResponse> Get([FromBody] CollegeAnyDataTransfer Model)
-        //{
-        //    CollegeServiceResponse collegeServiceResponse = await Service.AnySelectAsync(Model);
-        //    return new CollegeWebResponse
-        //    {
-        //        Single = collegeServiceResponse.Single,
-        //        Success = collegeServiceResponse.Success
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/collegesingle")]
+        public async Task<Response<College>> Get([FromQuery] CollegeSelectDto Model)
+        {
+            Response<College> Response = await Service.SelectSingleAsync(Model);
+            return new Response<College>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

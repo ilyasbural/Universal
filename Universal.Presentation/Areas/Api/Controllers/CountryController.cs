@@ -59,5 +59,17 @@
                 Success = Response.Success
             };
         }
+
+        [HttpGet]
+        [Route("api/countrysingle")]
+        public async Task<Response<Country>> Get([FromQuery] CountrySelectDto Model)
+        {
+            Response<Country> Response = await Service.SelectSingleAsync(Model);
+            return new Response<Country>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

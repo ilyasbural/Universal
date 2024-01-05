@@ -61,8 +61,8 @@
         }
 
         [HttpGet]
-        [Route("api/announce/{id}")]
-        public async Task<Response<Announce>> Get([FromBody] AnnounceSelectDto Model)
+        [Route("api/announcesingle")]
+        public async Task<Response<Announce>> Get([FromQuery] AnnounceSelectDto Model)
         {
             Response<Announce> Response = await Service.SelectSingleAsync(Model);
             return new Response<Announce>

@@ -60,15 +60,16 @@
             };
         }
 
-        //[HttpGet]
-        //[Route("api/company/{id}")]
-        //public async Task<CompanyWebResponse> Get([FromBody] CompanyAnyDataTransfer Model)
-        //{
-        //    CompanyServiceResponse companyServiceResponse = await Service.AnySelectAsync(Model);
-        //    return new CompanyWebResponse
-        //    {
-        //        Success = companyServiceResponse.Success
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/companysingle")]
+        public async Task<Response<Company>> Get([FromQuery] CompanySelectDto Model)
+        {
+            Response<Company> Response = await Service.SelectSingleAsync(Model);
+            return new Response<Company>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

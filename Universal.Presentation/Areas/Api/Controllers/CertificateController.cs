@@ -60,16 +60,16 @@
             };
         }
 
-        //[HttpGet]
-        //[Route("api/certificate/{id}")]
-        //public async Task<CertificateWebResponse> Get([FromBody] CertificateAnyDataTransfer Model)
-        //{
-        //    CertificateServiceResponse certificateServiceResponse = await Service.AnySelectAsync(Model);
-        //    return new CertificateWebResponse
-        //    {
-        //        Single = certificateServiceResponse.Single,
-        //        Success = certificateServiceResponse.Success
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/certificatesingle")]
+        public async Task<Response<Certificate>> Get([FromQuery] CertificateSelectDto Model)
+        {
+            Response<Certificate> Response = await Service.SelectSingleAsync(Model);
+            return new Response<Certificate>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }
