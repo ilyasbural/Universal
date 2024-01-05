@@ -48,30 +48,6 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/region")]
-        //public async Task<RegionWebResponse> Update([FromBody] RegionUpdateDataTransfer Model)
-        //{
-        //    RegionServiceResponse regionServiceResponse = await Service.UpdateAsync(Model);
-        //    return new RegionWebResponse
-        //    {
-
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/region")]
-        //public async Task<RegionWebResponse> Delete([FromBody] RegionDeleteDataTransfer Model)
-        //{
-        //    RegionServiceResponse regionServiceResponse = await Service.DeleteAsync(Model);
-        //    return new RegionWebResponse
-        //    {
-
-
-        //    };
-        //}
-
         [HttpGet]
         [Route("api/region")]
         public async Task<Response<Region>> Get()
@@ -84,16 +60,16 @@
             };
         }
 
-        //[HttpGet]
-        //[Route("api/region/{id}")]
-        //public async Task<RegionWebResponse> Get([FromBody] RegionAnyDataTransfer Model)
-        //{
-        //    RegionServiceResponse regionServiceResponse = await Service.AnySelectAsync(Model);
-        //    return new RegionWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/regionsingle")]
+        public async Task<Response<Region>> Get([FromQuery] RegionSelectDto Model)
+        {
+            Response<Region> Response = await Service.SelectSingleAsync(Model);
+            return new Response<Region>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

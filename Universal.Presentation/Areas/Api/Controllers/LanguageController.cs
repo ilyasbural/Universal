@@ -60,16 +60,16 @@
             };
         }
 
-        //[HttpGet]
-        //[Route("api/ability/{id}")]
-        //public async Task<AbilityWebResponse> Get([FromBody] AbilityAnyDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.AnySelectAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/languagesingle")]
+        public async Task<Response<Language>> Get([FromQuery] LanguageSelectDto Model)
+        {
+            Response<Language> Response = await Service.SelectSingleAsync(Model);
+            return new Response<Language>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

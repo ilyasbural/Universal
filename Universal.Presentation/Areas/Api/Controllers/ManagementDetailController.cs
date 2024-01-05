@@ -59,5 +59,17 @@
                 Success = Response.Success
             };
         }
+
+        [HttpGet]
+        [Route("api/managementdetailsingle")]
+        public async Task<Response<ManagementDetail>> Get([FromQuery] ManagementDetailSelectDto Model)
+        {
+            Response<ManagementDetail> Response = await Service.SelectSingleAsync(Model);
+            return new Response<ManagementDetail>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

@@ -52,24 +52,24 @@
         [Route("api/usertype")]
         public async Task<Response<UserType>> Get()
         {
-            Response<UserType> announceResponse = await Service.SelectAsync(new UserTypeSelectDto { });
+            Response<UserType> Response = await Service.SelectAsync(new UserTypeSelectDto { });
             return new Response<UserType>
             {
-                Collection = announceResponse.Collection,
-                Success = announceResponse.Success
+                Collection = Response.Collection,
+                Success = Response.Success
             };
         }
 
-        //[HttpGet]
-        //[Route("api/ability/{id}")]
-        //public async Task<AbilityWebResponse> Get([FromBody] AbilityAnyDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.AnySelectAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/usertypesingle")]
+        public async Task<Response<UserType>> Get([FromQuery] UserTypeSelectDto Model)
+        {
+            Response<UserType> Response = await Service.SelectSingleAsync(Model);
+            return new Response<UserType>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

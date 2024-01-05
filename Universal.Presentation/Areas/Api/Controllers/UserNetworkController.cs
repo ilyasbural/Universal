@@ -60,16 +60,16 @@
             };
         }
 
-        //[HttpGet]
-        //[Route("api/usernetwork/{id}")]
-        //public async Task<AbilityWebResponse> Get([FromBody] AbilityAnyDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.AnySelectAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/usernetworksingle")]
+        public async Task<Response<UserNetwork>> Get([FromQuery] UserNetworkSelectDto Model)
+        {
+            Response<UserNetwork> Response = await Service.SelectSingleAsync(Model);
+            return new Response<UserNetwork>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

@@ -59,5 +59,17 @@
                 Success = Response.Success
             };
         }
+
+        [HttpGet]
+        [Route("api/surveyhistorysingle")]
+        public async Task<Response<SurveyHistory>> Get([FromQuery] SurveyHistorySelectDto Model)
+        {
+            Response<SurveyHistory> Response = await Service.SelectSingleAsync(Model);
+            return new Response<SurveyHistory>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

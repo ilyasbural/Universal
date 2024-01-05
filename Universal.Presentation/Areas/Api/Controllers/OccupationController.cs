@@ -48,30 +48,6 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/occupation")]
-        //public async Task<OccupationWebResponse> Update([FromBody] OccupationUpdateDataTransfer Model)
-        //{
-        //    OccupationServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new OccupationWebResponse
-        //    {
-
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/occupation")]
-        //public async Task<OccupationWebResponse> Delete([FromBody] OccupationDeleteDataTransfer Model)
-        //{
-        //    OccupationServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new OccupationWebResponse
-        //    {
-
-
-        //    };
-        //}
-
         [HttpGet]
         [Route("api/occupation")]
         public async Task<Response<Occupation>> Get()
@@ -84,16 +60,16 @@
             };
         }
 
-        //[HttpGet]
-        //[Route("api/occupation/{id}")]
-        //public async Task<OccupationWebResponse> Get([FromBody] OccupationAnyDataTransfer Model)
-        //{
-        //    OccupationServiceResponse announceResponse = await Service.AnySelectAsync(Model);
-        //    return new OccupationWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/occupationsingle")]
+        public async Task<Response<Occupation>> Get([FromQuery] OccupationSelectDto Model)
+        {
+            Response<Occupation> Response = await Service.SelectSingleAsync(Model);
+            return new Response<Occupation>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

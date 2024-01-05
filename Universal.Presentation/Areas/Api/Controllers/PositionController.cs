@@ -48,30 +48,6 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/position")]
-        //public async Task<PositionWebResponse> Update([FromBody] PositionUpdateDataTransfer Model)
-        //{
-        //    PositionServiceResponse positionServiceResponse = await Service.UpdateAsync(Model);
-        //    return new PositionWebResponse
-        //    {
-
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/position")]
-        //public async Task<PositionWebResponse> Delete([FromBody] PositionDeleteDataTransfer Model)
-        //{
-        //    PositionServiceResponse positionServiceResponse = await Service.DeleteAsync(Model);
-        //    return new PositionWebResponse
-        //    {
-
-
-        //    };
-        //}
-
         [HttpGet]
         [Route("api/position")]
         public async Task<Response<Position>> Get()
@@ -84,16 +60,16 @@
             };
         }
 
-        //[HttpGet]
-        //[Route("api/position/{id}")]
-        //public async Task<PositionWebResponse> Get([FromBody] PositionAnyDataTransfer Model)
-        //{
-        //    PositionServiceResponse positionServiceResponse = await Service.AnySelectAsync(Model);
-        //    return new PositionWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/positionsingle")]
+        public async Task<Response<Position>> Get([FromQuery] PositionSelectDto Model)
+        {
+            Response<Position> Response = await Service.SelectSingleAsync(Model);
+            return new Response<Position>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

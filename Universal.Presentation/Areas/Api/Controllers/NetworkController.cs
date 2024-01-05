@@ -48,30 +48,6 @@
             };
         }
 
-        //[HttpPut]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Update([FromBody] AbilityUpdateDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.UpdateAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
-
-        //[HttpDelete]
-        //[Route("api/ability")]
-        //public async Task<AbilityWebResponse> Delete([FromBody] AbilityDeleteDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.DeleteAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
-
         [HttpGet]
         [Route("api/network")]
         public async Task<Response<Network>> Get()
@@ -84,16 +60,16 @@
             };
         }
 
-        //[HttpGet]
-        //[Route("api/ability/{id}")]
-        //public async Task<AbilityWebResponse> Get([FromBody] AbilityAnyDataTransfer Model)
-        //{
-        //    AbilityServiceResponse announceResponse = await Service.AnySelectAsync(Model);
-        //    return new AbilityWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/networksingle")]
+        public async Task<Response<Network>> Get([FromQuery] NetworkSelectDto Model)
+        {
+            Response<Network> Response = await Service.SelectSingleAsync(Model);
+            return new Response<Network>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

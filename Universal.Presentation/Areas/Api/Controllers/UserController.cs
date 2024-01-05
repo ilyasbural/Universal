@@ -60,15 +60,16 @@
             };
         }
 
-        //[HttpGet]
-        //[Route("api/user/{id}")]
-        //public async Task<UserWebResponse> Get([FromBody] UserAnyDataTransfer Model)
-        //{
-        //    UserServiceResponse userServiceResponse = await Service.AnySelectAsync(Model);
-        //    return new UserWebResponse
-        //    {
-        //        Success = userServiceResponse.Success
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/usersingle")]
+        public async Task<Response<User>> Get([FromQuery] UserSelectDto Model)
+        {
+            Response<User> Response = await Service.SelectSingleAsync(Model);
+            return new Response<User>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

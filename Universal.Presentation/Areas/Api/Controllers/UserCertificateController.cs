@@ -60,16 +60,16 @@
             };
         }
 
-        //[HttpGet]
-        //[Route("api/usercertificate/{id}")]
-        //public async Task<UserCertificateWebResponse> Get([FromBody] UserCertificateAnyDataTransfer Model)
-        //{
-        //    UserCertificateServiceResponse userCertificateServiceResponse = await Service.AnySelectAsync(Model);
-        //    return new UserCertificateWebResponse
-        //    {
-
-
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/usercertificatesingle")]
+        public async Task<Response<UserCertificate>> Get([FromQuery] UserCertificateSelectDto Model)
+        {
+            Response<UserCertificate> Response = await Service.SelectSingleAsync(Model);
+            return new Response<UserCertificate>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

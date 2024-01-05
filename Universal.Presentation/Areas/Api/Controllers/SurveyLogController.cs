@@ -59,5 +59,17 @@
                 Success = Response.Success
             };
         }
+
+        [HttpGet]
+        [Route("api/surveylogsingle")]
+        public async Task<Response<SurveyLog>> Get([FromQuery] SurveyLogSelectDto Model)
+        {
+            Response<SurveyLog> Response = await Service.SelectSingleAsync(Model);
+            return new Response<SurveyLog>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }

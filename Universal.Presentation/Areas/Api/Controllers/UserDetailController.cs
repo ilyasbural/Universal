@@ -60,15 +60,16 @@
             };
         }
 
-        //[HttpGet]
-        //[Route("api/userdetail/{id}")]
-        //public async Task<UserDetailWebResponse> Get([FromBody] UserDetailAnyDataTransfer Model)
-        //{
-        //    UserDetailServiceResponse userDetailServiceResponse = await Service.AnySelectAsync(Model);
-        //    return new UserDetailWebResponse
-        //    {
-        //        Success = userDetailServiceResponse.Success
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/userdetailsingle")]
+        public async Task<Response<UserDetail>> Get([FromQuery] UserDetailSelectDto Model)
+        {
+            Response<UserDetail> Response = await Service.SelectSingleAsync(Model);
+            return new Response<UserDetail>
+            {
+                Collection = Response.Collection,
+                Success = Response.Success
+            };
+        }
     }
 }
