@@ -61,8 +61,8 @@
         }
 
         [HttpGet]
-        [Route("api/ability/{id}")]
-        public async Task<Response<Ability>> Get([FromBody] AbilitySelectDto Model)
+        [Route("api/abilitysingle")]
+        public async Task<Response<Ability>> Get([FromQuery] AbilitySelectDto Model)
         {
             Response<Ability> Response = await Service.SelectSingleAsync(Model);
             return new Response<Ability>
