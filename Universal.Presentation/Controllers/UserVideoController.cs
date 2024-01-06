@@ -44,10 +44,14 @@
             var Model = Tuple.Create<UserVideoViewModel>(new UserVideoViewModel());
 
             RestRequest = new RestRequest("api/uservideosingle", Method.Get);
-            RestRequest.RequestFormat = DataFormat.Json;
             RestRequest.AddQueryParameter("Id", Id);
+            RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
             Response<UserVideo> Response = JsonConvert.DeserializeObject<Response<UserVideo>>(RestResponse.Content!)!;
+
+            Model.Item1.Id = Response.Collection.First().Id;
+            Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
+            Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
 
             return View(Model);
         }

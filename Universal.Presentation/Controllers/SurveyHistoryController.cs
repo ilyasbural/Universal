@@ -44,10 +44,14 @@
             var Model = Tuple.Create<SurveyHistoryViewModel>(new SurveyHistoryViewModel());
 
             RestRequest = new RestRequest("api/surveyhistorysingle", Method.Get);
-            RestRequest.RequestFormat = DataFormat.Json;
             RestRequest.AddQueryParameter("Id", Id);
+            RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
             Response<SurveyHistory> Response = JsonConvert.DeserializeObject<Response<SurveyHistory>>(RestResponse.Content!)!;
+
+            Model.Item1.Id = Response.Collection.First().Id;
+            Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
+            Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
 
             return View(Model);
         }
