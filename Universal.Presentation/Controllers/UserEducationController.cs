@@ -74,12 +74,16 @@
         public async Task<IActionResult> Delete(Guid Id)
         {
             var Model = Tuple.Create<UserEducationViewModel>(new UserEducationViewModel());
-            //Response<BuildingType> Response = await Service.SelectSingleAsync(new BuildingTypeSelectDto { Id = Id });
 
-            //Model.Item1.Id = Response.Collection.First().Id;
-            //Model.Item1.Name = Response.Collection.First().Name;
-            //Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
-            //Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
+            RestRequest = new RestRequest("api/usereducationsingle", Method.Get);
+            RestRequest.AddQueryParameter("Id", Id);
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Response<UserEducation> Response = JsonConvert.DeserializeObject<Response<UserEducation>>(RestResponse.Content!)!;
+
+            Model.Item1.Id = Response.Collection.First().Id;
+            Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
+            Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
 
             return View(Model);
         }
