@@ -75,12 +75,16 @@
         public async Task<IActionResult> Delete(Guid Id)
         {
             var Model = Tuple.Create<AnnounceLogViewModel>(new AnnounceLogViewModel());
-            //Response<BuildingType> Response = await Service.SelectSingleAsync(new BuildingTypeSelectDto { Id = Id });
 
-            //Model.Item1.Id = Response.Collection.First().Id;
-            //Model.Item1.Name = Response.Collection.First().Name;
-            //Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
-            //Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
+            RestRequest = new RestRequest("api/announcelogsingle", Method.Get);
+            RestRequest.AddQueryParameter("Id", Id);
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Response<AnnounceLog> Response = JsonConvert.DeserializeObject<Response<AnnounceLog>>(RestResponse.Content!)!;
+
+            Model.Item1.Id = Response.Collection.First().Id;
+            Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
+            Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
 
             return View(Model);
         }
@@ -88,12 +92,13 @@
         [HttpPost]
         public async Task<IActionResult> Delete([Bind(Prefix = "Item1")] AnnounceLogViewModel Model)
         {
-            //BuildingTypeDeleteDto BuildingType = new BuildingTypeDeleteDto();
-            //BuildingType.Id = Model.Id;
-            //Response<BuildingType> Response = await Service.DeleteAsync(BuildingType);
-            //if (Response.Success > 0) return RedirectToAction("Index");
-            //else return View(Model);
-            return View(Model);
+            RestRequest = new RestRequest("api/announcelog", Method.Delete);
+            RestRequest.AddJsonBody(new { Id = Model.Id });
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+
+            if (RestResponse.IsSuccessful) return RedirectToAction("Index");
+            else return View(Model);
         }
     }
 }

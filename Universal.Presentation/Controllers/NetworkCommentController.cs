@@ -87,12 +87,13 @@
         [HttpPost]
         public async Task<IActionResult> Delete([Bind(Prefix = "Item1")] NetworkCommentViewModel Model)
         {
-            //BuildingTypeDeleteDto BuildingType = new BuildingTypeDeleteDto();
-            //BuildingType.Id = Model.Id;
-            //Response<BuildingType> Response = await Service.DeleteAsync(BuildingType);
-            //if (Response.Success > 0) return RedirectToAction("Index");
-            //else return View(Model);
-            return View(Model);
+            RestRequest = new RestRequest("api/networkcomment", Method.Delete);
+            RestRequest.AddJsonBody(new { Id = Model.Id });
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+
+            if (RestResponse.IsSuccessful) return RedirectToAction("Index");
+            else return View(Model);
         }
     }
 }

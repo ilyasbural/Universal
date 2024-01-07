@@ -30,20 +30,20 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind(Prefix = "Item1")] AbilityViewModel Model)
+        public async Task<IActionResult> Create([Bind(Prefix = "Item1")] ManagementViewModel Model)
         {
-            RestRequest = new RestRequest("api/announce", Method.Post);
+            RestRequest = new RestRequest("api/management", Method.Post);
             RestRequest.RequestFormat = DataFormat.Json;
             RestRequest.AddJsonBody(new { Name = Model.Name });
             RestResponse = await Client.ExecuteAsync(RestRequest);
-            return RedirectToAction("Index", "Announce");
+            return RedirectToAction("Index", "Management");
         }
 
         public async Task<IActionResult> Update(Guid Id)
         {
-            var Model = Tuple.Create<AbilityViewModel>(new AbilityViewModel());
+            var Model = Tuple.Create<ManagementViewModel>(new ManagementViewModel());
 
-            RestRequest = new RestRequest("api/organizationdetailsingle", Method.Get);
+            RestRequest = new RestRequest("api/managementsingle", Method.Get);
             RestRequest.AddQueryParameter("Id", Id);
             RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
@@ -58,7 +58,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update([Bind(Prefix = "Item1")] AbilityViewModel Model)
+        public async Task<IActionResult> Update([Bind(Prefix = "Item1")] ManagementViewModel Model)
         {
             //BuildingTypeUpdateDto BuildingType = new BuildingTypeUpdateDto();
             //BuildingType.Id = Model.Id;
@@ -74,26 +74,31 @@
 
         public async Task<IActionResult> Delete(Guid Id)
         {
-            var Model = Tuple.Create<AbilityViewModel>(new AbilityViewModel());
-            //Response<BuildingType> Response = await Service.SelectSingleAsync(new BuildingTypeSelectDto { Id = Id });
+            var Model = Tuple.Create<ManagementViewModel>(new ManagementViewModel());
 
-            //Model.Item1.Id = Response.Collection.First().Id;
-            //Model.Item1.Name = Response.Collection.First().Name;
-            //Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
-            //Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
+            RestRequest = new RestRequest("api/managementsingle", Method.Get);
+            RestRequest.AddQueryParameter("Id", Id);
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Response<Management> Response = JsonConvert.DeserializeObject<Response<Management>>(RestResponse.Content!)!;
+
+            Model.Item1.Id = Response.Collection.First().Id;
+            Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
+            Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
 
             return View(Model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete([Bind(Prefix = "Item1")] AbilityViewModel Model)
+        public async Task<IActionResult> Delete([Bind(Prefix = "Item1")] ManagementViewModel Model)
         {
-            //BuildingTypeDeleteDto BuildingType = new BuildingTypeDeleteDto();
-            //BuildingType.Id = Model.Id;
-            //Response<BuildingType> Response = await Service.DeleteAsync(BuildingType);
-            //if (Response.Success > 0) return RedirectToAction("Index");
-            //else return View(Model);
-            return View(Model);
+            RestRequest = new RestRequest("api/management", Method.Delete);
+            RestRequest.AddJsonBody(new { Id = Model.Id });
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+
+            if (RestResponse.IsSuccessful) return RedirectToAction("Index");
+            else return View(Model);
         }
     }
 }

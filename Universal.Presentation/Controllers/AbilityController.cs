@@ -60,16 +60,24 @@
 		[HttpPost]
 		public async Task<IActionResult> Update([Bind(Prefix = "Item1")] AbilityViewModel Model)
 		{
-			//BuildingTypeUpdateDto BuildingType = new BuildingTypeUpdateDto();
-			//BuildingType.Id = Model.Id;
-			//BuildingType.Name = Model.Name;
-			//BuildingType.RegisterDate = Model.RegisterDate;
-			//BuildingType.UpdateDate = Model.UpdateDate;
+            //RestRequest = new RestRequest("api/ability", Method.Post);
+            //RestRequest.AddJsonBody(new { Name = Model.Name });
+            //RestRequest.RequestFormat = DataFormat.Json;
+            //RestResponse = await Client.ExecuteAsync(RestRequest);
 
-			//Response<BuildingType> Response = await Service.UpdateAsync(BuildingType);
-			//if (Response.Success > 0) return RedirectToAction("Index");
-			//else return View(Model);
-			return View(Model);
+
+
+
+            //BuildingTypeUpdateDto BuildingType = new BuildingTypeUpdateDto();
+            //BuildingType.Id = Model.Id;
+            //BuildingType.Name = Model.Name;
+            //BuildingType.RegisterDate = Model.RegisterDate;
+            //BuildingType.UpdateDate = Model.UpdateDate;
+
+            //Response<Ability> Response = await Service.UpdateAsync(BuildingType);
+            //if (Response.Success > 0) return RedirectToAction("Index");
+            //else return View(Model);
+            return View(Model);
 		}
 
 		public async Task<IActionResult> Delete(Guid Id)
@@ -93,13 +101,13 @@
 		[HttpPost]
 		public async Task<IActionResult> Delete([Bind(Prefix = "Item1")] AbilityViewModel Model)
 		{
-			//BuildingTypeDeleteDto BuildingType = new BuildingTypeDeleteDto();
-			////BuildingType.Id = Model.Id;
-			//Response<BuildingType> Response = await Service.DeleteAsync(BuildingType);
-			////if (Response.Success > 0) return RedirectToAction("Index");
-			////else return View(Model);
-			//return View(Model);
-			return View();
+            RestRequest = new RestRequest("api/ability", Method.Delete);
+            RestRequest.AddJsonBody(new { Id = Model.Id });
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+
+			if (RestResponse.IsSuccessful) return RedirectToAction("Index");
+			else return View(Model);
 		}
 	}
 }
