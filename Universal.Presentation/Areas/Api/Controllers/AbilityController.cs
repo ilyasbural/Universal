@@ -2,9 +2,10 @@
 {
     using Core;
     using Microsoft.AspNetCore.Mvc;
-
-    [ApiController]
-    public class AbilityController : ControllerBase
+    
+	[Area("api")]
+	[ApiController]
+	public class AbilityController : ControllerBase
     {
         readonly IAbilityService Service;
         public AbilityController(IAbilityService service)
@@ -43,7 +44,7 @@
             Response<Ability> Response = await Service.DeleteAsync(Model);
             return new Response<Ability>
             {
-                Data = Response.Data, 
+                Data = Response.Data,
                 Success = Response.Success
             };
         }
@@ -67,7 +68,7 @@
             Response<Ability> Response = await Service.SelectSingleAsync(Model);
             return new Response<Ability>
             {
-                Collection = Response.Collection, 
+                Collection = Response.Collection,
                 Success = Response.Success
             };
         }

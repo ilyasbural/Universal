@@ -3,6 +3,7 @@
     using Core;
     using Microsoft.AspNetCore.Mvc;
 
+    [Area("api")]
     [ApiController]
     public class NetworkActionController : ControllerBase
     {
