@@ -41,11 +41,12 @@
         {
             Collection = await UnitOfWork.Ability.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Ability>(Collection[0]);
+            Data.Name = Model.Name;
             Data.UpdateDate = DateTime.Now;
             Validator.ValidateAndThrow(Data);
 
             await UnitOfWork.Ability.UpdateAsync(Data);
-            await UnitOfWork.SaveChangesAsync();
+            int i = await UnitOfWork.SaveChangesAsync();
 
             return new Response<Ability>
             {

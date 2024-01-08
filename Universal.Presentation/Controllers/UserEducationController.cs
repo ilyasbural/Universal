@@ -59,16 +59,13 @@
         [HttpPost]
         public async Task<IActionResult> Update([Bind(Prefix = "Item1")] UserEducationViewModel Model)
         {
-            //BuildingTypeUpdateDto BuildingType = new BuildingTypeUpdateDto();
-            //BuildingType.Id = Model.Id;
-            //BuildingType.Name = Model.Name;
-            //BuildingType.RegisterDate = Model.RegisterDate;
-            //BuildingType.UpdateDate = Model.UpdateDate;
+            RestRequest = new RestRequest("api/usereducation", Method.Put);
+            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestResponse = await Client.ExecuteAsync(RestRequest);
 
-            //Response<BuildingType> Response = await Service.UpdateAsync(BuildingType);
-            //if (Response.Success > 0) return RedirectToAction("Index");
-            //else return View(Model);
-            return View(Model);
+            if (RestResponse.IsSuccessful) return RedirectToAction("Index");
+            else return View(Model);
         }
 
         public async Task<IActionResult> Delete(Guid Id)

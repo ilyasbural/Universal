@@ -60,24 +60,13 @@
         [HttpPost]
         public async Task<IActionResult> Update([Bind(Prefix = "Item1")] AbilityViewModel Model)
         {
-            //RestRequest = new RestRequest("api/ability", Method.Post);
-            //RestRequest.AddJsonBody(new { Name = Model.Name });
-            //RestRequest.RequestFormat = DataFormat.Json;
-            //RestResponse = await Client.ExecuteAsync(RestRequest);
+            RestRequest = new RestRequest("api/ability", Method.Put);
+            RestRequest.AddJsonBody(new { Id = Model.Id, Name = Model.Name });
+            RestRequest.RequestFormat = DataFormat.Json;
+            RestResponse = await Client.ExecuteAsync(RestRequest);
 
-
-
-
-            //BuildingTypeUpdateDto BuildingType = new BuildingTypeUpdateDto();
-            //BuildingType.Id = Model.Id;
-            //BuildingType.Name = Model.Name;
-            //BuildingType.RegisterDate = Model.RegisterDate;
-            //BuildingType.UpdateDate = Model.UpdateDate;
-
-            //Response<Ability> Response = await Service.UpdateAsync(BuildingType);
-            //if (Response.Success > 0) return RedirectToAction("Index");
-            //else return View(Model);
-            return View(Model);
+            if (RestResponse.IsSuccessful) return RedirectToAction("Index");
+            else return View(Model);
         }
 
         public async Task<IActionResult> Delete(Guid Id)

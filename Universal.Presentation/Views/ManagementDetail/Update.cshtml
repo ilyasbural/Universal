@@ -1043,6 +1043,10 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            @Html.HiddenFor(x => x.Item1.Id)
+                                            @Html.HiddenFor(x => x.Item1.RegisterDate)
+                                            @Html.HiddenFor(x => x.Item1.UpdateDate)
                                         </form>
                                     </div>
                                 </div>
