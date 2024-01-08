@@ -2,6 +2,7 @@
 {
     public class UserCertificateViewModel : BaseViewModel<UserCertificateViewModel>
     {
-        public string Name { get; set; } = String.Empty;
+        public UserViewModel User { get; set; } = new UserViewModel();
+        public CertificateViewModel Certificate { get; set; } = new CertificateViewModel();
     }
 }

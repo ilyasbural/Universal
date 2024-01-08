@@ -5,6 +5,6 @@
         Task InsertAsync(T Entity);
         Task UpdateAsync(T Entity);
         Task DeleteAsync(T Entity);
-        Task<List<T>> SelectAsync(System.Linq.Expressions.Expression<Func<T, bool>> Predicate);
+        Task<List<T>> SelectAsync(System.Linq.Expressions.Expression<Func<T, bool>> Predicate, params System.Linq.Expressions.Expression<Func<T, object>>[] IncludeProperties);
     }
 }

@@ -2,7 +2,7 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
-@model Tuple<UserCertificateViewModel>
+@model Tuple<UserCertificateViewModel, List<UserViewModel>, List<CertificateViewModel>>
 
 <div class="basic-form-area mg-tb-15">
     <div class="container-fluid">
@@ -26,7 +26,9 @@
                                                         <label class="login2 pull-right pull-right-pro">Normal</label>
                                                     </div>
                                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                        <input type="text" class="form-control" />
+                                                        <div class="form-select-list">
+                                                            @Html.DropDownListFor(Model => Model.Item1.User.Id, new SelectList(Model.Item2, "Id", "Email"), "Seçilmedi", new { @class = "form-control custom-select-value" })
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -36,7 +38,9 @@
                                                         <label class="login2 pull-right pull-right-pro">Support text</label>
                                                     </div>
                                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                        <input type="text" class="form-control" />
+                                                        <div class="form-select-list">
+                                                            @Html.DropDownListFor(Model => Model.Item1.Certificate.Id, new SelectList(Model.Item3, "Id", "Name"), "Seçilmedi", new { @class = "form-control custom-select-value" })
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

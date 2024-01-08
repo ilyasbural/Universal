@@ -27,9 +27,21 @@
             await Task.Run(() => { DbContext.Set<T>().Remove(Entity); });
         }
 
-        public async Task<List<T>> SelectAsync(Expression<Func<T, bool>> Predicate)
+        public async Task<List<T>> SelectAsync(Expression<Func<T, bool>> Predicate, params Expression<Func<T, object>>[] IncludeProperties)
         {
-            return await DbContext.Set<T>().Where(Predicate).ToListAsync<T>();
+            IQueryable<T> Query = DbContext.Set<T>();
+
+            if (Predicate != null) Query = Query.Where(Predicate);
+
+            if (IncludeProperties.Any())
+            {
+                foreach (var property in IncludeProperties)
+                {
+                    Query = Query.Include(property);
+                }
+            }
+
+            return await Query.ToListAsync();
         }
     }
 }
