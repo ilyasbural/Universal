@@ -2,6 +2,6 @@
 {
     public class AnnounceLogViewModel : BaseViewModel<AnnounceLogViewModel>
     {
-        public string Name { get; set; } = String.Empty;
+        public string Note { get; set; } = String.Empty;
     }
 }

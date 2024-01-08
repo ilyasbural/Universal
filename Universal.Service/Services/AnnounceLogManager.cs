@@ -41,6 +41,7 @@
         {
             Collection = await UnitOfWork.AnnounceLog.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<AnnounceLog>(Collection[0]);
+            Data.Note = Model.Note;
             Data.UpdateDate = DateTime.Now;
             Validator.ValidateAndThrow(Data);
 

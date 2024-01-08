@@ -50,6 +50,7 @@
             Response<College> Response = JsonConvert.DeserializeObject<Response<College>>(RestResponse.Content!)!;
 
             Model.Item1.Id = Response.Collection.First().Id;
+            Model.Item1.Name = Response.Collection.First().Name;
             Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
             Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
 
@@ -60,7 +61,7 @@
         public async Task<IActionResult> Update([Bind(Prefix = "Item1")] CollegeViewModel Model)
         {
             RestRequest = new RestRequest("api/college", Method.Put);
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { Id = Model.Id, Name = Model.Name });
             RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
 

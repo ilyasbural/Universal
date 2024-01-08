@@ -34,7 +34,7 @@
         {
             RestRequest = new RestRequest("api/announcelog", Method.Post);
             RestRequest.RequestFormat = DataFormat.Json;
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { Note = Model.Note });
             RestResponse = await Client.ExecuteAsync(RestRequest);
             return RedirectToAction("Index", "AnnounceLog");
         }
@@ -47,10 +47,10 @@
             RestRequest.AddQueryParameter("Id", Id);
             RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
-            Response<Ability> Response = JsonConvert.DeserializeObject<Response<Ability>>(RestResponse.Content!)!;
+            Response<AnnounceLog> Response = JsonConvert.DeserializeObject<Response<AnnounceLog>>(RestResponse.Content!)!;
 
             Model.Item1.Id = Response.Collection.First().Id;
-            Model.Item1.Name = Response.Collection.First().Name;
+            Model.Item1.Note = Response.Collection.First().Note;
             Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
             Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
 
@@ -61,7 +61,7 @@
         public async Task<IActionResult> Update([Bind(Prefix = "Item1")] AnnounceLogViewModel Model)
         {
             RestRequest = new RestRequest("api/announcelog", Method.Put);
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { Id = Model.Id, Note = Model.Note });
             RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
 

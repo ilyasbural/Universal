@@ -34,7 +34,7 @@
         {
             RestRequest = new RestRequest("api/companydetail", Method.Post);
             RestRequest.RequestFormat = DataFormat.Json;
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { Description = Model.Description });
             RestResponse = await Client.ExecuteAsync(RestRequest);
             return RedirectToAction("Index", "CompanyDetail");
         }
@@ -47,10 +47,10 @@
             RestRequest.AddQueryParameter("Id", Id);
             RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
-            Response<Ability> Response = JsonConvert.DeserializeObject<Response<Ability>>(RestResponse.Content!)!;
+            Response<CompanyDetail> Response = JsonConvert.DeserializeObject<Response<CompanyDetail>>(RestResponse.Content!)!;
 
             Model.Item1.Id = Response.Collection.First().Id;
-            Model.Item1.Name = Response.Collection.First().Name;
+            Model.Item1.Description = Response.Collection.First().Description;
             Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
             Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
 
@@ -61,7 +61,7 @@
         public async Task<IActionResult> Update([Bind(Prefix = "Item1")] CompanyDetailViewModel Model)
         {
             RestRequest = new RestRequest("api/companydetail", Method.Put);
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { Id = Model.Id, Description = Model.Description });
             RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
 

@@ -41,6 +41,7 @@
         {
             Collection = await UnitOfWork.CompanyAbout.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<CompanyAbout>(Collection[0]);
+            Data.Description = Model.Description;
             Data.UpdateDate = DateTime.Now;
             Validator.ValidateAndThrow(Data);
 

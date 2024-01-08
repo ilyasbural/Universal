@@ -34,7 +34,7 @@
         {
             RestRequest = new RestRequest("api/user", Method.Post);
             RestRequest.RequestFormat = DataFormat.Json;
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { Email = Model.Email });
             RestResponse = await Client.ExecuteAsync(RestRequest);
             return RedirectToAction("Index", "User");
         }
@@ -50,6 +50,8 @@
             Response<User> Response = JsonConvert.DeserializeObject<Response<User>>(RestResponse.Content!)!;
 
             Model.Item1.Id = Response.Collection.First().Id;
+            Model.Item1.Email = Response.Collection.First().Email;
+            Model.Item1.Password = Response.Collection.First().Password;
             Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
             Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
 
@@ -60,7 +62,7 @@
         public async Task<IActionResult> Update([Bind(Prefix = "Item1")] UserViewModel Model)
         {
             RestRequest = new RestRequest("api/user", Method.Put);
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { Id = Model.Id, Email = Model.Email, Password = Model.Password });
             RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
 

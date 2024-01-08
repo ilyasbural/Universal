@@ -1,4 +1,6 @@
-﻿namespace Universal.Core
+﻿using System.Reflection.Emit;
+
+namespace Universal.Core
 {
     public class AnnounceDetailRegisterDto
     {
@@ -8,6 +10,7 @@
     public class AnnounceDetailUpdateDto
     {
         public Guid Id { get; set; }
+        public string Description { get; set; } = String.Empty;
     }
 
     public class AnnounceDetailDeleteDto

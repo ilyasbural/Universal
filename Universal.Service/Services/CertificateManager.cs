@@ -41,6 +41,7 @@
         {
             Collection = await UnitOfWork.Certificate.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Certificate>(Collection[0]);
+            Data.Name = Model.Name;
             Data.UpdateDate = DateTime.Now;
             Validator.ValidateAndThrow(Data);
 

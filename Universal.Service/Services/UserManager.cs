@@ -41,6 +41,8 @@
         {
             Collection = await UnitOfWork.User.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<User>(Collection[0]);
+            Data.Email = Model.Email;
+            Data.Password = Model.Password;
             Data.UpdateDate = DateTime.Now;
             Validator.ValidateAndThrow(Data);
 

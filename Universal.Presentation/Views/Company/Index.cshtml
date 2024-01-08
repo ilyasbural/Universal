@@ -25,11 +25,11 @@
                             <th>Setting</th>
                         </tr>
 
-                        @foreach (Universal.Presentation.CompanyViewModel College in Model)
+                        @foreach (Universal.Presentation.CompanyViewModel Company in Model)
                         {
                             <tr>
                                 <td><img src="img/new-product/5-small.jpg" alt="" /></td>
-                                <td>@College.Name</td>
+                                <td>@Company.Name</td>
                                 <td>
                                     <button class="pd-setting">Active</button>
                                 </td>
@@ -38,8 +38,10 @@
                                 <td>Out Of Stock</td>
                                 <td>$15</td>
                                 <td>
-                                    <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                    <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    <a href="/company/update/@Company.Id">upd</a>
+                                    <a href="/company/delete/@Company.Id">del</a>
+                                    @* <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                    <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button> *@
                                 </td>
                             </tr>
                         }
