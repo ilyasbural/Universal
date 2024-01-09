@@ -19,7 +19,12 @@
 
         public async Task<Response<UserCountry>> InsertAsync(UserCountryRegisterDto Model)
         {
+            List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
+            List<Country> CountryList = await UnitOfWork.Country.SelectAsync(x => x.Id == Model.CountryId);
+
             Data = Mapper.Map<UserCountry>(Model);
+            Data.User = UserList.FirstOrDefault(x => x.Id == Model.UserId) ?? new User();
+            Data.Country = CountryList.FirstOrDefault(x => x.Id == Model.CountryId) ?? new Country();
             Data.Id = Guid.NewGuid();
             Data.RegisterDate = DateTime.Now;
             Data.UpdateDate = DateTime.Now;
@@ -75,7 +80,7 @@
 
         public async Task<Response<UserCountry>> SelectAsync(UserCountrySelectDto Model)
         {
-            Collection = await UnitOfWork.UserCountry.SelectAsync(x => x.IsActive == true);
+            Collection = await UnitOfWork.UserCountry.SelectAsync(x => x.IsActive == true, x => x.User, x => x.Country);
             return new Response<UserCountry>
             {
                 Message = "Success",
@@ -87,7 +92,7 @@
 
         public async Task<Response<UserCountry>> SelectSingleAsync(UserCountrySelectDto Model)
         {
-            Collection = await UnitOfWork.UserCountry.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            Collection = await UnitOfWork.UserCountry.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User, x => x.Country);
             return new Response<UserCountry>
             {
                 Message = "Success",

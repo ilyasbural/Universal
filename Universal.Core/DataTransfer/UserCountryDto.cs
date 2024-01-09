@@ -2,7 +2,8 @@
 {
     public class UserCountryRegisterDto
     {
-
+        public Guid UserId { get; set; }
+        public Guid CountryId { get; set; }
     }
 
     public class UserCountryUpdateDto
