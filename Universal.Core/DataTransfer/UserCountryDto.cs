@@ -8,6 +8,8 @@
 
     public class UserCountryUpdateDto
     {
+        public Guid UserId { get; set; }
+        public Guid CountryId { get; set; }
         public Guid Id { get; set; }
     }
 

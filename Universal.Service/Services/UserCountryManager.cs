@@ -44,8 +44,12 @@
 
         public async Task<Response<UserCountry>> UpdateAsync(UserCountryUpdateDto Model)
         {
+            List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
+            List<Country> CountryList = await UnitOfWork.Country.SelectAsync(x => x.Id == Model.CountryId);
             Collection = await UnitOfWork.UserCountry.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserCountry>(Collection[0]);
+            Data.User = UserList.FirstOrDefault(x => x.Id == Model.UserId) ?? new User();
+            Data.Country = CountryList.FirstOrDefault(x => x.Id == Model.CountryId) ?? new Country();
             Data.UpdateDate = DateTime.Now;
             Validator.ValidateAndThrow(Data);
 
