@@ -21,11 +21,13 @@
         {
             Data = Mapper.Map<User>(Model);
             Data.Id = Guid.NewGuid();
+            Data.Email = Model.Email;
+            Data.Password = Model.Password;
             Data.RegisterDate = DateTime.Now;
             Data.UpdateDate = DateTime.Now;
             Data.IsActive = true;
-
             Validator.ValidateAndThrow<User>(Data);
+
             await UnitOfWork.User.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 

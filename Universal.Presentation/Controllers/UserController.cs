@@ -34,7 +34,7 @@
         {
             RestRequest = new RestRequest("api/user", Method.Post);
             RestRequest.RequestFormat = DataFormat.Json;
-            RestRequest.AddJsonBody(new { Email = Model.Email });
+            RestRequest.AddJsonBody(new { Email = Model.Email, Password = Model.Password });
             RestResponse = await Client.ExecuteAsync(RestRequest);
             return RedirectToAction("Index", "User");
         }
