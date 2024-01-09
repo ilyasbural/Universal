@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Universal.DataAccess;
 
@@ -11,9 +12,11 @@ using Universal.DataAccess;
 namespace Universal.DataAccess.Migrations
 {
     [DbContext(typeof(UniversalContext))]
-    partial class UniversalContextModelSnapshot : ModelSnapshot
+    [Migration("20240109095724_kjnjas")]
+    partial class kjnjas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -823,12 +826,7 @@ namespace Universal.DataAccess.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("DATETIME");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("UserAbout", (string)null);
                 });
@@ -1138,17 +1136,6 @@ namespace Universal.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Ability");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Universal.Core.UserAbout", b =>
-                {
-                    b.HasOne("Universal.Core.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("User");
                 });

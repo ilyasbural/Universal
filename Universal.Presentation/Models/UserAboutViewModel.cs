@@ -2,6 +2,7 @@
 {
     public class UserAboutViewModel : BaseViewModel<UserAboutViewModel>
     {
-        public string Name { get; set; } = String.Empty;
+        public UserViewModel User { get; set; } = new UserViewModel();
+        public string About { get; set; } = String.Empty;
     }
 }

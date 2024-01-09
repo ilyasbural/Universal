@@ -2,12 +2,15 @@
 {
     public class UserAboutRegisterDto
     {
-
+        public Guid UserId { get; set; }
+        public string About { get; set; } = String.Empty;
     }
 
     public class UserAboutUpdateDto
     {
+        public Guid UserId { get; set; }
         public Guid Id { get; set; }
+        public string About { get; set; } = String.Empty;
     }
 
     public class UserAboutDeleteDto
