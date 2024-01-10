@@ -23,9 +23,16 @@
             return View(ModelList);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var Model = Tuple.Create<UserNetworkViewModel, List<UserViewModel>>(new UserNetworkViewModel(), new List<UserViewModel>());
+            var Model = Tuple.Create<UserNetworkViewModel, List<UserViewModel>>
+                (new UserNetworkViewModel(), new List<UserViewModel>());
+
+            RestRequest = new RestRequest("api/user", Method.Get);
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Array = JObject.Parse(RestResponse.Content!);
+            Model.Item2.AddRange(Array["collection"]!.ToObject<List<UserViewModel>>()!);
+
             return View(Model);
         }
 
@@ -41,7 +48,13 @@
 
         public async Task<IActionResult> Update(Guid Id)
         {
-            var Model = Tuple.Create<UserNetworkViewModel>(new UserNetworkViewModel());
+            var Model = Tuple.Create<UserNetworkViewModel, List<UserViewModel>>
+                (new UserNetworkViewModel(), new List<UserViewModel>());
+
+            RestRequest = new RestRequest("api/user", Method.Get);
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Array = JObject.Parse(RestResponse.Content!);
+            Model.Item2.AddRange(Array["collection"]!.ToObject<List<UserViewModel>>()!);
 
             RestRequest = new RestRequest("api/usernetworksingle", Method.Get);
             RestRequest.AddQueryParameter("Id", Id);
@@ -49,6 +62,7 @@
             RestResponse = await Client.ExecuteAsync(RestRequest);
             Response<UserNetwork> Response = JsonConvert.DeserializeObject<Response<UserNetwork>>(RestResponse.Content!)!;
 
+            Model.Item1.User.Id = Response.Collection.First().User.Id;
             Model.Item1.Id = Response.Collection.First().Id;
             Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
             Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
@@ -60,7 +74,7 @@
         public async Task<IActionResult> Update([Bind(Prefix = "Item1")] UserNetworkViewModel Model)
         {
             RestRequest = new RestRequest("api/usernetwork", Method.Put);
-            RestRequest.AddJsonBody(new { UserId = Model.User.Id });
+            RestRequest.AddJsonBody(new { UserId = Model.User.Id, Id = Model.Id });
             RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
 

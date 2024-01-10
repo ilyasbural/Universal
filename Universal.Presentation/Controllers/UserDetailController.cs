@@ -25,7 +25,8 @@
 
         public async Task<IActionResult> Create()
         {
-            var Model = Tuple.Create<UserDetailViewModel, List<UserViewModel>>(new UserDetailViewModel(), new List<UserViewModel>());
+            var Model = Tuple.Create<UserDetailViewModel, List<UserViewModel>>
+                (new UserDetailViewModel(), new List<UserViewModel>());
 
             RestRequest = new RestRequest("api/user", Method.Get);
             RestResponse = await Client.ExecuteAsync(RestRequest);
@@ -47,7 +48,8 @@
 
         public async Task<IActionResult> Update(Guid Id)
         {
-            var Model = Tuple.Create<UserDetailViewModel, List<UserViewModel>>(new UserDetailViewModel(), new List<UserViewModel>());
+            var Model = Tuple.Create<UserDetailViewModel, List<UserViewModel>>
+                (new UserDetailViewModel(), new List<UserViewModel>());
 
             RestRequest = new RestRequest("api/user", Method.Get);
             RestResponse = await Client.ExecuteAsync(RestRequest);

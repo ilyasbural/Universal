@@ -23,9 +23,16 @@
             return View(ModelList);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var Model = Tuple.Create<UserEducationViewModel, List<UserViewModel>>(new UserEducationViewModel(), new List<UserViewModel>());
+            var Model = Tuple.Create<UserEducationViewModel, List<UserViewModel>>
+                (new UserEducationViewModel(), new List<UserViewModel>());
+
+            RestRequest = new RestRequest("api/user", Method.Get);
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Array = JObject.Parse(RestResponse.Content!);
+            Model.Item2.AddRange(Array["collection"]!.ToObject<List<UserViewModel>>()!);
+
             return View(Model);
         } 
 
@@ -41,7 +48,13 @@
 
         public async Task<IActionResult> Update(Guid Id)
         {
-            var Model = Tuple.Create<UserEducationViewModel>(new UserEducationViewModel());
+            var Model = Tuple.Create<UserExperienceViewModel, List<UserViewModel>>
+                (new UserExperienceViewModel(), new List<UserViewModel>());
+
+            RestRequest = new RestRequest("api/user", Method.Get);
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Array = JObject.Parse(RestResponse.Content!);
+            Model.Item2.AddRange(Array["collection"]!.ToObject<List<UserViewModel>>()!);
 
             RestRequest = new RestRequest("api/usereducationsingle", Method.Get);
             RestRequest.RequestFormat = DataFormat.Json;
@@ -49,6 +62,7 @@
             RestResponse = await Client.ExecuteAsync(RestRequest);
             Response<UserEducation> Response = JsonConvert.DeserializeObject<Response<UserEducation>>(RestResponse.Content!)!;
 
+            Model.Item1.User.Id = Response.Collection.First().User.Id;
             Model.Item1.Id = Response.Collection.First().Id;
             Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
             Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
@@ -60,7 +74,7 @@
         public async Task<IActionResult> Update([Bind(Prefix = "Item1")] UserEducationViewModel Model)
         {
             RestRequest = new RestRequest("api/usereducation", Method.Put);
-            RestRequest.AddJsonBody(new { UserId = Model.User.Id });
+            RestRequest.AddJsonBody(new { UserId = Model.User.Id, Id = Model.Id });
             RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
 
