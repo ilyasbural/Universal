@@ -20,9 +20,11 @@
         public async Task<Response<UserLanguage>> InsertAsync(UserLanguageRegisterDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
+            List<Language> LanguageList = await UnitOfWork.Language.SelectAsync(x => x.Id == Model.LanguageId);
 
             Data = Mapper.Map<UserLanguage>(Model);
             Data.User = UserList.FirstOrDefault(x => x.Id == Model.UserId) ?? new User();
+            Data.Language = LanguageList.FirstOrDefault(x => x.Id == Model.LanguageId) ?? new Language();
             Data.Id = Guid.NewGuid();
             Data.RegisterDate = DateTime.Now;
             Data.UpdateDate = DateTime.Now;
@@ -43,9 +45,11 @@
         public async Task<Response<UserLanguage>> UpdateAsync(UserLanguageUpdateDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
+            List<Language> LanguageList = await UnitOfWork.Language.SelectAsync(x => x.Id == Model.LanguageId);
             Collection = await UnitOfWork.UserLanguage.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserLanguage>(Collection[0]);
             Data.User = UserList.FirstOrDefault(x => x.Id == Model.UserId) ?? new User();
+            Data.Language = LanguageList.FirstOrDefault(x => x.Id == Model.LanguageId) ?? new Language();
             Data.UpdateDate = DateTime.Now;
             Validator.ValidateAndThrow(Data);
 
@@ -80,7 +84,7 @@
 
         public async Task<Response<UserLanguage>> SelectAsync(UserLanguageSelectDto Model)
         {
-            Collection = await UnitOfWork.UserLanguage.SelectAsync(x => x.IsActive == true, x => x.User);
+            Collection = await UnitOfWork.UserLanguage.SelectAsync(x => x.IsActive == true, x => x.User, x => x.Language);
             return new Response<UserLanguage>
             {
                 Message = "Success",
@@ -92,7 +96,7 @@
 
         public async Task<Response<UserLanguage>> SelectSingleAsync(UserLanguageSelectDto Model)
         {
-            Collection = await UnitOfWork.UserLanguage.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
+            Collection = await UnitOfWork.UserLanguage.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User, x => x.Language);
             return new Response<UserLanguage>
             {
                 Message = "Success",
