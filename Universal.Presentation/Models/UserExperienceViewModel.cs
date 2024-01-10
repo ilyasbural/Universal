@@ -2,6 +2,6 @@
 {
     public class UserExperienceViewModel : BaseViewModel<UserExperienceViewModel>
     {
-        public string Name { get; set; } = String.Empty;
+        public UserViewModel User { get; set; } = new UserViewModel();
     }
 }

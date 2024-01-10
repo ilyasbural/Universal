@@ -2,11 +2,12 @@
 {
     public class UserLanguageRegisterDto
     {
-
+        public Guid UserId { get; set; }
     }
 
     public class UserLanguageUpdateDto
     {
+        public Guid UserId { get; set; }
         public Guid Id { get; set; }
     }
 

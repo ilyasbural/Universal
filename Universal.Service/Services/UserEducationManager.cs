@@ -19,7 +19,10 @@
 
         public async Task<Response<UserEducation>> InsertAsync(UserEducationRegisterDto Model)
         {
+            List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
+
             Data = Mapper.Map<UserEducation>(Model);
+            Data.User = UserList.FirstOrDefault(x => x.Id == Model.UserId) ?? new User();
             Data.Id = Guid.NewGuid();
             Data.RegisterDate = DateTime.Now;
             Data.UpdateDate = DateTime.Now;
@@ -39,8 +42,10 @@
 
         public async Task<Response<UserEducation>> UpdateAsync(UserEducationUpdateDto Model)
         {
+            List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             Collection = await UnitOfWork.UserEducation.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserEducation>(Collection[0]);
+            Data.User = UserList.FirstOrDefault(x => x.Id == Model.UserId) ?? new User();
             Data.UpdateDate = DateTime.Now;
             Validator.ValidateAndThrow(Data);
 
@@ -75,7 +80,7 @@
 
         public async Task<Response<UserEducation>> SelectAsync(UserEducationSelectDto Model)
         {
-            Collection = await UnitOfWork.UserEducation.SelectAsync(x => x.IsActive == true);
+            Collection = await UnitOfWork.UserEducation.SelectAsync(x => x.IsActive == true, x => x.User);
             return new Response<UserEducation>
             {
                 Message = "Success",
@@ -87,7 +92,7 @@
 
         public async Task<Response<UserEducation>> SelectSingleAsync(UserEducationSelectDto Model)
         {
-            Collection = await UnitOfWork.UserEducation.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            Collection = await UnitOfWork.UserEducation.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
             return new Response<UserEducation>
             {
                 Message = "Success",

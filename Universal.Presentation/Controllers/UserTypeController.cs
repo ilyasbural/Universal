@@ -25,7 +25,7 @@
 
         public IActionResult Create()
         {
-            var Model = Tuple.Create<UserTypeViewModel>(new UserTypeViewModel());
+            var Model = Tuple.Create<UserTypeViewModel, List<UserViewModel>>(new UserTypeViewModel(), new List<UserViewModel>());
             return View(Model);
         }
 
@@ -34,7 +34,7 @@
         {
             RestRequest = new RestRequest("api/usertype", Method.Post);
             RestRequest.RequestFormat = DataFormat.Json;
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { UserId = Model.User.Id });
             RestResponse = await Client.ExecuteAsync(RestRequest);
             return RedirectToAction("Index", "UserType");
         }
@@ -60,7 +60,7 @@
         public async Task<IActionResult> Update([Bind(Prefix = "Item1")] UserTypeViewModel Model)
         {
             RestRequest = new RestRequest("api/usertype", Method.Put);
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { UserId = Model.User.Id });
             RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
 

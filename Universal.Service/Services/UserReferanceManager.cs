@@ -19,7 +19,10 @@
 
         public async Task<Response<UserReferance>> InsertAsync(UserReferanceRegisterDto Model)
         {
+            List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
+
             Data = Mapper.Map<UserReferance>(Model);
+            Data.User = UserList.FirstOrDefault(x => x.Id == Model.UserId) ?? new User();
             Data.Id = Guid.NewGuid();
             Data.RegisterDate = DateTime.Now;
             Data.UpdateDate = DateTime.Now;
@@ -39,8 +42,10 @@
 
         public async Task<Response<UserReferance>> UpdateAsync(UserReferanceUpdateDto Model)
         {
+            List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             Collection = await UnitOfWork.UserReferance.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserReferance>(Collection[0]);
+            Data.User = UserList.FirstOrDefault(x => x.Id == Model.UserId) ?? new User();
             Data.UpdateDate = DateTime.Now;
             Validator.ValidateAndThrow(Data);
 
@@ -75,7 +80,7 @@
 
         public async Task<Response<UserReferance>> SelectAsync(UserReferanceSelectDto Model)
         {
-            Collection = await UnitOfWork.UserReferance.SelectAsync(x => x.IsActive == true);
+            Collection = await UnitOfWork.UserReferance.SelectAsync(x => x.IsActive == true, x => x.User);
             return new Response<UserReferance>
             {
                 Message = "Success",
@@ -87,7 +92,7 @@
 
         public async Task<Response<UserReferance>> SelectSingleAsync(UserReferanceSelectDto Model)
         {
-            Collection = await UnitOfWork.UserReferance.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            Collection = await UnitOfWork.UserReferance.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
             return new Response<UserReferance>
             {
                 Message = "Success",

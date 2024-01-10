@@ -2,11 +2,12 @@
 {
     public class UserNetworkRegisterDto
     {
-
+        public Guid UserId { get; set; }
     }
 
     public class UserNetworkUpdateDto
     {
+        public Guid UserId { get; set; }
         public Guid Id { get; set; }
     }
 

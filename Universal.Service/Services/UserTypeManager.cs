@@ -19,7 +19,10 @@
 
         public async Task<Response<UserType>> InsertAsync(UserTypeRegisterDto Model)
         {
+            List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
+
             Data = Mapper.Map<UserType>(Model);
+            Data.User = UserList.FirstOrDefault(x => x.Id == Model.UserId) ?? new User();
             Data.Id = Guid.NewGuid();
             Data.RegisterDate = DateTime.Now;
             Data.UpdateDate = DateTime.Now;
@@ -39,8 +42,10 @@
 
         public async Task<Response<UserType>> UpdateAsync(UserTypeUpdateDto Model)
         {
+            List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             Collection = await UnitOfWork.UserType.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserType>(Collection[0]);
+            Data.User = UserList.FirstOrDefault(x => x.Id == Model.UserId) ?? new User();
             Data.UpdateDate = DateTime.Now;
             Validator.ValidateAndThrow(Data);
 
@@ -75,7 +80,7 @@
 
         public async Task<Response<UserType>> SelectAsync(UserTypeSelectDto Model)
         {
-            Collection = await UnitOfWork.UserType.SelectAsync(x => x.IsActive == true);
+            Collection = await UnitOfWork.UserType.SelectAsync(x => x.IsActive == true, x => x.User);
             return new Response<UserType>
             {
                 Message = "Success",
@@ -87,7 +92,7 @@
 
         public async Task<Response<UserType>> SelectSingleAsync(UserTypeSelectDto Model)
         {
-            Collection = await UnitOfWork.UserType.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            Collection = await UnitOfWork.UserType.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
             return new Response<UserType>
             {
                 Message = "Success",

@@ -2,11 +2,12 @@
 {
     public class UserExperienceRegisterDto
     {
-
+        public Guid UserId { get; set; }
     }
 
     public class UserExperienceUpdateDto
     {
+        public Guid UserId { get; set; }
         public Guid Id { get; set; }
     }
 

@@ -2,6 +2,6 @@
 {
     public class UserProjectViewModel : BaseViewModel<UserProjectViewModel>
     {
-        public string Name { get; set; } = String.Empty;
+        public UserViewModel User { get; set; } = new UserViewModel();
     }
 }

@@ -2,11 +2,12 @@
 {
     public class UserFollowerRegisterDto
     {
-
+        public Guid UserId { get; set; }
     }
 
     public class UserFollowerUpdateDto
     {
+        public Guid UserId { get; set; }
         public Guid Id { get; set; }
     }
 

@@ -25,7 +25,7 @@
 
         public IActionResult Create()
         {
-            var Model = Tuple.Create<UserReferanceViewModel>(new UserReferanceViewModel());
+            var Model = Tuple.Create<UserReferanceViewModel, List<UserViewModel>>(new UserReferanceViewModel(), new List<UserViewModel>());
             return View(Model);
         }
 
@@ -34,7 +34,7 @@
         {
             RestRequest = new RestRequest("api/userreferance", Method.Post);
             RestRequest.RequestFormat = DataFormat.Json;
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { UserId = Model.User.Id });
             RestResponse = await Client.ExecuteAsync(RestRequest);
             return RedirectToAction("Index", "UserReferance");
         }
@@ -60,7 +60,7 @@
         public async Task<IActionResult> Update([Bind(Prefix = "Item1")] UserReferanceViewModel Model)
         {
             RestRequest = new RestRequest("api/userreferance", Method.Put);
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { UserId = Model.User.Id });
             RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
 

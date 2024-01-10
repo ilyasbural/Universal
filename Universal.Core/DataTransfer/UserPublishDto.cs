@@ -2,11 +2,12 @@
 {
     public class UserPublishRegisterDto
     {
-
+        public Guid UserId { get; set; }
     }
 
     public class UserPublishUpdateDto
     {
+        public Guid UserId { get; set; }
         public Guid Id { get; set; }
     }
 

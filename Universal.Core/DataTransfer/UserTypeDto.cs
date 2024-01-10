@@ -2,11 +2,12 @@
 {
     public class UserTypeRegisterDto
     {
-
+        public Guid UserId { get; set; }
     }
 
     public class UserTypeUpdateDto
     {
+        public Guid UserId { get; set; }
         public Guid Id { get; set; }
     }
 
