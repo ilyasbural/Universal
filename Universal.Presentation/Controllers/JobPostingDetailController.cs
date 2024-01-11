@@ -6,7 +6,6 @@
     using Newtonsoft.Json.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
-    using System.Collections.Generic;
 
     public class JobPostingDetailController : BaseController<JobPostingDetailViewModel>
     {

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Universal.DataAccess;
 
@@ -11,9 +12,11 @@ using Universal.DataAccess;
 namespace Universal.DataAccess.Migrations
 {
     [DbContext(typeof(UniversalContext))]
-    partial class UniversalContextModelSnapshot : ModelSnapshot
+    [Migration("20240111145955_retıertueıor")]
+    partial class retıertueıor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -708,10 +711,6 @@ namespace Universal.DataAccess.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("DATETIME");
 
@@ -735,15 +734,10 @@ namespace Universal.DataAccess.Migrations
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("DATETIME");
 
-                    b.Property<Guid>("SurveyId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("DATETIME");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SurveyId");
 
                     b.ToTable("SurveyDetail", (string)null);
                 });
@@ -760,15 +754,10 @@ namespace Universal.DataAccess.Migrations
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("DATETIME");
 
-                    b.Property<Guid>("SurveyId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("DATETIME");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SurveyId");
 
                     b.ToTable("SurveyHistory", (string)null);
                 });
@@ -785,15 +774,10 @@ namespace Universal.DataAccess.Migrations
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("DATETIME");
 
-                    b.Property<Guid>("SurveyId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("DATETIME");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SurveyId");
 
                     b.ToTable("SurveyLog", (string)null);
                 });
@@ -1308,39 +1292,6 @@ namespace Universal.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Network");
-                });
-
-            modelBuilder.Entity("Universal.Core.SurveyDetail", b =>
-                {
-                    b.HasOne("Universal.Core.Survey", "Survey")
-                        .WithMany()
-                        .HasForeignKey("SurveyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Survey");
-                });
-
-            modelBuilder.Entity("Universal.Core.SurveyHistory", b =>
-                {
-                    b.HasOne("Universal.Core.Survey", "Survey")
-                        .WithMany()
-                        .HasForeignKey("SurveyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Survey");
-                });
-
-            modelBuilder.Entity("Universal.Core.SurveyLog", b =>
-                {
-                    b.HasOne("Universal.Core.Survey", "Survey")
-                        .WithMany()
-                        .HasForeignKey("SurveyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Survey");
                 });
 
             modelBuilder.Entity("Universal.Core.UserAbility", b =>
