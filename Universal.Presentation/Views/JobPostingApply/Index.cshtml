@@ -29,7 +29,7 @@
                         {
                             <tr>
                                 <td><img src="img/new-product/5-small.jpg" alt="" /></td>
-                                <td>@JobPostingApply.Name</td>
+                                <td></td>
                                 <td>
                                     <button class="pd-setting">Active</button>
                                 </td>
@@ -38,8 +38,10 @@
                                 <td>Out Of Stock</td>
                                 <td>$15</td>
                                 <td>
-                                    <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                    <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    <a href="/jobpostingapply/update/@JobPostingApply.Id">upd</a>
+                                    <a href="/jobpostingapply/delete/@JobPostingApply.Id">del</a>
+                                    @* <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                    <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button> *@
                                 </td>
                             </tr>
                         }

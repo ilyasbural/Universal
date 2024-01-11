@@ -2,11 +2,12 @@
 {
     public class JobPostingDetailRegisterDto
     {
-
+        public Guid JobPostingId { get; set; }
     }
 
     public class JobPostingDetailUpdateDto
     {
+        public Guid JobPostingId { get; set; }
         public Guid Id { get; set; }
     }
 

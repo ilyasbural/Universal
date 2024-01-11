@@ -23,9 +23,16 @@
             return View(ModelList);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var Model = Tuple.Create<JobPostingApplyViewModel>(new JobPostingApplyViewModel());
+            var Model = Tuple.Create<JobPostingApplyViewModel, List<JobPostingViewModel>>
+                (new JobPostingApplyViewModel(), new List<JobPostingViewModel>());
+
+            RestRequest = new RestRequest("api/jobposting", Method.Get);
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Array = JObject.Parse(RestResponse.Content!);
+            Model.Item2.AddRange(Array["collection"]!.ToObject<List<JobPostingViewModel>>()!);
+
             return View(Model);
         }
 
@@ -34,7 +41,7 @@
         {
             RestRequest = new RestRequest("api/jobpostingapply", Method.Post);
             RestRequest.RequestFormat = DataFormat.Json;
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { JobPostingId = Model.JobPosting.Id });
             RestResponse = await Client.ExecuteAsync(RestRequest);
             return RedirectToAction("Index", "Announce");
         }
@@ -60,7 +67,7 @@
         public async Task<IActionResult> Update([Bind(Prefix = "Item1")] JobPostingApplyViewModel Model)
         {
             RestRequest = new RestRequest("api/jobpostingapply", Method.Put);
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { JobPostingId = Model.JobPosting.Id, Id = Model.Id });
             RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
 

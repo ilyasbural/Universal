@@ -19,14 +19,14 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="all-form-element-inner">
-                                        <form action="#">
+                                        <form asp-controller="UserReferance" asp-action="Update" method="post">
                                             <div class="form-group-inner">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                                         <label class="login2 pull-right pull-right-pro">Normal</label>
                                                     </div>
                                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                        <input type="text" class="form-control" />
+                                                        @Html.DropDownListFor(Model => Model.Item1.User.Id, new SelectList(Model.Item2, "Id", "Email"), "Seçilmedi", new { @class = "form-control custom-select-value" })
                                                     </div>
                                                 </div>
                                             </div>

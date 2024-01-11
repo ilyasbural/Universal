@@ -2,12 +2,13 @@
 {
     public class JobPostingRegisterDto
     {
-
+        public string Name { get; set; } = String.Empty;
     }
 
     public class JobPostingUpdateDto
     {
         public Guid Id { get; set; }
+        public string Name { get; set; } = String.Empty;
     }
 
     public class JobPostingDeleteDto

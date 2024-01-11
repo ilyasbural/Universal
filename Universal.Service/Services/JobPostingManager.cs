@@ -41,6 +41,7 @@
         {
             Collection = await UnitOfWork.JobPosting.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<JobPosting>(Collection[0]);
+            Data.Name = Model.Name;
             Data.UpdateDate = DateTime.Now;
             Validator.ValidateAndThrow(Data);
 

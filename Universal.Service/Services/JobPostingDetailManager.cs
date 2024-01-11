@@ -19,7 +19,10 @@
 
         public async Task<Response<JobPostingDetail>> InsertAsync(JobPostingDetailRegisterDto Model)
         {
+            List<JobPosting> JobPostingList = await UnitOfWork.JobPosting.SelectAsync(x => x.Id == Model.JobPostingId);
+
             Data = Mapper.Map<JobPostingDetail>(Model);
+            Data.JobPosting = JobPostingList.FirstOrDefault(x => x.Id == Model.JobPostingId) ?? new JobPosting();
             Data.Id = Guid.NewGuid();
             Data.RegisterDate = DateTime.Now;
             Data.UpdateDate = DateTime.Now;
@@ -39,8 +42,10 @@
 
         public async Task<Response<JobPostingDetail>> UpdateAsync(JobPostingDetailUpdateDto Model)
         {
+            List<JobPosting> JobPostingList = await UnitOfWork.JobPosting.SelectAsync(x => x.Id == Model.JobPostingId);
             Collection = await UnitOfWork.JobPostingDetail.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<JobPostingDetail>(Collection[0]);
+            Data.JobPosting = JobPostingList.FirstOrDefault(x => x.Id == Model.JobPostingId) ?? new JobPosting();
             Data.UpdateDate = DateTime.Now;
             Validator.ValidateAndThrow(Data);
 
@@ -75,7 +80,7 @@
 
         public async Task<Response<JobPostingDetail>> SelectAsync(JobPostingDetailSelectDto Model)
         {
-            Collection = await UnitOfWork.JobPostingDetail.SelectAsync(x => x.IsActive == true);
+            Collection = await UnitOfWork.JobPostingDetail.SelectAsync(x => x.IsActive == true, x => x.JobPosting);
             return new Response<JobPostingDetail>
             {
                 Message = "Success",
@@ -87,7 +92,7 @@
 
         public async Task<Response<JobPostingDetail>> SelectSingleAsync(JobPostingDetailSelectDto Model)
         {
-            Collection = await UnitOfWork.JobPostingDetail.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            Collection = await UnitOfWork.JobPostingDetail.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.JobPosting);
             return new Response<JobPostingDetail>
             {
                 Message = "Success",

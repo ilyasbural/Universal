@@ -6,6 +6,7 @@
     using Newtonsoft.Json.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
+    using System.Collections.Generic;
 
     public class JobPostingDetailController : BaseController<JobPostingDetailViewModel>
     {
@@ -23,9 +24,16 @@
             return View(ModelList);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var Model = Tuple.Create<JobPostingDetailViewModel>(new JobPostingDetailViewModel());
+            var Model = Tuple.Create<JobPostingDetailViewModel, List<JobPostingViewModel>>
+                (new JobPostingDetailViewModel(), new List<JobPostingViewModel>());
+
+            RestRequest = new RestRequest("api/jobposting", Method.Get);
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Array = JObject.Parse(RestResponse.Content!);
+            Model.Item2.AddRange(Array["collection"]!.ToObject<List<JobPostingViewModel>>()!);
+
             return View(Model);
         }
 
@@ -34,14 +42,20 @@
         {
             RestRequest = new RestRequest("api/jobpostingdetail", Method.Post);
             RestRequest.RequestFormat = DataFormat.Json;
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { JobPostingId = Model.JobPosting.Id });
             RestResponse = await Client.ExecuteAsync(RestRequest);
             return RedirectToAction("Index", "JobPostingDetail");
         }
 
         public async Task<IActionResult> Update(Guid Id)
         {
-            var Model = Tuple.Create<JobPostingDetailViewModel>(new JobPostingDetailViewModel());
+            var Model = Tuple.Create<JobPostingDetailViewModel, List<JobPostingViewModel>>
+                (new JobPostingDetailViewModel(), new List<JobPostingViewModel>());
+
+            RestRequest = new RestRequest("api/jobposting", Method.Get);
+            RestResponse = await Client.ExecuteAsync(RestRequest);
+            Array = JObject.Parse(RestResponse.Content!);
+            Model.Item2.AddRange(Array["collection"]!.ToObject<List<JobPostingViewModel>>()!);
 
             RestRequest = new RestRequest("api/jobpostingdetailsingle", Method.Get);
             RestRequest.AddQueryParameter("Id", Id);
@@ -49,6 +63,7 @@
             RestResponse = await Client.ExecuteAsync(RestRequest);
             Response<JobPostingDetail> Response = JsonConvert.DeserializeObject<Response<JobPostingDetail>>(RestResponse.Content!)!;
 
+            Model.Item1.JobPosting.Id = Response.Collection.First().JobPosting.Id;
             Model.Item1.Id = Response.Collection.First().Id;
             Model.Item1.RegisterDate = Response.Collection.First().RegisterDate;
             Model.Item1.UpdateDate = Response.Collection.First().UpdateDate;
@@ -60,7 +75,7 @@
         public async Task<IActionResult> Update([Bind(Prefix = "Item1")] JobPostingDetailViewModel Model)
         {
             RestRequest = new RestRequest("api/jobpostingdetail", Method.Put);
-            RestRequest.AddJsonBody(new { Name = Model.Name });
+            RestRequest.AddJsonBody(new { JobPostingId = Model.JobPosting.Id, Id = Model.Id });
             RestRequest.RequestFormat = DataFormat.Json;
             RestResponse = await Client.ExecuteAsync(RestRequest);
 

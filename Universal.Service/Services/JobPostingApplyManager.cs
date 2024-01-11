@@ -75,7 +75,7 @@
 
         public async Task<Response<JobPostingApply>> SelectAsync(JobPostingApplySelectDto Model)
         {
-            Collection = await UnitOfWork.JobPostingApply.SelectAsync(x => x.IsActive == true);
+            Collection = await UnitOfWork.JobPostingApply.SelectAsync(x => x.IsActive == true, x => x.JobPosting);
             return new Response<JobPostingApply>
             {
                 Message = "Success",
@@ -87,7 +87,7 @@
 
         public async Task<Response<JobPostingApply>> SelectSingleAsync(JobPostingApplySelectDto Model)
         {
-            Collection = await UnitOfWork.JobPostingApply.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
+            Collection = await UnitOfWork.JobPostingApply.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.JobPosting);
             return new Response<JobPostingApply>
             {
                 Message = "Success",

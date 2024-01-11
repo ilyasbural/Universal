@@ -2,7 +2,7 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
-@model Tuple<JobPostingDetailViewModel>
+@model Tuple<JobPostingDetailViewModel, List<JobPostingViewModel>>
 
 <div class="basic-form-area mg-tb-15">
     <div class="container-fluid">
@@ -26,7 +26,7 @@
                                                         <label class="login2 pull-right pull-right-pro">Normal</label>
                                                     </div>
                                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                        <input type="text" class="form-control" />
+                                                        @Html.DropDownListFor(Model => Model.Item1.JobPosting.Id, new SelectList(Model.Item2, "Id", "Name"), "Seçilmedi", new { @class = "form-control custom-select-value" })
                                                     </div>
                                                 </div>
                                             </div>
