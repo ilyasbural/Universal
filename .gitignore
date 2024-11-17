@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/Universal/v17
+/Universal.Platform/bin/Debug/net9.0
+/Universal.Platform/obj
+/.vs/Universal
