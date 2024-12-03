@@ -13,3 +13,6 @@
 /Universal.Service/obj
 /Universal.Common/bin/Debug/net9.0
 /Universal.Common/obj
+/.vs
+/Universal.Presentation/bin/Debug/net9.0
+/Universal.Presentation/obj
