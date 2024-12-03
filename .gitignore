@@ -6,3 +6,4 @@
 /.vs/Universal/FileContentIndex
 /Universal.Core/bin/Debug/net9.0
 /Universal.Core/obj
+*.user
