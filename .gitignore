@@ -16,3 +16,5 @@
 /.vs
 /Universal.Presentation/bin/Debug/net9.0
 /Universal.Presentation/obj
+/Universal.Platform/bin/Debug/net9.0
+/Universal.Platform/obj
