@@ -7,3 +7,5 @@
 /Universal.Core/bin/Debug/net9.0
 /Universal.Core/obj
 *.user
+/Universal.DataAccess/obj
+/Universal.DataAccess/bin/Debug/net9.0
