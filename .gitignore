@@ -9,3 +9,5 @@
 *.user
 /Universal.DataAccess/obj
 /Universal.DataAccess/bin/Debug/net9.0
+/Universal.Service/bin/Debug/net9.0
+/Universal.Service/obj
