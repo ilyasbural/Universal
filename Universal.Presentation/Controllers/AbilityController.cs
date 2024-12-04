@@ -1,19 +1,18 @@
 ﻿namespace Universal.Presentation.Controllers
 {
-    using Core;
-    using Common;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
+	using Core;
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Authorization;
 
-    [ApiController]
-    public class AbilityController : ControllerBase
-    {
-        readonly IOccupationService Service;
+	[ApiController]
+	public class AbilityController : ControllerBase
+	{
+		readonly IOccupationService Service;
 
-        public AbilityController(IOccupationService service)
-        {
-            Service = service;
-        }
+		public AbilityController(IOccupationService service)
+		{
+			Service = service;
+		}
 
 		[HttpPost]
 		[Authorize]
