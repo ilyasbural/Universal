@@ -2,10 +2,10 @@
 {
     public interface IManagementEmailService
     {
-        Task<Response<ManagementEmail>> InsertAsync(ManagementEmailRegisterDto Model);
-        Task<Response<ManagementEmail>> UpdateAsync(ManagementEmailUpdateDto Model);
-        Task<Response<ManagementEmail>> DeleteAsync(ManagementEmailDeleteDto Model);
-        Task<Response<ManagementEmail>> SelectAsync(ManagementEmailSelectDto Model);
-        Task<Response<ManagementEmail>> SelectSingleAsync(ManagementEmailSelectDto Model);
+        Task<Common.Response<Common.ManagementEmailResponse>> InsertAsync(ManagementEmailRegisterDto Model);
+        Task<Common.Response<Common.ManagementEmailResponse>> UpdateAsync(ManagementEmailUpdateDto Model);
+        Task<Common.Response<Common.ManagementEmailResponse>> DeleteAsync(ManagementEmailDeleteDto Model);
+        Task<Common.Response<Common.ManagementEmailResponse>> SelectAsync(ManagementEmailSelectDto Model);
+        Task<Common.Response<Common.ManagementEmailResponse>> SelectSingleAsync(ManagementEmailSelectDto Model);
     }
 }
