@@ -46,7 +46,7 @@
             Validator.ValidateAndThrow(Data);
 
             await UnitOfWork.Ability.UpdateAsync(Data);
-            int i = await UnitOfWork.SaveChangesAsync();
+            int status = await UnitOfWork.SaveChangesAsync();
 
             return new Response<AbilityResponse>
             {
