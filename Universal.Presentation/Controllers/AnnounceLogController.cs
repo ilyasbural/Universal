@@ -1,88 +1,71 @@
 ﻿namespace Universal.Presentation.Controllers
 {
 	using Core;
+	using Common;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Authorization;
 
 	[ApiController]
 	public class AnnounceLogController : ControllerBase
 	{
-		readonly IOrganizationService Service;
+		readonly IAnnounceLogService Service;
 
-		public AnnounceLogController(IOrganizationService service)
+		public AnnounceLogController(IAnnounceLogService service)
 		{
 			Service = service;
 		}
 
 		[HttpPost]
-		[Authorize]
-		[Route("api/organization")]
-		public async Task<Response<OrganizationResponse>> Create([FromBody] OrganizationRegisterDto Model)
+		[Route("api/announcelog")]
+		public async Task<Response<AnnounceLogResponse>> Create([FromBody] AnnounceLogRegisterDto Model)
 		{
-			Response<OrganizationResponse> Response = await Service.InsertAsync(Model);
-			return new Response<OrganizationResponse>
+			Response<AnnounceLogResponse> Response = await Service.InsertAsync(Model);
+			return new Response<AnnounceLogResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Authorize]
-		[Route("api/organization")]
-		public async Task<Response<OrganizationResponse>> Update([FromBody] OrganizationUpdateDto Model)
+		[Route("api/announcelog")]
+		public async Task<Response<AnnounceLogResponse>> Update([FromBody] AnnounceLogUpdateDto Model)
 		{
-			Response<OrganizationResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<OrganizationResponse>
+			Response<AnnounceLogResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<AnnounceLogResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Authorize]
-		[Route("api/organization")]
-		public async Task<Response<OrganizationResponse>> Delete([FromBody] OrganizationDeleteDto Model)
+		[Route("api/announcelog")]
+		public async Task<Response<AnnounceLogResponse>> Delete([FromBody] AnnounceLogDeleteDto Model)
 		{
-			Response<OrganizationResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<OrganizationResponse>
+			Response<AnnounceLogResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<AnnounceLogResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/organization")]
-		public async Task<Response<OrganizationResponse>> Get([FromQuery] OrganizationSelectDto Model)
+		[Route("api/announcelog")]
+		public async Task<Response<AnnounceLogResponse>> Get([FromQuery] AnnounceLogSelectDto Model)
 		{
-			Response<OrganizationResponse> Response = await Service.SelectAsync(Model);
-			return new Response<OrganizationResponse>
+			Response<AnnounceLogResponse> Response = await Service.SelectAsync(Model);
+			return new Response<AnnounceLogResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/organizationsingle")]
-		public async Task<Response<OrganizationResponse>> GetSingle([FromQuery] OrganizationSelectDto Model)
+		[Route("api/announcelogsingle")]
+		public async Task<Response<AnnounceLogResponse>> GetSingle([FromQuery] AnnounceLogSelectDto Model)
 		{
-			Response<OrganizationResponse> Response = await Service.SelectSingleAsync(Model);
-			return new Response<OrganizationResponse>
+			Response<AnnounceLogResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<AnnounceLogResponse>
 			{
-				DataSource = Response.DataSource
-			};
-		}
-
-		[HttpGet]
-		[Authorize]
-		[Route("api/organizationcount")]
-		public async Task<Response<OrganizationResponse>> GetCount([FromQuery] OrganizationSelectDto Model)
-		{
-			Response<OrganizationResponse> Response = await Service.SelectCountAsync(Model);
-			return new Response<OrganizationResponse>
-			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

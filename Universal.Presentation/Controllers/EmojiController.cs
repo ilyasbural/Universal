@@ -3,76 +3,59 @@
 	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Authorization;
 
 	[ApiController]
     public class EmojiController : ControllerBase
     {
-        readonly IOrganizationUserService Service;
+        readonly IEmojiService Service;
 
-        public EmojiController(IOrganizationUserService service)
+        public EmojiController(IEmojiService service)
         {
             Service = service;
         }
 
         [HttpPost]
-        [Authorize]
-        [Route("api/organizationuser")]
-        public async Task<Response<OrganizationUserResponse>> Create([FromBody] OrganizationUserRegisterDto Model)
+        [Route("api/emoji")]
+        public async Task<Response<EmojiResponse>> Create([FromBody] EmojiRegisterDto Model)
         {
-            Response<OrganizationUserResponse> Response = await Service.InsertAsync(Model);
-            return new Response<OrganizationUserResponse>
+            Response<EmojiResponse> Response = await Service.InsertAsync(Model);
+            return new Response<EmojiResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpPut]
-        [Authorize]
-        [Route("api/organizationuser")]
-        public async Task<Response<OrganizationUserResponse>> Update([FromBody] OrganizationUserUpdateDto Model)
+        [Route("api/emoji")]
+        public async Task<Response<EmojiResponse>> Update([FromBody] EmojiUpdateDto Model)
         {
-            Response<OrganizationUserResponse> Response = await Service.UpdateAsync(Model);
-            return new Response<OrganizationUserResponse>
+            Response<EmojiResponse> Response = await Service.UpdateAsync(Model);
+            return new Response<EmojiResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpDelete]
-        [Authorize]
-        [Route("api/organizationuser")]
-        public async Task<Response<OrganizationUserResponse>> Delete([FromBody] OrganizationUserDeleteDto Model)
+        [Route("api/emoji")]
+        public async Task<Response<EmojiResponse>> Delete([FromBody] EmojiDeleteDto Model)
         {
-            Response<OrganizationUserResponse> Response = await Service.DeleteAsync(Model);
-            return new Response<OrganizationUserResponse>
+            Response<EmojiResponse> Response = await Service.DeleteAsync(Model);
+            return new Response<EmojiResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpGet]
-        [Authorize]
-        [Route("api/organizationuser")]
-        public async Task<Response<OrganizationUserResponse>> Get([FromQuery] OrganizationUserSelectDto Model)
+        [Route("api/emoji")]
+        public async Task<Response<EmojiResponse>> Get([FromQuery] EmojiSelectDto Model)
         {
-            Response<OrganizationUserResponse> Response = await Service.SelectAsync(Model);
-            return new Response<OrganizationUserResponse>
+            Response<EmojiResponse> Response = await Service.SelectAsync(Model);
+            return new Response<EmojiResponse>
             {
-                DataSource = Response.DataSource
-            };
-        }
-
-        [HttpGet]
-        [Authorize]
-        [Route("api/organizationuserfororganization")]
-        public async Task<Response<OrganizationUserResponse>> GetOrganization([FromQuery] OrganizationUserSelectDto Model)
-        {
-            Response<OrganizationUserResponse> Response = await Service.SelectOrganizationAsync(Model);
-            return new Response<OrganizationUserResponse>
-            {
-                DataSource = Response.DataSource
-            };
+                Collection = Response.Collection
+			};
         }
     }
 }

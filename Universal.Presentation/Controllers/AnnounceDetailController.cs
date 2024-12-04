@@ -1,76 +1,71 @@
 ﻿namespace Universal.Presentation.Controllers
 {
 	using Core;
+	using Common;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Authorization;
 
 	[ApiController]
 	public class AnnounceDetailController : ControllerBase
 	{
-		readonly IOrganizationCommentService Service;
+		readonly IAnnounceDetailService Service;
 
-		public AnnounceDetailController(IOrganizationCommentService service)
+		public AnnounceDetailController(IAnnounceDetailService service)
 		{
 			Service = service;
 		}
 
 		[HttpPost]
-		[Authorize]
-		[Route("api/organizationcomment")]
-		public async Task<Response<OrganizationCommentResponse>> Create([FromBody] OrganizationCommentRegisterDto Model)
+		[Route("api/announcedetail")]
+		public async Task<Response<AnnounceDetailResponse>> Create([FromBody] AnnounceDetailRegisterDto Model)
 		{
-			Response<OrganizationCommentResponse> Response = await Service.InsertAsync(Model);
-			return new Response<OrganizationCommentResponse>
+			Response<AnnounceDetailResponse> Response = await Service.InsertAsync(Model);
+			return new Response<AnnounceDetailResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Authorize]
-		[Route("api/organizationcomment")]
-		public async Task<Response<OrganizationCommentResponse>> Update([FromBody] OrganizationCommentUpdateDto Model)
+		[Route("api/announcedetail")]
+		public async Task<Response<AnnounceDetailResponse>> Update([FromBody] AnnounceDetailUpdateDto Model)
 		{
-			Response<OrganizationCommentResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<OrganizationCommentResponse>
+			Response<AnnounceDetailResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<AnnounceDetailResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Authorize]
-		[Route("api/organizationcomment")]
-		public async Task<Response<OrganizationCommentResponse>> Delete([FromBody] OrganizationCommentDeleteDto Model)
+		[Route("api/announcedetail")]
+		public async Task<Response<AnnounceDetailResponse>> Delete([FromBody] AnnounceDetailDeleteDto Model)
 		{
-			Response<OrganizationCommentResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<OrganizationCommentResponse>
+			Response<AnnounceDetailResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<AnnounceDetailResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/organizationcomment")]
-		public async Task<Response<OrganizationCommentResponse>> Get([FromQuery] OrganizationCommentSelectDto Model)
+		[Route("api/announcedetail")]
+		public async Task<Response<AnnounceDetailResponse>> Get([FromQuery] AnnounceDetailSelectDto Model)
 		{
-			Response<OrganizationCommentResponse> Response = await Service.SelectAsync(Model);
-			return new Response<OrganizationCommentResponse>
+			Response<AnnounceDetailResponse> Response = await Service.SelectAsync(Model);
+			return new Response<AnnounceDetailResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/organizationcommentsingle")]
-		public async Task<Response<OrganizationCommentResponse>> GetSingle([FromQuery] OrganizationCommentSelectDto Model)
+		[Route("api/announcedetailsingle")]
+		public async Task<Response<AnnounceDetailResponse>> GetSingle([FromQuery] AnnounceDetailSelectDto Model)
 		{
-			Response<OrganizationCommentResponse> Response = await Service.SelectSingleAsync(Model);
-			return new Response<OrganizationCommentResponse>
+			Response<AnnounceDetailResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<AnnounceDetailResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

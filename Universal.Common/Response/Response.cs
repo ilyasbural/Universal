@@ -1,4 +1,4 @@
-﻿namespace Universal.Core
+﻿namespace Universal.Common
 {
 	public class Response<T>
 	{

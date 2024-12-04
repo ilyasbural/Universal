@@ -2,10 +2,10 @@
 {
     public interface ICompanyFollowerService
     {
-        Task<Response<CompanyFollower>> InsertAsync(CompanyFollowerRegisterDto Model);
-        Task<Response<CompanyFollower>> UpdateAsync(CompanyFollowerUpdateDto Model);
-        Task<Response<CompanyFollower>> DeleteAsync(CompanyFollowerDeleteDto Model);
-        Task<Response<CompanyFollower>> SelectAsync(CompanyFollowerSelectDto Model);
-        Task<Response<CompanyFollower>> SelectSingleAsync(CompanyFollowerSelectDto Model);
+        Task<Common.Response<Common.CompanyFollowerResponse>> InsertAsync(CompanyFollowerRegisterDto Model);
+        Task<Common.Response<Common.CompanyFollowerResponse>> UpdateAsync(CompanyFollowerUpdateDto Model);
+        Task<Common.Response<Common.CompanyFollowerResponse>> DeleteAsync(CompanyFollowerDeleteDto Model);
+        Task<Common.Response<Common.CompanyFollowerResponse>> SelectAsync(CompanyFollowerSelectDto Model);
+        Task<Common.Response<Common.CompanyFollowerResponse>> SelectSingleAsync(CompanyFollowerSelectDto Model);
     }
 }

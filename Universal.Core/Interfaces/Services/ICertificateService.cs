@@ -2,10 +2,10 @@
 {
     public interface ICertificateService
     {
-        Task<Response<Certificate>> InsertAsync(CertificateRegisterDto Model);
-        Task<Response<Certificate>> UpdateAsync(CertificateUpdateDto Model);
-        Task<Response<Certificate>> DeleteAsync(CertificateDeleteDto Model);
-        Task<Response<Certificate>> SelectAsync(CertificateSelectDto Model);
-        Task<Response<Certificate>> SelectSingleAsync(CertificateSelectDto Model);
+        Task<Common.Response<Common.CertificateResponse>> InsertAsync(CertificateRegisterDto Model);
+        Task<Common.Response<Common.CertificateResponse>> UpdateAsync(CertificateUpdateDto Model);
+        Task<Common.Response<Common.CertificateResponse>> DeleteAsync(CertificateDeleteDto Model);
+        Task<Common.Response<Common.CertificateResponse>> SelectAsync(CertificateSelectDto Model);
+        Task<Common.Response<Common.CertificateResponse>> SelectSingleAsync(CertificateSelectDto Model);
     }
 }

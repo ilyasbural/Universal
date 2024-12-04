@@ -2,10 +2,10 @@
 {
     public interface IAbilityService
     {
-        Task<Response<Ability>> InsertAsync(AbilityRegisterDto Model);
-        Task<Response<Ability>> UpdateAsync(AbilityUpdateDto Model);
-        Task<Response<Ability>> DeleteAsync(AbilityDeleteDto Model);
-        Task<Response<Ability>> SelectAsync(AbilitySelectDto Model);
-        Task<Response<Ability>> SelectSingleAsync(AbilitySelectDto Model);
+        Task<Common.Response<Common.AbilityResponse>> InsertAsync(AbilityRegisterDto Model);
+        Task<Common.Response<Common.AbilityResponse>> UpdateAsync(AbilityUpdateDto Model);
+        Task<Common.Response<Common.AbilityResponse>> DeleteAsync(AbilityDeleteDto Model);
+        Task<Common.Response<Common.AbilityResponse>> SelectAsync(AbilitySelectDto Model);
+        Task<Common.Response<Common.AbilityResponse>> SelectSingleAsync(AbilitySelectDto Model);
     }
 }

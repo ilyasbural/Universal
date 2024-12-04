@@ -2,10 +2,10 @@
 {
     public interface IJobPostingService
     {
-        Task<Response<JobPosting>> InsertAsync(JobPostingRegisterDto Model);
-        Task<Response<JobPosting>> UpdateAsync(JobPostingUpdateDto Model);
-        Task<Response<JobPosting>> DeleteAsync(JobPostingDeleteDto Model);
-        Task<Response<JobPosting>> SelectAsync(JobPostingSelectDto Model);
-        Task<Response<JobPosting>> SelectSingleAsync(JobPostingSelectDto Model);
+        Task<Common.Response<Common.JobPostingResponse>> InsertAsync(JobPostingRegisterDto Model);
+        Task<Common.Response<Common.JobPostingResponse>> UpdateAsync(JobPostingUpdateDto Model);
+        Task<Common.Response<Common.JobPostingResponse>> DeleteAsync(JobPostingDeleteDto Model);
+        Task<Common.Response<Common.JobPostingResponse>> SelectAsync(JobPostingSelectDto Model);
+        Task<Common.Response<Common.JobPostingResponse>> SelectSingleAsync(JobPostingSelectDto Model);
     }
 }

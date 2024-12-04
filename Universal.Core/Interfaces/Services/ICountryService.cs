@@ -2,10 +2,10 @@
 {
     public interface ICountryService
     {
-        Task<Response<Country>> InsertAsync(CountryRegisterDto Model);
-        Task<Response<Country>> UpdateAsync(CountryUpdateDto Model);
-        Task<Response<Country>> DeleteAsync(CountryDeleteDto Model);
-        Task<Response<Country>> SelectAsync(CountrySelectDto Model);
-        Task<Response<Country>> SelectSingleAsync(CountrySelectDto Model);
+        Task<Common.Response<Common.CountryResponse>> InsertAsync(CountryRegisterDto Model);
+        Task<Common.Response<Common.CountryResponse>> UpdateAsync(CountryUpdateDto Model);
+        Task<Common.Response<Common.CountryResponse>> DeleteAsync(CountryDeleteDto Model);
+        Task<Common.Response<Common.CountryResponse>> SelectAsync(CountrySelectDto Model);
+        Task<Common.Response<Common.CountryResponse>> SelectSingleAsync(CountrySelectDto Model);
     }
 }

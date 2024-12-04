@@ -3,75 +3,69 @@
     using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
 
     [ApiController]
     public class JobPostingDetailController : ControllerBase
     {
-        readonly IUserContactService Service;
+        readonly IJobPostingDetailService Service;
 
-        public JobPostingDetailController(IUserContactService service)
+        public JobPostingDetailController(IJobPostingDetailService service)
         {
             Service = service;
         }
 
 		[HttpPost]
-		[Authorize]
-		[Route("api/usercontact")]
-		public async Task<Response<UserContactResponse>> Create([FromBody] UserContactRegisterDto Model)
+		[Route("api/jobpostingdetail")]
+		public async Task<Response<JobPostingDetailResponse>> Create([FromBody] JobPostingDetailRegisterDto Model)
 		{
-			Response<UserContactResponse> Response = await Service.InsertAsync(Model);
-			return new Response<UserContactResponse>
+			Response<JobPostingDetailResponse> Response = await Service.InsertAsync(Model);
+			return new Response<JobPostingDetailResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Authorize]
-		[Route("api/usercontact")]
-		public async Task<Response<UserContactResponse>> Update([FromBody] UserContactUpdateDto Model)
+		[Route("api/jobpostingdetail")]
+		public async Task<Response<JobPostingDetailResponse>> Update([FromBody] JobPostingDetailUpdateDto Model)
 		{
-			Response<UserContactResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<UserContactResponse>
+			Response<JobPostingDetailResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<JobPostingDetailResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Authorize]
-		[Route("api/usercontact")]
-		public async Task<Response<UserContactResponse>> Delete([FromBody] UserContactDeleteDto Model)
+		[Route("api/jobpostingdetail")]
+		public async Task<Response<JobPostingDetailResponse>> Delete([FromBody] JobPostingDetailDeleteDto Model)
 		{
-			Response<UserContactResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<UserContactResponse>
+			Response<JobPostingDetailResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<JobPostingDetailResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/usercontact")]
-		public async Task<Response<UserContactResponse>> Get([FromQuery] UserContactSelectDto Model)
+		[Route("api/jobpostingdetail")]
+		public async Task<Response<JobPostingDetailResponse>> Get([FromQuery] JobPostingDetailSelectDto Model)
 		{
-			Response<UserContactResponse> Response = await Service.SelectAsync(Model);
-			return new Response<UserContactResponse>
+			Response<JobPostingDetailResponse> Response = await Service.SelectAsync(Model);
+			return new Response<JobPostingDetailResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/usercontactsingle")]
-		public async Task<Response<UserContactResponse>> GetSingle([FromQuery] UserContactSelectDto Model)
+		[Route("api/jobpostingdetailsingle")]
+		public async Task<Response<JobPostingDetailResponse>> GetSingle([FromQuery] JobPostingDetailSelectDto Model)
 		{
-			Response<UserContactResponse> Response = await Service.SelectSingleAsync(Model);
-			return new Response<UserContactResponse>
+			Response<JobPostingDetailResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<JobPostingDetailResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

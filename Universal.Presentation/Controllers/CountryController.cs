@@ -3,76 +3,70 @@
 	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Authorization;
 
 	[ApiController]
     public class CountryController : ControllerBase
     {
-        readonly IOrganizationShareService Service;
+        readonly ICountryService Service;
 
-        public CountryController(IOrganizationShareService service)
+        public CountryController(ICountryService service)
         {
             Service = service;
         }
 
         [HttpPost]
-        [Authorize]
-        [Route("api/organizationshare")]
-        public async Task<Response<OrganizationShareResponse>> Create([FromBody] OrganizationShareRegisterDto Model)
+        [Route("api/country")]
+        public async Task<Response<CountryResponse>> Create([FromBody] CountryRegisterDto Model)
         {
-            Response<OrganizationShareResponse> Response = await Service.InsertAsync(Model);
-            return new Response<OrganizationShareResponse>
+            Response<CountryResponse> Response = await Service.InsertAsync(Model);
+            return new Response<CountryResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpPut]
-        [Authorize]
-        [Route("api/organizationshare")]
-        public async Task<Response<OrganizationShareResponse>> Update([FromBody] OrganizationShareUpdateDto Model)
+        [Route("api/country")]
+        public async Task<Response<CountryResponse>> Update([FromBody] CountryUpdateDto Model)
         {
-            Response<OrganizationShareResponse> Response = await Service.UpdateAsync(Model);
-            return new Response<OrganizationShareResponse>
+            Response<CountryResponse> Response = await Service.UpdateAsync(Model);
+            return new Response<CountryResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpDelete]
-        [Authorize]
-        [Route("api/organizationshare")]
-        public async Task<Response<OrganizationShareResponse>> Delete([FromBody] OrganizationShareDeleteDto Model)
+        [Route("api/country")]
+        public async Task<Response<CountryResponse>> Delete([FromBody] CountryDeleteDto Model)
         {
-            Response<OrganizationShareResponse> Response = await Service.DeleteAsync(Model);
-            return new Response<OrganizationShareResponse>
+            Response<CountryResponse> Response = await Service.DeleteAsync(Model);
+            return new Response<CountryResponse>
             {
                 Data = Response.Data
             };
         }
 
-        //[HttpGet]
-        //[Authorize]
-        //[Route("api/organizationshare")]
-        //public async Task<Response<OrganizationShare>> Get([FromQuery] OrganizationShareSelectDto Model)
-        //{
-        //    Response<OrganizationShare> Response = await Service.SelectAsync(Model);
-        //    return new Response<OrganizationShare>
-        //    {
-        //        Collection = Response.Collection
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/country")]
+        public async Task<Response<CountryResponse>> Get([FromQuery] CountrySelectDto Model)
+        {
+            Response<CountryResponse> Response = await Service.SelectAsync(Model);
+            return new Response<CountryResponse>
+            {
+                Collection = Response.Collection
+            };
+        }
 
-        //[HttpGet]
-        //[Authorize]
-        //[Route("api/organizationsharesingle")]
-        //public async Task<Response<OrganizationShare>> GetSingle([FromQuery] OrganizationShareSelectDto Model)
-        //{
-        //    Response<OrganizationShare> Response = await Service.SelectSingleAsync(Model);
-        //    return new Response<OrganizationShare>
-        //    {
-        //        Collection = Response.Collection
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/countrysingle")]
+        public async Task<Response<CountryResponse>> GetSingle([FromQuery] CountrySelectDto Model)
+        {
+            Response<CountryResponse> Response = await Service.SelectSingleAsync(Model);
+            return new Response<CountryResponse>
+            {
+                Collection = Response.Collection
+            };
+        }
     }
 }

@@ -3,88 +3,70 @@
 	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Authorization;
 
 	[ApiController]
     public class CompanyController : ControllerBase
     {
-        readonly IOrganizationIncomeService Service;
+        readonly ICompanyService Service;
 
-        public CompanyController(IOrganizationIncomeService service)
+        public CompanyController(ICompanyService service)
         {
             Service = service;
         }
 
         [HttpPost]
-        [Authorize]
-        [Route("api/organizationincome")]
-        public async Task<Response<OrganizationIncomeResponse>> Create([FromBody] OrganizationIncomeRegisterDto Model)
+        [Route("api/company")]
+        public async Task<Response<CompanyResponse>> Create([FromBody] CompanyRegisterDto Model)
         {
-            Response<OrganizationIncomeResponse> Response = await Service.InsertAsync(Model);
-            return new Response<OrganizationIncomeResponse>
+            Response<CompanyResponse> Response = await Service.InsertAsync(Model);
+            return new Response<CompanyResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpPut]
-        [Authorize]
-        [Route("api/organizationincome")]
-        public async Task<Response<OrganizationIncomeResponse>> Update([FromBody] OrganizationIncomeUpdateDto Model)
+        [Route("api/company")]
+        public async Task<Response<CompanyResponse>> Update([FromBody] CompanyUpdateDto Model)
         {
-            Response<OrganizationIncomeResponse> Response = await Service.UpdateAsync(Model);
-            return new Response<OrganizationIncomeResponse>
+            Response<CompanyResponse> Response = await Service.UpdateAsync(Model);
+            return new Response<CompanyResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpDelete]
-        [Authorize]
-        [Route("api/organizationincome")]
-        public async Task<Response<OrganizationIncomeResponse>> Delete([FromBody] OrganizationIncomeDeleteDto Model)
+        [Route("api/company")]
+        public async Task<Response<CompanyResponse>> Delete([FromBody] CompanyDeleteDto Model)
         {
-            Response<OrganizationIncomeResponse> Response = await Service.DeleteAsync(Model);
-            return new Response<OrganizationIncomeResponse>
+            Response<CompanyResponse> Response = await Service.DeleteAsync(Model);
+            return new Response<CompanyResponse>
             {
                 Data = Response.Data
             };
         }
 
-        //[HttpGet]
-        //[Authorize]
-        //[Route("api/organizationincome")]
-        //public async Task<Response<OrganizationIncome>> Get([FromQuery] OrganizationIncomeSelectDto Model)
-        //{
-        //    Response<OrganizationIncome> Response = await Service.SelectAsync(Model);
-        //    return new Response<OrganizationIncome>
-        //    {
-        //        Collection = Response.Collection
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/company")]
+        public async Task<Response<CompanyResponse>> Get([FromQuery] CompanySelectDto Model)
+        {
+            Response<CompanyResponse> Response = await Service.SelectAsync(Model);
+            return new Response<CompanyResponse>
+            {
+                Collection = Response.Collection
+            };
+        }
 
-        //[HttpGet]
-        //[Authorize]
-        //[Route("api/organizationincomeorganizationid")]
-        //public async Task<Response<OrganizationIncome>> GetOrganizationIncome([FromQuery] OrganizationIncomeSelectDto Model)
-        //{
-        //    Response<OrganizationIncome> Response = await Service.SelectOrganizationIncomeAsync(Model);
-        //    return new Response<OrganizationIncome>
-        //    {
-        //        Collection = Response.Collection
-        //    };
-        //}
-
-        //[HttpGet]
-        //[Authorize]
-        //[Route("api/organizationincomesingle")]
-        //public async Task<Response<OrganizationIncome>> GetSingle([FromQuery] OrganizationIncomeSelectDto Model)
-        //{
-        //    Response<OrganizationIncome> Response = await Service.SelectSingleAsync(Model);
-        //    return new Response<OrganizationIncome>
-        //    {
-        //        Collection = Response.Collection
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/companysingle")]
+        public async Task<Response<CompanyResponse>> GetSingle([FromQuery] CompanySelectDto Model)
+        {
+            Response<CompanyResponse> Response = await Service.SelectSingleAsync(Model);
+            return new Response<CompanyResponse>
+            {
+                Collection = Response.Collection
+            };
+        }
     }
 }

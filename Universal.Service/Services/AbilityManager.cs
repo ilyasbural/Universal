@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }   
 
-        public async Task<Response<Ability>> InsertAsync(AbilityRegisterDto Model)
+        public async Task<Response<AbilityResponse>> InsertAsync(AbilityRegisterDto Model)
         {
             Data = Mapper.Map<Ability>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.Ability.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Ability>
+            return new Response<AbilityResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Ability>> UpdateAsync(AbilityUpdateDto Model)
+        public async Task<Response<AbilityResponse>> UpdateAsync(AbilityUpdateDto Model)
         {
             Collection = await UnitOfWork.Ability.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Ability>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.Ability.UpdateAsync(Data);
             int i = await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Ability>
+            return new Response<AbilityResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Ability>> DeleteAsync(AbilityDeleteDto Model)
+        public async Task<Response<AbilityResponse>> DeleteAsync(AbilityDeleteDto Model)
         {
             Collection = await UnitOfWork.Ability.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Ability>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.Ability.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Ability>
+            return new Response<AbilityResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Ability>> SelectAsync(AbilitySelectDto Model)
+        public async Task<Response<AbilityResponse>> SelectAsync(AbilitySelectDto Model)
         {
             Collection = await UnitOfWork.Ability.SelectAsync(x => x.IsActive == true);
-            return new Response<Ability>
+            return new Response<AbilityResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Ability>> SelectSingleAsync(AbilitySelectDto Model)
+        public async Task<Response<AbilityResponse>> SelectSingleAsync(AbilitySelectDto Model)
         {
             Collection = await UnitOfWork.Ability.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<Ability>
+            return new Response<AbilityResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

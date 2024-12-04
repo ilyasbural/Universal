@@ -3,76 +3,70 @@
 	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Authorization;
 
 	[ApiController]
     public class CertificateController : ControllerBase
     {
-        readonly IOrganizationDetailService Service;
+        readonly ICertificateService Service;
 
-        public CertificateController(IOrganizationDetailService service)
+        public CertificateController(ICertificateService service)
         {
             Service = service;
         }
 
         [HttpPost]
-        [Authorize]
-        [Route("api/organizationdetail")]
-        public async Task<Response<OrganizationDetailResponse>> Create([FromBody] OrganizationDetailRegisterDto Model)
+        [Route("api/certificate")]
+        public async Task<Response<CertificateResponse>> Create([FromBody] CertificateRegisterDto Model)
         {
-            Response<OrganizationDetailResponse> Response = await Service.InsertAsync(Model);
-            return new Response<OrganizationDetailResponse>
+            Response<CertificateResponse> Response = await Service.InsertAsync(Model);
+            return new Response<CertificateResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpPut]
-        [Authorize]
-        [Route("api/organizationdetail")]
-        public async Task<Response<OrganizationDetailResponse>> Update([FromBody] OrganizationDetailUpdateDto Model)
+        [Route("api/certificate")]
+        public async Task<Response<CertificateResponse>> Update([FromBody] CertificateUpdateDto Model)
         {
-            Response<OrganizationDetailResponse> Response = await Service.UpdateAsync(Model);
-            return new Response<OrganizationDetailResponse>
+            Response<CertificateResponse> Response = await Service.UpdateAsync(Model);
+            return new Response<CertificateResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpDelete]
-        [Authorize]
-        [Route("api/organizationdetail")]
-        public async Task<Response<OrganizationDetailResponse>> Delete([FromBody] OrganizationDetailDeleteDto Model)
+        [Route("api/certificate")]
+        public async Task<Response<CertificateResponse>> Delete([FromBody] CertificateDeleteDto Model)
         {
-            Response<OrganizationDetailResponse> Response = await Service.DeleteAsync(Model);
-            return new Response<OrganizationDetailResponse>
+            Response<CertificateResponse> Response = await Service.DeleteAsync(Model);
+            return new Response<CertificateResponse>
             {
                 Data = Response.Data
             };
         }
 
-        //[HttpGet]
-        //[Authorize]
-        //[Route("api/organizationdetail")]
-        //public async Task<Response<OrganizationDetail>> Get([FromQuery] OrganizationDetailSelectDto Model)
-        //{
-        //    Response<OrganizationDetail> Response = await Service.SelectAsync(Model);
-        //    return new Response<OrganizationDetail>
-        //    {
-        //        Collection = Response.Collection
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/certificate")]
+        public async Task<Response<CertificateResponse>> Get([FromQuery] CertificateSelectDto Model)
+        {
+            Response<CertificateResponse> Response = await Service.SelectAsync(Model);
+            return new Response<CertificateResponse>
+            {
+                Collection = Response.Collection
+            };
+        }
 
-        //[HttpGet]
-        //[Authorize]
-        //[Route("api/organizationdetailsingle")]
-        //public async Task<Response<OrganizationDetail>> GetSingle([FromQuery] OrganizationDetailSelectDto Model)
-        //{
-        //    Response<OrganizationDetail> Response = await Service.SelectSingleAsync(Model);
-        //    return new Response<OrganizationDetail>
-        //    {
-        //        Collection = Response.Collection
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/certificatesingle")]
+        public async Task<Response<CertificateResponse>> GetSingle([FromQuery] CertificateSelectDto Model)
+        {
+            Response<CertificateResponse> Response = await Service.SelectSingleAsync(Model);
+            return new Response<CertificateResponse>
+            {
+                Collection = Response.Collection
+            };
+        }
     }
 }

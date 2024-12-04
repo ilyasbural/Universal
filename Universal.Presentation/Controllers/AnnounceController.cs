@@ -1,26 +1,25 @@
 ﻿namespace Universal.Presentation.Controllers
 {
 	using Core;
+	using Common;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Authorization;
 
 	[ApiController]
 	public class AnnounceController : ControllerBase
 	{
-		readonly IOrganizationBudgetService Service;
+		readonly IAnnounceService Service;
 
-		public AnnounceController(IOrganizationBudgetService service)
+		public AnnounceController(IAnnounceService service)
 		{
 			Service = service;
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/organizationbudget")]
-		public async Task<Response<OrganizationBudgetResponse>> Get([FromQuery] OrganizationBudgetSelectDto Model)
+		[Route("api/announce")]
+		public async Task<Response<AnnounceResponse>> Get([FromQuery] AnnounceSelectDto Model)
 		{
-			Response<OrganizationBudgetResponse> Response = await Service.SelectAsync(Model);
-			return new Response<OrganizationBudgetResponse>
+			Response<AnnounceResponse> Response = await Service.SelectAsync(Model);
+			return new Response<AnnounceResponse>
 			{
 				Collection = Response.Collection
 			};

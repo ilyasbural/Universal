@@ -3,76 +3,70 @@
     using Core;
     using Common;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
 
     [ApiController]
     public class JobPostingController : ControllerBase
     {
-        readonly IOrganizationViewerService Service;
+        readonly IJobPostingService Service;
 
-        public JobPostingController(IOrganizationViewerService service)
+        public JobPostingController(IJobPostingService service)
         {
             Service = service;
         }
 
         [HttpPost]
-        [Authorize]
-        [Route("api/organizationviewer")]
-        public async Task<Response<OrganizationViewerResponse>> Create([FromBody] OrganizationViewerRegisterDto Model)
+        [Route("api/jobposting")]
+        public async Task<Response<JobPostingResponse>> Create([FromBody] JobPostingRegisterDto Model)
         {
-            Response<OrganizationViewerResponse> Response = await Service.InsertAsync(Model);
-            return new Response<OrganizationViewerResponse>
+            Response<JobPostingResponse> Response = await Service.InsertAsync(Model);
+            return new Response<JobPostingResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpPut]
-        [Authorize]
-        [Route("api/organizationviewer")]
-        public async Task<Response<OrganizationViewerResponse>> Update([FromBody] OrganizationViewerUpdateDto Model)
+        [Route("api/jobposting")]
+        public async Task<Response<JobPostingResponse>> Update([FromBody] JobPostingUpdateDto Model)
         {
-            Response<OrganizationViewerResponse> Response = await Service.UpdateAsync(Model);
-            return new Response<OrganizationViewerResponse>
+            Response<JobPostingResponse> Response = await Service.UpdateAsync(Model);
+            return new Response<JobPostingResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpDelete]
-        [Authorize]
-        [Route("api/organizationviewer")]
-        public async Task<Response<OrganizationViewerResponse>> Delete([FromBody] OrganizationViewerDeleteDto Model)
+        [Route("api/jobposting")]
+        public async Task<Response<JobPostingResponse>> Delete([FromBody] JobPostingDeleteDto Model)
         {
-            Response<OrganizationViewerResponse> Response = await Service.DeleteAsync(Model);
-            return new Response<OrganizationViewerResponse>
+            Response<JobPostingResponse> Response = await Service.DeleteAsync(Model);
+            return new Response<JobPostingResponse>
             {
                 Data = Response.Data
             };
         }
 
-        //[HttpGet]
-        //[Authorize]
-        //[Route("api/organizationviewer")]
-        //public async Task<Response<OrganizationViewerResponse>> Get([FromQuery] OrganizationViewerSelectDto Model)
-        //{
-        //    Response<OrganizationViewerResponse> Response = await Service.SelectAsync(Model);
-        //    return new Response<OrganizationViewerResponse>
-        //    {
-        //        Collection = Response.Collection
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/jobposting")]
+        public async Task<Response<JobPostingResponse>> Get([FromQuery] JobPostingSelectDto Model)
+        {
+            Response<JobPostingResponse> Response = await Service.SelectAsync(Model);
+            return new Response<JobPostingResponse>
+            {
+                Collection = Response.Collection
+            };
+        }
 
-        //[HttpGet]
-        //[Authorize]
-        //[Route("api/organizationviewersingle")]
-        //public async Task<Response<OrganizationViewerResponse>> GetSingle([FromQuery] OrganizationViewerSelectDto Model)
-        //{
-        //    Response<OrganizationViewerResponse> Response = await Service.SelectSingleAsync(Model);
-        //    return new Response<OrganizationViewerResponse>
-        //    {
-        //        Collection = Response.Collection
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/jobpostingsingle")]
+        public async Task<Response<JobPostingResponse>> GetSingle([FromQuery] JobPostingSelectDto Model)
+        {
+            Response<JobPostingResponse> Response = await Service.SelectSingleAsync(Model);
+            return new Response<JobPostingResponse>
+            {
+                Collection = Response.Collection
+            };
+        }
     }
 }

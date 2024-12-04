@@ -3,100 +3,70 @@
 	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Authorization;
 
 	[ApiController]
     public class CompanyAboutController : ControllerBase
     {
-        readonly IOrganizationInvitationService Service;
+        readonly ICompanyAboutService Service;
 
-        public CompanyAboutController(IOrganizationInvitationService service)
+        public CompanyAboutController(ICompanyAboutService service)
         {
             Service = service;
         }
 
         [HttpPost]
-        [Authorize]
-        [Route("api/organizationinvitation")]
-        public async Task<Response<OrganizationInvitationResponse>> Create([FromBody] OrganizationInvitationRegisterDto Model)
+        [Route("api/companyabout")]
+        public async Task<Response<CompanyAboutResponse>> Create([FromBody] CompanyAboutRegisterDto Model)
         {
-            Response<OrganizationInvitationResponse> Response = await Service.InsertAsync(Model);
-            return new Response<OrganizationInvitationResponse>
+            Response<CompanyAboutResponse> Response = await Service.InsertAsync(Model);
+            return new Response<CompanyAboutResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpPut]
-        [Authorize]
-        [Route("api/organizationinvitation")]
-        public async Task<Response<OrganizationInvitationResponse>> Update([FromBody] OrganizationInvitationUpdateDto Model)
+        [Route("api/companyabout")]
+        public async Task<Response<CompanyAboutResponse>> Update([FromBody] CompanyAboutUpdateDto Model)
         {
-            Response<OrganizationInvitationResponse> Response = await Service.UpdateAsync(Model);
-            return new Response<OrganizationInvitationResponse>
+            Response<CompanyAboutResponse> Response = await Service.UpdateAsync(Model);
+            return new Response<CompanyAboutResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpDelete]
-        [Authorize]
-        [Route("api/organizationinvitation")]
-        public async Task<Response<OrganizationInvitationResponse>> Delete([FromBody] OrganizationInvitationDeleteDto Model)
+        [Route("api/companyabout")]
+        public async Task<Response<CompanyAboutResponse>> Delete([FromBody] CompanyAboutDeleteDto Model)
         {
-            Response<OrganizationInvitationResponse> Response = await Service.DeleteAsync(Model);
-            return new Response<OrganizationInvitationResponse>
-            {
-                Data = Response.Data
-            };
-        }
-
-        [HttpPost]
-        [Authorize]
-        [Route("api/organizationconfirmation")]
-        public async Task<Response<OrganizationInvitationResponse>> OrganizationConfirmation([FromBody] OrganizationInvitationConfirmationDto Model)
-        {
-            Response<OrganizationInvitationResponse> Response = await Service.Confirmation(Model);
-            return new Response<OrganizationInvitationResponse>
+            Response<CompanyAboutResponse> Response = await Service.DeleteAsync(Model);
+            return new Response<CompanyAboutResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpGet]
-        [Authorize]
-        [Route("api/organizationinvitation")]
-        public async Task<Response<OrganizationInvitationResponse>> Get([FromQuery] OrganizationInvitationSelectDto Model)
+        [Route("api/companyabout")]
+        public async Task<Response<CompanyAboutResponse>> Get([FromQuery] CompanyAboutSelectDto Model)
         {
-            Response<OrganizationInvitationResponse> Response = await Service.SelectAsync(Model);
-            return new Response<OrganizationInvitationResponse>
+            Response<CompanyAboutResponse> Response = await Service.SelectAsync(Model);
+            return new Response<CompanyAboutResponse>
             {
-                DataSource = Response.DataSource
-            };
+                Collection = Response.Collection
+			};
         }
 
         [HttpGet]
-        [Authorize]
-        [Route("api/organizationinvitationforuser")]
-        public async Task<Response<OrganizationInvitationResponse>> GetUsers([FromQuery] OrganizationInvitationSelectDto Model)
+        [Route("api/companyaboutsingle")]
+        public async Task<Response<CompanyAboutResponse>> GetSingle([FromQuery] CompanyAboutSelectDto Model)
         {
-            Response<OrganizationInvitationResponse> Response = await Service.SelectUsersAsync(Model);
-            return new Response<OrganizationInvitationResponse>
+            Response<CompanyAboutResponse> Response = await Service.SelectSingleAsync(Model);
+            return new Response<CompanyAboutResponse>
             {
-                DataSource = Response.DataSource
-            };
-        }
-
-        [HttpGet]
-        [Authorize]
-        [Route("api/organizationinvitationsingle")]
-        public async Task<Response<OrganizationInvitationResponse>> GetSingle([FromQuery] OrganizationInvitationSelectDto Model)
-        {
-            Response<OrganizationInvitationResponse> Response = await Service.SelectSingleAsync(Model);
-            return new Response<OrganizationInvitationResponse>
-            {
-                DataSource = Response.DataSource
-            };
+				Collection = Response.Collection
+			};
         }
     }
 }

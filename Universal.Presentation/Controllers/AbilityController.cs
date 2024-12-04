@@ -1,76 +1,71 @@
 ﻿namespace Universal.Presentation.Controllers
 {
 	using Core;
+	using Common;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Authorization;
 
 	[ApiController]
 	public class AbilityController : ControllerBase
 	{
-		readonly IOccupationService Service;
+		readonly IAbilityService Service;
 
-		public AbilityController(IOccupationService service)
+		public AbilityController(IAbilityService service)
 		{
 			Service = service;
 		}
 
 		[HttpPost]
-		[Authorize]
-		[Route("api/occupation")]
-		public async Task<Response<OccupationResponse>> Create([FromBody] OccupationRegisterDto Model)
+		[Route("api/ability")]
+		public async Task<Response<AbilityResponse>> Create([FromBody] AbilityRegisterDto Model)
 		{
-			Response<OccupationResponse> Response = await Service.InsertAsync(Model);
-			return new Response<OccupationResponse>
+			Response<AbilityResponse> Response = await Service.InsertAsync(Model);
+			return new Response<AbilityResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Authorize]
-		[Route("api/occupation")]
-		public async Task<Response<OccupationResponse>> Update([FromBody] OccupationUpdateDto Model)
+		[Route("api/ability")]
+		public async Task<Response<AbilityResponse>> Update([FromBody] AbilityUpdateDto Model)
 		{
-			Response<OccupationResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<OccupationResponse>
+			Response<AbilityResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<AbilityResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Authorize]
-		[Route("api/occupation")]
-		public async Task<Response<OccupationResponse>> Delete([FromBody] OccupationDeleteDto Model)
+		[Route("api/ability")]
+		public async Task<Response<AbilityResponse>> Delete([FromBody] AbilityDeleteDto Model)
 		{
-			Response<OccupationResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<OccupationResponse>
+			Response<AbilityResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<AbilityResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/occupation")]
-		public async Task<Response<OccupationResponse>> Get([FromQuery] OccupationSelectDto Model)
+		[Route("api/ability")]
+		public async Task<Response<AbilityResponse>> Get([FromQuery] AbilitySelectDto Model)
 		{
-			Response<OccupationResponse> Response = await Service.SelectAsync(Model);
-			return new Response<OccupationResponse>
+			Response<AbilityResponse> Response = await Service.SelectAsync(Model);
+			return new Response<AbilityResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/occupationsingle")]
-		public async Task<Response<OccupationResponse>> GetSingle([FromQuery] OccupationSelectDto Model)
+		[Route("api/abilitysingle")]
+		public async Task<Response<AbilityResponse>> GetSingle([FromQuery] AbilitySelectDto Model)
 		{
-			Response<OccupationResponse> Response = await Service.SelectSingleAsync(Model);
-			return new Response<OccupationResponse>
+			Response<AbilityResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<AbilityResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

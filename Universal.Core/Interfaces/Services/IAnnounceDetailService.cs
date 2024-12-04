@@ -2,10 +2,10 @@
 {
     public interface IAnnounceDetailService
     {
-        Task<Response<AnnounceDetail>> InsertAsync(AnnounceDetailRegisterDto Model);
-        Task<Response<AnnounceDetail>> UpdateAsync(AnnounceDetailUpdateDto Model);
-        Task<Response<AnnounceDetail>> DeleteAsync(AnnounceDetailDeleteDto Model);
-        Task<Response<AnnounceDetail>> SelectAsync(AnnounceDetailSelectDto Model);
-        Task<Response<AnnounceDetail>> SelectSingleAsync(AnnounceDetailSelectDto Model);
+        Task<Common.Response<Common.AnnounceDetailResponse>> InsertAsync(AnnounceDetailRegisterDto Model);
+        Task<Common.Response<Common.AnnounceDetailResponse>> UpdateAsync(AnnounceDetailUpdateDto Model);
+        Task<Common.Response<Common.AnnounceDetailResponse>> DeleteAsync(AnnounceDetailDeleteDto Model);
+        Task<Common.Response<Common.AnnounceDetailResponse>> SelectAsync(AnnounceDetailSelectDto Model);
+        Task<Common.Response<Common.AnnounceDetailResponse>> SelectSingleAsync(AnnounceDetailSelectDto Model);
     }
 }

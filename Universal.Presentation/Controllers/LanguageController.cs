@@ -3,86 +3,69 @@
     using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
 
     [ApiController]
     public class LanguageController : ControllerBase
     {
-        readonly IUserService Service;
+        readonly ILanguageService Service;
 
-        public LanguageController(IUserService service)
+        public LanguageController(ILanguageService service)
         {
             Service = service;
         }
 
 		[HttpPost]
-		[Route("api/user")]
-		public async Task<Response<UserResponse>> Create([FromBody] UserRegisterDto Model)
+		[Route("api/language")]
+		public async Task<Response<LanguageResponse>> Create([FromBody] LanguageRegisterDto Model)
 		{
-			Response<UserResponse> Response = await Service.InsertAsync(Model);
-			return new Response<UserResponse>
+			Response<LanguageResponse> Response = await Service.InsertAsync(Model);
+			return new Response<LanguageResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Authorize]
-		[Route("api/user")]
-		public async Task<Response<UserResponse>> Update([FromBody] UserUpdateDto Model)
+		[Route("api/language")]
+		public async Task<Response<LanguageResponse>> Update([FromBody] UserUpdateDto Model)
 		{
-			Response<UserResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<UserResponse>
+			Response<LanguageResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<LanguageResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Authorize]
-		[Route("api/user")]
-		public async Task<Response<UserResponse>> Delete([FromBody] UserDeleteDto Model)
+		[Route("api/language")]
+		public async Task<Response<LanguageResponse>> Delete([FromBody] UserDeleteDto Model)
 		{
-			Response<UserResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<UserResponse>
-			{
-				Data = Response.Data
-			};
-		}
-
-		[HttpPut]
-		[Authorize]
-		[Route("api/changepassword")]
-		public async Task<Response<UserResponse>> ChangePassword([FromBody] ChangePasswordDto Model)
-		{
-			Response<UserResponse> Response = await Service.ChangePasswordAsync(Model);
-			return new Response<UserResponse>
+			Response<LanguageResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<LanguageResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/user")]
-		public async Task<Response<UserResponse>> Get([FromQuery] UserSelectDto Model)
+		[Route("api/language")]
+		public async Task<Response<LanguageResponse>> Get([FromQuery] UserSelectDto Model)
 		{
-			Response<UserResponse> Response = await Service.SelectAsync(Model);
-			return new Response<UserResponse>
+			Response<LanguageResponse> Response = await Service.SelectAsync(Model);
+			return new Response<LanguageResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/usersingle")]
-		public async Task<Response<UserResponse>> GetSingle([FromQuery] UserSelectDto Model)
+		[Route("api/languagesingle")]
+		public async Task<Response<LanguageResponse>> GetSingle([FromQuery] UserSelectDto Model)
 		{
-			Response<UserResponse> Response = await Service.SelectSingleAsync(Model);
-			return new Response<UserResponse>
+			Response<LanguageResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<LanguageResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

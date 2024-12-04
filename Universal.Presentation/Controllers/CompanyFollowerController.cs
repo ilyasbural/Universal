@@ -3,76 +3,70 @@
 	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Authorization;
 
 	[ApiController]
     public class CompanyFollowerController : ControllerBase
     {
-        readonly IOrganizationSettingsService Service;
+        readonly ICompanyFollowerService Service;
 
-        public CompanyFollowerController(IOrganizationSettingsService service)
+        public CompanyFollowerController(ICompanyFollowerService service)
         {
             Service = service;
         }
 
         [HttpPost]
-        [Authorize]
-        [Route("api/organizationsettings")]
-        public async Task<Response<OrganizationSettingsResponse>> Create([FromBody] OrganizationSettingsRegisterDto Model)
+        [Route("api/companyfollower")]
+        public async Task<Response<CompanyFollowerResponse>> Create([FromBody] CompanyFollowerRegisterDto Model)
         {
-            Response<OrganizationSettingsResponse> Response = await Service.InsertAsync(Model);
-            return new Response<OrganizationSettingsResponse>
+            Response<CompanyFollowerResponse> Response = await Service.InsertAsync(Model);
+            return new Response<CompanyFollowerResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpPut]
-        [Authorize]
-        [Route("api/organizationsettings")]
-        public async Task<Response<OrganizationSettingsResponse>> Update([FromBody] OrganizationSettingsUpdateDto Model)
+        [Route("api/companyfollower")]
+        public async Task<Response<CompanyFollowerResponse>> Update([FromBody] CompanyFollowerUpdateDto Model)
         {
-            Response<OrganizationSettingsResponse> Response = await Service.UpdateAsync(Model);
-            return new Response<OrganizationSettingsResponse>
+            Response<CompanyFollowerResponse> Response = await Service.UpdateAsync(Model);
+            return new Response<CompanyFollowerResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpDelete]
-        [Authorize]
-        [Route("api/organizationsettings")]
-        public async Task<Response<OrganizationSettingsResponse>> Delete([FromBody] OrganizationSettingsDeleteDto Model)
+        [Route("api/companyfollower")]
+        public async Task<Response<CompanyFollowerResponse>> Delete([FromBody] CompanyFollowerDeleteDto Model)
         {
-            Response<OrganizationSettingsResponse> Response = await Service.DeleteAsync(Model);
-            return new Response<OrganizationSettingsResponse>
+            Response<CompanyFollowerResponse> Response = await Service.DeleteAsync(Model);
+            return new Response<CompanyFollowerResponse>
             {
                 Data = Response.Data
             };
         }
 
-        //[HttpGet]
-        //[Authorize]
-        //[Route("api/organizationsettings")]
-        //public async Task<Response<OrganizationSettings>> Get([FromQuery] OrganizationSettingsSelectDto Model)
-        //{
-        //    Response<OrganizationSettings> Response = await Service.SelectAsync(Model);
-        //    return new Response<OrganizationSettings>
-        //    {
-        //        Collection = Response.Collection
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/companyfollower")]
+        public async Task<Response<CompanyFollowerResponse>> Get([FromQuery] CompanyFollowerSelectDto Model)
+        {
+            Response<CompanyFollowerResponse> Response = await Service.SelectAsync(Model);
+            return new Response<CompanyFollowerResponse>
+            {
+                Collection = Response.Collection
+            };
+        }
 
-        //[HttpGet]
-        //[Authorize]
-        //[Route("api/organizationsettingssingle")]
-        //public async Task<Response<OrganizationSettings>> GetSingle([FromQuery] OrganizationSettingsSelectDto Model)
-        //{
-        //    Response<OrganizationSettings> Response = await Service.SelectSingleAsync(Model);
-        //    return new Response<OrganizationSettings>
-        //    {
-        //        Collection = Response.Collection
-        //    };
-        //}
+        [HttpGet]
+        [Route("api/companyfollowersingle")]
+        public async Task<Response<CompanyFollowerResponse>> GetSingle([FromQuery] CompanyFollowerSelectDto Model)
+        {
+            Response<CompanyFollowerResponse> Response = await Service.SelectSingleAsync(Model);
+            return new Response<CompanyFollowerResponse>
+            {
+                Collection = Response.Collection
+            };
+        }
     }
 }

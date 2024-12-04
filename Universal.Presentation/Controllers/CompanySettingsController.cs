@@ -3,88 +3,70 @@
 	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.AspNetCore.Authorization;
 
 	[ApiController]
     public class CompanySettingsController : ControllerBase
     {
-        readonly IOrganizationPaymentService Service;
+        readonly ICompanySettingsService Service;
 
-        public CompanySettingsController(IOrganizationPaymentService service)
+        public CompanySettingsController(ICompanySettingsService service)
         {
             Service = service;
         }
 
         [HttpPost]
-        [Authorize]
-        [Route("api/organizationpayment")]
-        public async Task<Response<OrganizationPaymentResponse>> Create([FromBody] OrganizationPaymentRegisterDto Model)
+        [Route("api/companysettings")]
+        public async Task<Response<CompanySettingsResponse>> Create([FromBody] CompanySettingsRegisterDto Model)
         {
-            Response<OrganizationPaymentResponse> Response = await Service.InsertAsync(Model);
-            return new Response<OrganizationPaymentResponse>
+            Response<CompanySettingsResponse> Response = await Service.InsertAsync(Model);
+            return new Response<CompanySettingsResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpPut]
-        [Authorize]
-        [Route("api/organizationpayment")]
-        public async Task<Response<OrganizationPaymentResponse>> Update([FromBody] OrganizationPaymentUpdateDto Model)
+        [Route("api/companysettings")]
+        public async Task<Response<CompanySettingsResponse>> Update([FromBody] CompanySettingsUpdateDto Model)
         {
-            Response<OrganizationPaymentResponse> Response = await Service.UpdateAsync(Model);
-            return new Response<OrganizationPaymentResponse>
+            Response<CompanySettingsResponse> Response = await Service.UpdateAsync(Model);
+            return new Response<CompanySettingsResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpDelete]
-        [Authorize]
-        [Route("api/organizationpayment")]
-        public async Task<Response<OrganizationPaymentResponse>> Delete([FromBody] OrganizationPaymentDeleteDto Model)
+        [Route("api/companysettings")]
+        public async Task<Response<CompanySettingsResponse>> Delete([FromBody] CompanySettingsDeleteDto Model)
         {
-            Response<OrganizationPaymentResponse> Response = await Service.DeleteAsync(Model);
-            return new Response<OrganizationPaymentResponse>
+            Response<CompanySettingsResponse> Response = await Service.DeleteAsync(Model);
+            return new Response<CompanySettingsResponse>
             {
                 Data = Response.Data
             };
         }
 
         [HttpGet]
-        [Authorize]
-        [Route("api/organizationpayment")]
-        public async Task<Response<OrganizationPaymentResponse>> Get([FromQuery] OrganizationPaymentSelectDto Model)
+        [Route("api/companysettings")]
+        public async Task<Response<CompanySettingsResponse>> Get([FromQuery] CompanySettingsSelectDto Model)
         {
-            Response<OrganizationPaymentResponse> Response = await Service.SelectAsync(Model);
-            return new Response<OrganizationPaymentResponse>
+            Response<CompanySettingsResponse> Response = await Service.SelectAsync(Model);
+            return new Response<CompanySettingsResponse>
             {
-                DataSource = Response.DataSource
-            };
+				Collection = Response.Collection
+			};
         }
 
         [HttpGet]
-        [Authorize]
-        [Route("api/organizationpaymentsingle")]
-        public async Task<Response<OrganizationPaymentResponse>> GetSingle([FromQuery] OrganizationPaymentSelectDto Model)
+        [Route("api/companysettingssingle")]
+        public async Task<Response<CompanySettingsResponse>> GetSingle([FromQuery] CompanySettingsSelectDto Model)
         {
-            Response<OrganizationPaymentResponse> Response = await Service.SelectSingleAsync(Model);
-            return new Response<OrganizationPaymentResponse>
+            Response<CompanySettingsResponse> Response = await Service.SelectSingleAsync(Model);
+            return new Response<CompanySettingsResponse>
             {
-                DataSource = Response.DataSource
-            };
-        }
-
-		[HttpGet]
-		[Authorize]
-		[Route("api/organizationpaymenforuser")]
-		public async Task<Response<OrganizationPaymentResponse>> GetForUser([FromQuery] OrganizationPaymentSelectDto Model)
-		{
-			Response<OrganizationPaymentResponse> Response = await Service.SelectForUserAsync(Model);
-			return new Response<OrganizationPaymentResponse>
-			{
-				DataSource = Response.DataSource
+                Collection = Response.Collection
 			};
-		}
+        }
 	}
 }

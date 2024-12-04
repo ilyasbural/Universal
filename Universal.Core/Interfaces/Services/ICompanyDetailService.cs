@@ -2,10 +2,10 @@
 {
     public interface ICompanyDetailService
     {
-        Task<Response<CompanyDetail>> InsertAsync(CompanyDetailRegisterDto Model);
-        Task<Response<CompanyDetail>> UpdateAsync(CompanyDetailUpdateDto Model);
-        Task<Response<CompanyDetail>> DeleteAsync(CompanyDetailDeleteDto Model);
-        Task<Response<CompanyDetail>> SelectAsync(CompanyDetailSelectDto Model);
-        Task<Response<CompanyDetail>> SelectSingleAsync(CompanyDetailSelectDto Model);
+        Task<Common.Response<Common.CompanyDetailResponse>> InsertAsync(CompanyDetailRegisterDto Model);
+        Task<Common.Response<Common.CompanyDetailResponse>> UpdateAsync(CompanyDetailUpdateDto Model);
+        Task<Common.Response<Common.CompanyDetailResponse>> DeleteAsync(CompanyDetailDeleteDto Model);
+        Task<Common.Response<Common.CompanyDetailResponse>> SelectAsync(CompanyDetailSelectDto Model);
+        Task<Common.Response<Common.CompanyDetailResponse>> SelectSingleAsync(CompanyDetailSelectDto Model);
     }
 }
