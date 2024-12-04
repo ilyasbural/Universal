@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }     
 
-        public async Task<Response<AnnounceDetail>> InsertAsync(AnnounceDetailRegisterDto Model)
+        public async Task<Response<AnnounceDetailResponse>> InsertAsync(AnnounceDetailRegisterDto Model)
         {
             Data = Mapper.Map<AnnounceDetail>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.AnnounceDetail.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<AnnounceDetail>
+            return new Response<AnnounceDetailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<AnnounceDetail>> UpdateAsync(AnnounceDetailUpdateDto Model)
+        public async Task<Response<AnnounceDetailResponse>> UpdateAsync(AnnounceDetailUpdateDto Model)
         {
             Collection = await UnitOfWork.AnnounceDetail.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<AnnounceDetail>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.AnnounceDetail.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<AnnounceDetail>
+            return new Response<AnnounceDetailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<AnnounceDetail>> DeleteAsync(AnnounceDetailDeleteDto Model)
+        public async Task<Response<AnnounceDetailResponse>> DeleteAsync(AnnounceDetailDeleteDto Model)
         {
             Collection = await UnitOfWork.AnnounceDetail.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<AnnounceDetail>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.AnnounceDetail.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<AnnounceDetail>
+            return new Response<AnnounceDetailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<AnnounceDetail>> SelectAsync(AnnounceDetailSelectDto Model)
+        public async Task<Response<AnnounceDetailResponse>> SelectAsync(AnnounceDetailSelectDto Model)
         {
             Collection = await UnitOfWork.AnnounceDetail.SelectAsync(x => x.IsActive == true);
-            return new Response<AnnounceDetail>
+            return new Response<AnnounceDetailResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<AnnounceDetail>> SelectSingleAsync(AnnounceDetailSelectDto Model)
+        public async Task<Response<AnnounceDetailResponse>> SelectSingleAsync(AnnounceDetailSelectDto Model)
         {
             Collection = await UnitOfWork.AnnounceDetail.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<AnnounceDetail>
+            return new Response<AnnounceDetailResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

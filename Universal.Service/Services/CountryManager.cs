@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<Country>> InsertAsync(CountryRegisterDto Model)
+        public async Task<Response<CountryResponse>> InsertAsync(CountryRegisterDto Model)
         {
             Data = Mapper.Map<Country>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.Country.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Country>
+            return new Response<CountryResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         } 
 
-        public async Task<Response<Country>> UpdateAsync(CountryUpdateDto Model)
+        public async Task<Response<CountryResponse>> UpdateAsync(CountryUpdateDto Model)
         {
             Collection = await UnitOfWork.Country.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Country>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.Country.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Country>
+            return new Response<CountryResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Country>> DeleteAsync(CountryDeleteDto Model)
+        public async Task<Response<CountryResponse>> DeleteAsync(CountryDeleteDto Model)
         {
             Collection = await UnitOfWork.Country.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Country>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.Country.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Country>
+            return new Response<CountryResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Country>> SelectAsync(CountrySelectDto Model)
+        public async Task<Response<CountryResponse>> SelectAsync(CountrySelectDto Model)
         {
             Collection = await UnitOfWork.Country.SelectAsync(x => x.IsActive == true);
-            return new Response<Country>
+            return new Response<CountryResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Country>> SelectSingleAsync(CountrySelectDto Model)
+        public async Task<Response<CountryResponse>> SelectSingleAsync(CountrySelectDto Model)
         {
             Collection = await UnitOfWork.Country.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<Country>
+            return new Response<CountryResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

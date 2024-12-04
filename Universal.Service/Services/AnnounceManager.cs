@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<Announce>> InsertAsync(AnnounceRegisterDto Model)
+        public async Task<Response<AnnounceResponse>> InsertAsync(AnnounceRegisterDto Model)
         {
             Data = Mapper.Map<Announce>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.Announce.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Announce>
+            return new Response<AnnounceResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Announce>> UpdateAsync(AnnounceUpdateDto Model)
+        public async Task<Response<AnnounceResponse>> UpdateAsync(AnnounceUpdateDto Model)
         {
             Collection = await UnitOfWork.Announce.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Announce>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.Announce.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Announce>
+            return new Response<AnnounceResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Announce>> DeleteAsync(AnnounceDeleteDto Model)
+        public async Task<Response<AnnounceResponse>> DeleteAsync(AnnounceDeleteDto Model)
         {
             Collection = await UnitOfWork.Announce.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Announce>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.Announce.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Announce>
+            return new Response<AnnounceResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Announce>> SelectAsync(AnnounceSelectDto Model)
+        public async Task<Response<AnnounceResponse>> SelectAsync(AnnounceSelectDto Model)
         {
             Collection = await UnitOfWork.Announce.SelectAsync(x => x.IsActive == true);
-            return new Response<Announce>
+            return new Response<AnnounceResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Announce>> SelectSingleAsync(AnnounceSelectDto Model)
+        public async Task<Response<AnnounceResponse>> SelectSingleAsync(AnnounceSelectDto Model)
         {
             Collection = await UnitOfWork.Announce.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<Announce>
+            return new Response<AnnounceResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

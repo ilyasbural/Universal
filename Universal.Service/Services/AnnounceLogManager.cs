@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<AnnounceLog>> InsertAsync(AnnounceLogRegisterDto Model)
+        public async Task<Response<AnnounceLogResponse>> InsertAsync(AnnounceLogRegisterDto Model)
         {
             Data = Mapper.Map<AnnounceLog>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.AnnounceLog.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<AnnounceLog>
+            return new Response<AnnounceLogResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<AnnounceLog>> UpdateAsync(AnnounceLogUpdateDto Model)
+        public async Task<Response<AnnounceLogResponse>> UpdateAsync(AnnounceLogUpdateDto Model)
         {
             Collection = await UnitOfWork.AnnounceLog.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<AnnounceLog>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.AnnounceLog.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<AnnounceLog>
+            return new Response<AnnounceLogResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<AnnounceLog>> DeleteAsync(AnnounceLogDeleteDto Model)
+        public async Task<Response<AnnounceLogResponse>> DeleteAsync(AnnounceLogDeleteDto Model)
         {
             Collection = await UnitOfWork.AnnounceLog.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<AnnounceLog>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.AnnounceLog.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<AnnounceLog>
+            return new Response<AnnounceLogResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<AnnounceLog>> SelectAsync(AnnounceLogSelectDto Model)
+        public async Task<Response<AnnounceLogResponse>> SelectAsync(AnnounceLogSelectDto Model)
         {
             Collection = await UnitOfWork.AnnounceLog.SelectAsync(x => x.IsActive == true);
-            return new Response<AnnounceLog>
+            return new Response<AnnounceLogResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<AnnounceLog>> SelectSingleAsync(AnnounceLogSelectDto Model)
+        public async Task<Response<AnnounceLogResponse>> SelectSingleAsync(AnnounceLogSelectDto Model)
         {
             Collection = await UnitOfWork.AnnounceLog.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<AnnounceLog>
+            return new Response<AnnounceLogResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

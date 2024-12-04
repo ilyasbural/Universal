@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<Emoji>> InsertAsync(EmojiRegisterDto Model)
+        public async Task<Response<EmojiResponse>> InsertAsync(EmojiRegisterDto Model)
         {
             Data = Mapper.Map<Emoji>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.Emoji.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Emoji>
+            return new Response<EmojiResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Emoji>> UpdateAsync(EmojiUpdateDto Model)
+        public async Task<Response<EmojiResponse>> UpdateAsync(EmojiUpdateDto Model)
         {
             Collection = await UnitOfWork.Emoji.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Emoji>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.Emoji.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Emoji>
+            return new Response<EmojiResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Emoji>> DeleteAsync(EmojiDeleteDto Model)
+        public async Task<Response<EmojiResponse>> DeleteAsync(EmojiDeleteDto Model)
         {
             Collection = await UnitOfWork.Emoji.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Emoji>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.Emoji.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Emoji>
+            return new Response<EmojiResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Emoji>> SelectAsync(EmojiSelectDto Model)
+        public async Task<Response<EmojiResponse>> SelectAsync(EmojiSelectDto Model)
         {
             Collection = await UnitOfWork.Emoji.SelectAsync(x => x.IsActive == true);
-            return new Response<Emoji>
+            return new Response<EmojiResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Emoji>> SelectSingleAsync(EmojiSelectDto Model)
+        public async Task<Response<EmojiResponse>> SelectSingleAsync(EmojiSelectDto Model)
         {
             Collection = await UnitOfWork.Emoji.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<Emoji>
+            return new Response<EmojiResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
