@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<UserExperience>> InsertAsync(UserExperienceRegisterDto Model)
+        public async Task<Response<UserExperienceResponse>> InsertAsync(UserExperienceRegisterDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
 
@@ -32,15 +33,14 @@
             await UnitOfWork.UserExperience.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserExperience>
+            return new Response<UserExperienceResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserExperience>> UpdateAsync(UserExperienceUpdateDto Model)
+        public async Task<Response<UserExperienceResponse>> UpdateAsync(UserExperienceUpdateDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             Collection = await UnitOfWork.UserExperience.SelectAsync(x => x.Id == Model.Id);
@@ -52,16 +52,15 @@
             await UnitOfWork.UserExperience.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserExperience>
+            return new Response<UserExperienceResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserExperience>> DeleteAsync(UserExperienceDeleteDto Model)
+        public async Task<Response<UserExperienceResponse>> DeleteAsync(UserExperienceDeleteDto Model)
         {
             Collection = await UnitOfWork.UserExperience.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserExperience>(Collection[0]);
@@ -69,34 +68,31 @@
             await UnitOfWork.UserExperience.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserExperience>
+            return new Response<UserExperienceResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserExperience>> SelectAsync(UserExperienceSelectDto Model)
+        public async Task<Response<UserExperienceResponse>> SelectAsync(UserExperienceSelectDto Model)
         {
             Collection = await UnitOfWork.UserExperience.SelectAsync(x => x.IsActive == true, x => x.User);
-            return new Response<UserExperience>
+            return new Response<UserExperienceResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserExperience>> SelectSingleAsync(UserExperienceSelectDto Model)
+        public async Task<Response<UserExperienceResponse>> SelectSingleAsync(UserExperienceSelectDto Model)
         {
             Collection = await UnitOfWork.UserExperience.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
-            return new Response<UserExperience>
+            return new Response<UserExperienceResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

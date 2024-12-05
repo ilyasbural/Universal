@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<UserLanguage>> InsertAsync(UserLanguageRegisterDto Model)
+        public async Task<Response<UserLanguageResponse>> InsertAsync(UserLanguageRegisterDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             List<Language> LanguageList = await UnitOfWork.Language.SelectAsync(x => x.Id == Model.LanguageId);
@@ -34,15 +35,14 @@
             await UnitOfWork.UserLanguage.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserLanguage>
+            return new Response<UserLanguageResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserLanguage>> UpdateAsync(UserLanguageUpdateDto Model)
+        public async Task<Response<UserLanguageResponse>> UpdateAsync(UserLanguageUpdateDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             List<Language> LanguageList = await UnitOfWork.Language.SelectAsync(x => x.Id == Model.LanguageId);
@@ -56,16 +56,15 @@
             await UnitOfWork.UserLanguage.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserLanguage>
+            return new Response<UserLanguageResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserLanguage>> DeleteAsync(UserLanguageDeleteDto Model)
+        public async Task<Response<UserLanguageResponse>> DeleteAsync(UserLanguageDeleteDto Model)
         {
             Collection = await UnitOfWork.UserLanguage.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserLanguage>(Collection[0]);
@@ -73,34 +72,31 @@
             await UnitOfWork.UserLanguage.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserLanguage>
+            return new Response<UserLanguageResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserLanguage>> SelectAsync(UserLanguageSelectDto Model)
+        public async Task<Response<UserLanguageResponse>> SelectAsync(UserLanguageSelectDto Model)
         {
             Collection = await UnitOfWork.UserLanguage.SelectAsync(x => x.IsActive == true, x => x.User, x => x.Language);
-            return new Response<UserLanguage>
+            return new Response<UserLanguageResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserLanguage>> SelectSingleAsync(UserLanguageSelectDto Model)
+        public async Task<Response<UserLanguageResponse>> SelectSingleAsync(UserLanguageSelectDto Model)
         {
             Collection = await UnitOfWork.UserLanguage.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User, x => x.Language);
-            return new Response<UserLanguage>
+            return new Response<UserLanguageResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

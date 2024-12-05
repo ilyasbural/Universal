@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<UserNetwork>> InsertAsync(UserNetworkRegisterDto Model)
+        public async Task<Response<UserNetworkResponse>> InsertAsync(UserNetworkRegisterDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
 
@@ -32,15 +33,14 @@
             await UnitOfWork.UserNetwork.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserNetwork>
+            return new Response<UserNetworkResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserNetwork>> UpdateAsync(UserNetworkUpdateDto Model)
+        public async Task<Response<UserNetworkResponse>> UpdateAsync(UserNetworkUpdateDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             Collection = await UnitOfWork.UserNetwork.SelectAsync(x => x.Id == Model.Id);
@@ -52,16 +52,15 @@
             await UnitOfWork.UserNetwork.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserNetwork>
+            return new Response<UserNetworkResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserNetwork>> DeleteAsync(UserNetworkDeleteDto Model)
+        public async Task<Response<UserNetworkResponse>> DeleteAsync(UserNetworkDeleteDto Model)
         {
             Collection = await UnitOfWork.UserNetwork.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserNetwork>(Collection[0]);
@@ -69,34 +68,31 @@
             await UnitOfWork.UserNetwork.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserNetwork>
+            return new Response<UserNetworkResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserNetwork>> SelectAsync(UserNetworkSelectDto Model)
+        public async Task<Response<UserNetworkResponse>> SelectAsync(UserNetworkSelectDto Model)
         {
             Collection = await UnitOfWork.UserNetwork.SelectAsync(x => x.IsActive == true, x => x.User);
-            return new Response<UserNetwork>
+            return new Response<UserNetworkResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserNetwork>> SelectSingleAsync(UserNetworkSelectDto Model)
+        public async Task<Response<UserNetworkResponse>> SelectSingleAsync(UserNetworkSelectDto Model)
         {
             Collection = await UnitOfWork.UserNetwork.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
-            return new Response<UserNetwork>
+            return new Response<UserNetworkResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

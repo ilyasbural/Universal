@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<UserDetail>> InsertAsync(UserDetailRegisterDto Model)
+        public async Task<Response<UserDetailResponse>> InsertAsync(UserDetailRegisterDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
 
@@ -32,15 +33,14 @@
             await UnitOfWork.UserDetail.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserDetail>
+            return new Response<UserDetailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserDetail>> UpdateAsync(UserDetailUpdateDto Model)
+        public async Task<Response<UserDetailResponse>> UpdateAsync(UserDetailUpdateDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             Collection = await UnitOfWork.UserDetail.SelectAsync(x => x.Id == Model.Id);
@@ -52,16 +52,15 @@
             await UnitOfWork.UserDetail.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserDetail>
+            return new Response<UserDetailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserDetail>> DeleteAsync(UserDetailDeleteDto Model)
+        public async Task<Response<UserDetailResponse>> DeleteAsync(UserDetailDeleteDto Model)
         {
             Collection = await UnitOfWork.UserDetail.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserDetail>(Collection[0]);
@@ -69,34 +68,31 @@
             await UnitOfWork.UserDetail.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserDetail>
+            return new Response<UserDetailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserDetail>> SelectAsync(UserDetailSelectDto Model)
+        public async Task<Response<UserDetailResponse>> SelectAsync(UserDetailSelectDto Model)
         {
             Collection = await UnitOfWork.UserDetail.SelectAsync(x => x.IsActive == true, x => x.User);
-            return new Response<UserDetail>
+            return new Response<UserDetailResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserDetail>> SelectSingleAsync(UserDetailSelectDto Model)
+        public async Task<Response<UserDetailResponse>> SelectSingleAsync(UserDetailSelectDto Model)
         {
             Collection = await UnitOfWork.UserDetail.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
-            return new Response<UserDetail>
+            return new Response<UserDetailResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

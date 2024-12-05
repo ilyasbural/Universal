@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<UserSettings>> InsertAsync(UserSettingsRegisterDto Model)
+        public async Task<Response<UserSettingsResponse>> InsertAsync(UserSettingsRegisterDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
 
@@ -32,15 +33,14 @@
             await UnitOfWork.UserSettings.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserSettings>
+            return new Response<UserSettingsResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserSettings>> UpdateAsync(UserSettingsUpdateDto Model)
+        public async Task<Response<UserSettingsResponse>> UpdateAsync(UserSettingsUpdateDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             Collection = await UnitOfWork.UserSettings.SelectAsync(x => x.Id == Model.Id);
@@ -52,16 +52,15 @@
             await UnitOfWork.UserSettings.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserSettings>
+            return new Response<UserSettingsResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserSettings>> DeleteAsync(UserSettingsDeleteDto Model)
+        public async Task<Response<UserSettingsResponse>> DeleteAsync(UserSettingsDeleteDto Model)
         {
             Collection = await UnitOfWork.UserSettings.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserSettings>(Collection[0]);
@@ -69,34 +68,31 @@
             await UnitOfWork.UserSettings.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserSettings>
+            return new Response<UserSettingsResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserSettings>> SelectAsync(UserSettingsSelectDto Model)
+        public async Task<Response<UserSettingsResponse>> SelectAsync(UserSettingsSelectDto Model)
         {
             Collection = await UnitOfWork.UserSettings.SelectAsync(x => x.IsActive == true, x => x.User);
-            return new Response<UserSettings>
+            return new Response<UserSettingsResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserSettings>> SelectSingleAsync(UserSettingsSelectDto Model)
+        public async Task<Response<UserSettingsResponse>> SelectSingleAsync(UserSettingsSelectDto Model)
         {
             Collection = await UnitOfWork.UserSettings.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
-            return new Response<UserSettings>
+            return new Response<UserSettingsResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

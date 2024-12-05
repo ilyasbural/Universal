@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<UserProject>> InsertAsync(UserProjectRegisterDto Model)
+        public async Task<Response<UserProjectResponse>> InsertAsync(UserProjectRegisterDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
 
@@ -32,15 +33,14 @@
             await UnitOfWork.UserProject.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserProject>
+            return new Response<UserProjectResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserProject>> UpdateAsync(UserProjectUpdateDto Model)
+        public async Task<Response<UserProjectResponse>> UpdateAsync(UserProjectUpdateDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             Collection = await UnitOfWork.UserProject.SelectAsync(x => x.Id == Model.Id);
@@ -52,16 +52,15 @@
             await UnitOfWork.UserProject.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserProject>
+            return new Response<UserProjectResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserProject>> DeleteAsync(UserProjectDeleteDto Model)
+        public async Task<Response<UserProjectResponse>> DeleteAsync(UserProjectDeleteDto Model)
         {
             Collection = await UnitOfWork.UserProject.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserProject>(Collection[0]);
@@ -69,34 +68,31 @@
             await UnitOfWork.UserProject.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserProject>
+            return new Response<UserProjectResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserProject>> SelectAsync(UserProjectSelectDto Model)
+        public async Task<Response<UserProjectResponse>> SelectAsync(UserProjectSelectDto Model)
         {
             Collection = await UnitOfWork.UserProject.SelectAsync(x => x.IsActive == true, x => x.User);
-            return new Response<UserProject>
+            return new Response<UserProjectResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserProject>> SelectSingleAsync(UserProjectSelectDto Model)
+        public async Task<Response<UserProjectResponse>> SelectSingleAsync(UserProjectSelectDto Model)
         {
             Collection = await UnitOfWork.UserProject.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
-            return new Response<UserProject>
+            return new Response<UserProjectResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

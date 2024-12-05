@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<UserFollower>> InsertAsync(UserFollowerRegisterDto Model)
+        public async Task<Response<UserFollowerResponse>> InsertAsync(UserFollowerRegisterDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
 
@@ -32,15 +33,14 @@
             await UnitOfWork.UserFollower.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserFollower>
+            return new Response<UserFollowerResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserFollower>> UpdateAsync(UserFollowerUpdateDto Model)
+        public async Task<Response<UserFollowerResponse>> UpdateAsync(UserFollowerUpdateDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             Collection = await UnitOfWork.UserFollower.SelectAsync(x => x.Id == Model.Id);
@@ -52,16 +52,15 @@
             await UnitOfWork.UserFollower.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserFollower>
+            return new Response<UserFollowerResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserFollower>> DeleteAsync(UserFollowerDeleteDto Model)
+        public async Task<Response<UserFollowerResponse>> DeleteAsync(UserFollowerDeleteDto Model)
         {
             Collection = await UnitOfWork.UserFollower.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserFollower>(Collection[0]);
@@ -69,34 +68,31 @@
             await UnitOfWork.UserFollower.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserFollower>
+            return new Response<UserFollowerResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserFollower>> SelectAsync(UserFollowerSelectDto Model)
+        public async Task<Response<UserFollowerResponse>> SelectAsync(UserFollowerSelectDto Model)
         {
             Collection = await UnitOfWork.UserFollower.SelectAsync(x => x.IsActive == true, x => x.User);
-            return new Response<UserFollower>
+            return new Response<UserFollowerResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserFollower>> SelectSingleAsync(UserFollowerSelectDto Model)
+        public async Task<Response<UserFollowerResponse>> SelectSingleAsync(UserFollowerSelectDto Model)
         {
             Collection = await UnitOfWork.UserFollower.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
-            return new Response<UserFollower>
+            return new Response<UserFollowerResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

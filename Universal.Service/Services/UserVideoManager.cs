@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<UserVideo>> InsertAsync(UserVideoRegisterDto Model)
+        public async Task<Response<UserVideoResponse>> InsertAsync(UserVideoRegisterDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
 
@@ -32,15 +33,14 @@
             await UnitOfWork.UserVideo.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserVideo>
+            return new Response<UserVideoResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserVideo>> UpdateAsync(UserVideoUpdateDto Model)
+        public async Task<Response<UserVideoResponse>> UpdateAsync(UserVideoUpdateDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             Collection = await UnitOfWork.UserVideo.SelectAsync(x => x.Id == Model.Id);
@@ -52,16 +52,15 @@
             await UnitOfWork.UserVideo.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserVideo>
+            return new Response<UserVideoResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserVideo>> DeleteAsync(UserVideoDeleteDto Model)
+        public async Task<Response<UserVideoResponse>> DeleteAsync(UserVideoDeleteDto Model)
         {
             Collection = await UnitOfWork.UserVideo.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserVideo>(Collection[0]);
@@ -69,34 +68,31 @@
             await UnitOfWork.UserVideo.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserVideo>
+            return new Response<UserVideoResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserVideo>> SelectAsync(UserVideoSelectDto Model)
+        public async Task<Response<UserVideoResponse>> SelectAsync(UserVideoSelectDto Model)
         {
             Collection = await UnitOfWork.UserVideo.SelectAsync(x => x.IsActive == true, x => x.User);
-            return new Response<UserVideo>
+            return new Response<UserVideoResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserVideo>> SelectSingleAsync(UserVideoSelectDto Model)
+        public async Task<Response<UserVideoResponse>> SelectSingleAsync(UserVideoSelectDto Model)
         {
             Collection = await UnitOfWork.UserVideo.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
-            return new Response<UserVideo>
+            return new Response<UserVideoResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<UserReferance>> InsertAsync(UserReferanceRegisterDto Model)
+        public async Task<Response<UserReferanceResponse>> InsertAsync(UserReferanceRegisterDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
 
@@ -32,15 +33,14 @@
             await UnitOfWork.UserReferance.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserReferance>
+            return new Response<UserReferanceResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserReferance>> UpdateAsync(UserReferanceUpdateDto Model)
+        public async Task<Response<UserReferanceResponse>> UpdateAsync(UserReferanceUpdateDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             Collection = await UnitOfWork.UserReferance.SelectAsync(x => x.Id == Model.Id);
@@ -52,16 +52,15 @@
             await UnitOfWork.UserReferance.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserReferance>
+            return new Response<UserReferanceResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserReferance>> DeleteAsync(UserReferanceDeleteDto Model)
+        public async Task<Response<UserReferanceResponse>> DeleteAsync(UserReferanceDeleteDto Model)
         {
             Collection = await UnitOfWork.UserReferance.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserReferance>(Collection[0]);
@@ -69,34 +68,31 @@
             await UnitOfWork.UserReferance.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserReferance>
+            return new Response<UserReferanceResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserReferance>> SelectAsync(UserReferanceSelectDto Model)
+        public async Task<Response<UserReferanceResponse>> SelectAsync(UserReferanceSelectDto Model)
         {
             Collection = await UnitOfWork.UserReferance.SelectAsync(x => x.IsActive == true, x => x.User);
-            return new Response<UserReferance>
+            return new Response<UserReferanceResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserReferance>> SelectSingleAsync(UserReferanceSelectDto Model)
+        public async Task<Response<UserReferanceResponse>> SelectSingleAsync(UserReferanceSelectDto Model)
         {
             Collection = await UnitOfWork.UserReferance.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
-            return new Response<UserReferance>
+            return new Response<UserReferanceResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

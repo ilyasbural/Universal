@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<UserAbility>> InsertAsync(UserAbilityRegisterDto Model)
+        public async Task<Response<UserAbilityResponse>> InsertAsync(UserAbilityRegisterDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             List<Ability> AbilityList = await UnitOfWork.Ability.SelectAsync(x => x.Id == Model.AbilityId);
@@ -34,15 +35,14 @@
             await UnitOfWork.UserAbility.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserAbility>
+            return new Response<UserAbilityResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserAbility>> UpdateAsync(UserAbilityUpdateDto Model)
+        public async Task<Response<UserAbilityResponse>> UpdateAsync(UserAbilityUpdateDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             List<Ability> AbilityList = await UnitOfWork.Ability.SelectAsync(x => x.Id == Model.AbilityId);
@@ -56,16 +56,15 @@
             await UnitOfWork.UserAbility.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserAbility>
+            return new Response<UserAbilityResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserAbility>> DeleteAsync(UserAbilityDeleteDto Model)
+        public async Task<Response<UserAbilityResponse>> DeleteAsync(UserAbilityDeleteDto Model)
         {
             Collection = await UnitOfWork.UserAbility.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserAbility>(Collection[0]);
@@ -73,34 +72,31 @@
             await UnitOfWork.UserAbility.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserAbility>
+            return new Response<UserAbilityResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserAbility>> SelectAsync(UserAbilitySelectDto Model)
+        public async Task<Response<UserAbilityResponse>> SelectAsync(UserAbilitySelectDto Model)
         {
             Collection = await UnitOfWork.UserAbility.SelectAsync(x => x.IsActive == true, x => x.User, x => x.Ability);
-            return new Response<UserAbility>
+            return new Response<UserAbilityResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserAbility>> SelectSingleAsync(UserAbilitySelectDto Model)
+        public async Task<Response<UserAbilityResponse>> SelectSingleAsync(UserAbilitySelectDto Model)
         {
             Collection = await UnitOfWork.UserAbility.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User, x => x.Ability);
-            return new Response<UserAbility>
+            return new Response<UserAbilityResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

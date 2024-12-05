@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<UserEducation>> InsertAsync(UserEducationRegisterDto Model)
+        public async Task<Response<UserEducationResponse>> InsertAsync(UserEducationRegisterDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
 
@@ -32,15 +33,14 @@
             await UnitOfWork.UserEducation.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserEducation>
+            return new Response<UserEducationResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }   
 
-        public async Task<Response<UserEducation>> UpdateAsync(UserEducationUpdateDto Model)
+        public async Task<Response<UserEducationResponse>> UpdateAsync(UserEducationUpdateDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             Collection = await UnitOfWork.UserEducation.SelectAsync(x => x.Id == Model.Id);
@@ -52,16 +52,15 @@
             await UnitOfWork.UserEducation.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserEducation>
+            return new Response<UserEducationResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserEducation>> DeleteAsync(UserEducationDeleteDto Model)
+        public async Task<Response<UserEducationResponse>> DeleteAsync(UserEducationDeleteDto Model)
         {
             Collection = await UnitOfWork.UserEducation.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserEducation>(Collection[0]);
@@ -69,34 +68,31 @@
             await UnitOfWork.UserEducation.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserEducation>
+            return new Response<UserEducationResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserEducation>> SelectAsync(UserEducationSelectDto Model)
+        public async Task<Response<UserEducationResponse>> SelectAsync(UserEducationSelectDto Model)
         {
             Collection = await UnitOfWork.UserEducation.SelectAsync(x => x.IsActive == true, x => x.User);
-            return new Response<UserEducation>
+            return new Response<UserEducationResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserEducation>> SelectSingleAsync(UserEducationSelectDto Model)
+        public async Task<Response<UserEducationResponse>> SelectSingleAsync(UserEducationSelectDto Model)
         {
             Collection = await UnitOfWork.UserEducation.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
-            return new Response<UserEducation>
+            return new Response<UserEducationResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

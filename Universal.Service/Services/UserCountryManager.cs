@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<UserCountry>> InsertAsync(UserCountryRegisterDto Model)
+        public async Task<Response<UserCountryResponse>> InsertAsync(UserCountryRegisterDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             List<Country> CountryList = await UnitOfWork.Country.SelectAsync(x => x.Id == Model.CountryId);
@@ -34,15 +35,14 @@
             await UnitOfWork.UserCountry.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserCountry>
+            return new Response<UserCountryResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserCountry>> UpdateAsync(UserCountryUpdateDto Model)
+        public async Task<Response<UserCountryResponse>> UpdateAsync(UserCountryUpdateDto Model)
         {
             List<User> UserList = await UnitOfWork.User.SelectAsync(x => x.Id == Model.UserId);
             List<Country> CountryList = await UnitOfWork.Country.SelectAsync(x => x.Id == Model.CountryId);
@@ -56,16 +56,15 @@
             await UnitOfWork.UserCountry.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserCountry>
+            return new Response<UserCountryResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserCountry>> DeleteAsync(UserCountryDeleteDto Model)
+        public async Task<Response<UserCountryResponse>> DeleteAsync(UserCountryDeleteDto Model)
         {
             Collection = await UnitOfWork.UserCountry.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<UserCountry>(Collection[0]);
@@ -73,34 +72,31 @@
             await UnitOfWork.UserCountry.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<UserCountry>
+            return new Response<UserCountryResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserCountry>> SelectAsync(UserCountrySelectDto Model)
+        public async Task<Response<UserCountryResponse>> SelectAsync(UserCountrySelectDto Model)
         {
             Collection = await UnitOfWork.UserCountry.SelectAsync(x => x.IsActive == true, x => x.User, x => x.Country);
-            return new Response<UserCountry>
+            return new Response<UserCountryResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<UserCountry>> SelectSingleAsync(UserCountrySelectDto Model)
+        public async Task<Response<UserCountryResponse>> SelectSingleAsync(UserCountrySelectDto Model)
         {
             Collection = await UnitOfWork.UserCountry.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User, x => x.Country);
-            return new Response<UserCountry>
+            return new Response<UserCountryResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
