@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<Region>> InsertAsync(RegionRegisterDto Model)
+        public async Task<Response<RegionResponse>> InsertAsync(RegionRegisterDto Model)
         {
             Data = Mapper.Map<Region>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.Region.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Region>
+            return new Response<RegionResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Region>> UpdateAsync(RegionUpdateDto Model)
+        public async Task<Response<RegionResponse>> UpdateAsync(RegionUpdateDto Model)
         {
             Collection = await UnitOfWork.Region.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Region>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.Region.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Region>
+            return new Response<RegionResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Region>> DeleteAsync(RegionDeleteDto Model)
+        public async Task<Response<RegionResponse>> DeleteAsync(RegionDeleteDto Model)
         {
             Collection = await UnitOfWork.Region.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Region>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.Region.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Region>
+            return new Response<RegionResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Region>> SelectAsync(RegionSelectDto Model)
+        public async Task<Response<RegionResponse>> SelectAsync(RegionSelectDto Model)
         {
             Collection = await UnitOfWork.Region.SelectAsync(x => x.IsActive == true);
-            return new Response<Region>
+            return new Response<RegionResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Region>> SelectSingleAsync(RegionSelectDto Model)
+        public async Task<Response<RegionResponse>> SelectSingleAsync(RegionSelectDto Model)
         {
             Collection = await UnitOfWork.Region.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<Region>
+            return new Response<RegionResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

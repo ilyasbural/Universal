@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<Survey>> InsertAsync(SurveyRegisterDto Model)
+        public async Task<Response<SurveyResponse>> InsertAsync(SurveyRegisterDto Model)
         {
             Data = Mapper.Map<Survey>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.Survey.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Survey>
+            return new Response<SurveyResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Survey>> UpdateAsync(SurveyUpdateDto Model)
+        public async Task<Response<SurveyResponse>> UpdateAsync(SurveyUpdateDto Model)
         {
             Collection = await UnitOfWork.Survey.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Survey>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.Survey.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Survey>
+            return new Response<SurveyResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Survey>> DeleteAsync(SurveyDeleteDto Model)
+        public async Task<Response<SurveyResponse>> DeleteAsync(SurveyDeleteDto Model)
         {
             Collection = await UnitOfWork.Survey.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Survey>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.Survey.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Survey>
+            return new Response<SurveyResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Survey>> SelectAsync(SurveySelectDto Model)
+        public async Task<Response<SurveyResponse>> SelectAsync(SurveySelectDto Model)
         {
             Collection = await UnitOfWork.Survey.SelectAsync(x => x.IsActive == true);
-            return new Response<Survey>
+            return new Response<SurveyResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Survey>> SelectSingleAsync(SurveySelectDto Model)
+        public async Task<Response<SurveyResponse>> SelectSingleAsync(SurveySelectDto Model)
         {
             Collection = await UnitOfWork.Survey.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<Survey>
+            return new Response<SurveyResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

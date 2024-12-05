@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<Occupation>> InsertAsync(OccupationRegisterDto Model)
+        public async Task<Response<OccupationResponse>> InsertAsync(OccupationRegisterDto Model)
         {
             Data = Mapper.Map<Occupation>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.Occupation.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Occupation>
+            return new Response<OccupationResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Occupation>> UpdateAsync(OccupationUpdateDto Model)
+        public async Task<Response<OccupationResponse>> UpdateAsync(OccupationUpdateDto Model)
         {
             Collection = await UnitOfWork.Occupation.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Occupation>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.Occupation.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Occupation>
+            return new Response<OccupationResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Occupation>> DeleteAsync(OccupationDeleteDto Model)
+        public async Task<Response<OccupationResponse>> DeleteAsync(OccupationDeleteDto Model)
         {
             Collection = await UnitOfWork.Occupation.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Occupation>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.Occupation.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Occupation>
+            return new Response<OccupationResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Occupation>> SelectAsync(OccupationSelectDto Model)
+        public async Task<Response<OccupationResponse>> SelectAsync(OccupationSelectDto Model)
         {
             Collection = await UnitOfWork.Occupation.SelectAsync(x => x.IsActive == true);
-            return new Response<Occupation>
+            return new Response<OccupationResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Occupation>> SelectSingleAsync(OccupationSelectDto Model)
+        public async Task<Response<OccupationResponse>> SelectSingleAsync(OccupationSelectDto Model)
         {
             Collection = await UnitOfWork.Occupation.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<Occupation>
+            return new Response<OccupationResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
