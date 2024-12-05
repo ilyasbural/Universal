@@ -1,6 +1,6 @@
 ﻿namespace Universal.Common
 {
-	internal class UserCertificateResponse
+	public class UserCertificateResponse : Response<UserCertificateResponse>
 	{
 	}
 }

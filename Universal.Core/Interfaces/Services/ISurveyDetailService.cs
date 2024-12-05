@@ -2,10 +2,10 @@
 {
     public interface ISurveyDetailService
     {
-        Task<Response<SurveyDetail>> InsertAsync(SurveyDetailRegisterDto Model);
-        Task<Response<SurveyDetail>> UpdateAsync(SurveyDetailUpdateDto Model);
-        Task<Response<SurveyDetail>> DeleteAsync(SurveyDetailDeleteDto Model);
-        Task<Response<SurveyDetail>> SelectAsync(SurveyDetailSelectDto Model);
-        Task<Response<SurveyDetail>> SelectSingleAsync(SurveyDetailSelectDto Model);
+        Task<Common.Response<Common.SurveyDetailResponse>> InsertAsync(SurveyDetailRegisterDto Model);
+        Task<Common.Response<Common.SurveyDetailResponse>> UpdateAsync(SurveyDetailUpdateDto Model);
+        Task<Common.Response<Common.SurveyDetailResponse>> DeleteAsync(SurveyDetailDeleteDto Model);
+        Task<Common.Response<Common.SurveyDetailResponse>> SelectAsync(SurveyDetailSelectDto Model);
+        Task<Common.Response<Common.SurveyDetailResponse>> SelectSingleAsync(SurveyDetailSelectDto Model);
     }
 }

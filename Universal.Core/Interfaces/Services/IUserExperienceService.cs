@@ -2,10 +2,10 @@
 {
     public interface IUserExperienceService
     {
-        Task<Response<UserExperience>> InsertAsync(UserExperienceRegisterDto Model);
-        Task<Response<UserExperience>> UpdateAsync(UserExperienceUpdateDto Model);
-        Task<Response<UserExperience>> DeleteAsync(UserExperienceDeleteDto Model);
-        Task<Response<UserExperience>> SelectAsync(UserExperienceSelectDto Model);
-        Task<Response<UserExperience>> SelectSingleAsync(UserExperienceSelectDto Model);
+        Task<Common.Response<Common.UserExperienceResponse>> InsertAsync(UserExperienceRegisterDto Model);
+        Task<Common.Response<Common.UserExperienceResponse>> UpdateAsync(UserExperienceUpdateDto Model);
+        Task<Common.Response<Common.UserExperienceResponse>> DeleteAsync(UserExperienceDeleteDto Model);
+        Task<Common.Response<Common.UserExperienceResponse>> SelectAsync(UserExperienceSelectDto Model);
+        Task<Common.Response<Common.UserExperienceResponse>> SelectSingleAsync(UserExperienceSelectDto Model);
     }
 }

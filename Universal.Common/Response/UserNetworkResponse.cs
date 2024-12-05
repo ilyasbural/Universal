@@ -1,6 +1,6 @@
 ﻿namespace Universal.Common
 {
-	internal class UserNetworkResponse
+	public class UserNetworkResponse : Response<UserNetworkResponse>
 	{
 	}
 }

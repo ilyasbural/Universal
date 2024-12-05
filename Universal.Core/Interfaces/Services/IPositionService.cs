@@ -2,10 +2,10 @@
 {
     public interface IPositionService
     {
-        Task<Response<Position>> InsertAsync(PositionRegisterDto Model);
-        Task<Response<Position>> UpdateAsync(PositionUpdateDto Model);
-        Task<Response<Position>> DeleteAsync(PositionDeleteDto Model);
-        Task<Response<Position>> SelectAsync(PositionSelectDto Model);
-        Task<Response<Position>> SelectSingleAsync(PositionSelectDto Model);
+        Task<Common.Response<Common.PositionResponse>> InsertAsync(PositionRegisterDto Model);
+        Task<Common.Response<Common.PositionResponse>> UpdateAsync(PositionUpdateDto Model);
+        Task<Common.Response<Common.PositionResponse>> DeleteAsync(PositionDeleteDto Model);
+        Task<Common.Response<Common.PositionResponse>> SelectAsync(PositionSelectDto Model);
+        Task<Common.Response<Common.PositionResponse>> SelectSingleAsync(PositionSelectDto Model);
     }
 }

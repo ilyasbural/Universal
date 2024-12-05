@@ -1,6 +1,6 @@
 ﻿namespace Universal.Common
 {
-	internal class UserLanguageResponse
+	public class UserLanguageResponse : Response<UserLanguageResponse>
 	{
 	}
 }

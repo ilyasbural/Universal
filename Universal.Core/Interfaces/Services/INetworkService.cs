@@ -2,10 +2,10 @@
 {
     public interface INetworkService
     {
-        Task<Response<Network>> InsertAsync(NetworkRegisterDto Model);
-        Task<Response<Network>> UpdateAsync(NetworkUpdateDto Model);
-        Task<Response<Network>> DeleteAsync(NetworkDeleteDto Model);
-        Task<Response<Network>> SelectAsync(NetworkSelectDto Model);
-        Task<Response<Network>> SelectSingleAsync(NetworkSelectDto Model);
+        Task<Common.Response<Common.NetworkResponse>> InsertAsync(NetworkRegisterDto Model);
+        Task<Common.Response<Common.NetworkResponse>> UpdateAsync(NetworkUpdateDto Model);
+        Task<Common.Response<Common.NetworkResponse>> DeleteAsync(NetworkDeleteDto Model);
+        Task<Common.Response<Common.NetworkResponse>> SelectAsync(NetworkSelectDto Model);
+        Task<Common.Response<Common.NetworkResponse>> SelectSingleAsync(NetworkSelectDto Model);
     }
 }

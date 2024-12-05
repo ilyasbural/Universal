@@ -2,10 +2,10 @@
 {
     public interface IUserService
     {
-        Task<Response<User>> InsertAsync(UserRegisterDto Model);
-        Task<Response<User>> UpdateAsync(UserUpdateDto Model);
-        Task<Response<User>> DeleteAsync(UserDeleteDto Model);
-        Task<Response<User>> SelectAsync(UserSelectDto Model);
-        Task<Response<User>> SelectSingleAsync(UserSelectDto Model);
+        Task<Common.Response<Common.UserResponse>> InsertAsync(UserRegisterDto Model);
+        Task<Common.Response<Common.UserResponse>> UpdateAsync(UserUpdateDto Model);
+        Task<Common.Response<Common.UserResponse>> DeleteAsync(UserDeleteDto Model);
+        Task<Common.Response<Common.UserResponse>> SelectAsync(UserSelectDto Model);
+        Task<Common.Response<Common.UserResponse>> SelectSingleAsync(UserSelectDto Model);
     }
 }

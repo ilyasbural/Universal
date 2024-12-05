@@ -2,10 +2,10 @@
 {
     public interface IUserFollowerService
     {
-        Task<Response<UserFollower>> InsertAsync(UserFollowerRegisterDto Model);
-        Task<Response<UserFollower>> UpdateAsync(UserFollowerUpdateDto Model);
-        Task<Response<UserFollower>> DeleteAsync(UserFollowerDeleteDto Model);
-        Task<Response<UserFollower>> SelectAsync(UserFollowerSelectDto Model);
-        Task<Response<UserFollower>> SelectSingleAsync(UserFollowerSelectDto Model);
+        Task<Common.Response<Common.UserFollowerResponse>> InsertAsync(UserFollowerRegisterDto Model);
+        Task<Common.Response<Common.UserFollowerResponse>> UpdateAsync(UserFollowerUpdateDto Model);
+        Task<Common.Response<Common.UserFollowerResponse>> DeleteAsync(UserFollowerDeleteDto Model);
+        Task<Common.Response<Common.UserFollowerResponse>> SelectAsync(UserFollowerSelectDto Model);
+        Task<Common.Response<Common.UserFollowerResponse>> SelectSingleAsync(UserFollowerSelectDto Model);
     }
 }

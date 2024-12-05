@@ -2,10 +2,10 @@
 {
     public interface IOccupationService
     {
-        Task<Response<Occupation>> InsertAsync(OccupationRegisterDto Model);
-        Task<Response<Occupation>> UpdateAsync(OccupationUpdateDto Model);
-        Task<Response<Occupation>> DeleteAsync(OccupationDeleteDto Model);
-        Task<Response<Occupation>> SelectAsync(OccupationSelectDto Model);
-        Task<Response<Occupation>> SelectSingleAsync(OccupationSelectDto Model);
+        Task<Common.Response<Common.OccupationResponse>> InsertAsync(OccupationRegisterDto Model);
+        Task<Common.Response<Common.OccupationResponse>> UpdateAsync(OccupationUpdateDto Model);
+        Task<Common.Response<Common.OccupationResponse>> DeleteAsync(OccupationDeleteDto Model);
+        Task<Common.Response<Common.OccupationResponse>> SelectAsync(OccupationSelectDto Model);
+        Task<Common.Response<Common.OccupationResponse>> SelectSingleAsync(OccupationSelectDto Model);
     }
 }

@@ -2,10 +2,10 @@
 {
     public interface IMessageBoxService
     {
-        Task<Response<MessageBox>> InsertAsync(MessageBoxRegisterDto Model);
-        Task<Response<MessageBox>> UpdateAsync(MessageBoxUpdateDto Model);
-        Task<Response<MessageBox>> DeleteAsync(MessageBoxDeleteDto Model);
-        Task<Response<MessageBox>> SelectAsync(MessageBoxSelectDto Model);
-        Task<Response<MessageBox>> SelectSingleAsync(MessageBoxSelectDto Model);
+        Task<Common.Response<Common.MessageBoxResponse>> InsertAsync(MessageBoxRegisterDto Model);
+        Task<Common.Response<Common.MessageBoxResponse>> UpdateAsync(MessageBoxUpdateDto Model);
+        Task<Common.Response<Common.MessageBoxResponse>> DeleteAsync(MessageBoxDeleteDto Model);
+        Task<Common.Response<Common.MessageBoxResponse>> SelectAsync(MessageBoxSelectDto Model);
+        Task<Common.Response<Common.MessageBoxResponse>> SelectSingleAsync(MessageBoxSelectDto Model);
     }
 }

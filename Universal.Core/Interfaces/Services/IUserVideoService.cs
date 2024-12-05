@@ -2,10 +2,10 @@
 {
     public interface IUserVideoService
     {
-        Task<Response<UserVideo>> InsertAsync(UserVideoRegisterDto Model);
-        Task<Response<UserVideo>> UpdateAsync(UserVideoUpdateDto Model);
-        Task<Response<UserVideo>> DeleteAsync(UserVideoDeleteDto Model);
-        Task<Response<UserVideo>> SelectAsync(UserVideoSelectDto Model);
-        Task<Response<UserVideo>> SelectSingleAsync(UserVideoSelectDto Model);
+        Task<Common.Response<Common.UserVideoResponse>> InsertAsync(UserVideoRegisterDto Model);
+        Task<Common.Response<Common.UserVideoResponse>> UpdateAsync(UserVideoUpdateDto Model);
+        Task<Common.Response<Common.UserVideoResponse>> DeleteAsync(UserVideoDeleteDto Model);
+        Task<Common.Response<Common.UserVideoResponse>> SelectAsync(UserVideoSelectDto Model);
+        Task<Common.Response<Common.UserVideoResponse>> SelectSingleAsync(UserVideoSelectDto Model);
     }
 }

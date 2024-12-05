@@ -1,6 +1,6 @@
 ﻿namespace Universal.Common
 {
-	internal class UserExperienceResponse
+	public class UserExperienceResponse : Response<UserExperienceResponse>
 	{
 	}
 }

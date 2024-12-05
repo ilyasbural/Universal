@@ -2,10 +2,10 @@
 {
     public interface INetworkDetailService
     {
-        Task<Response<NetworkDetail>> InsertAsync(NetworkDetailRegisterDto Model);
-        Task<Response<NetworkDetail>> UpdateAsync(NetworkDetailUpdateDto Model);
-        Task<Response<NetworkDetail>> DeleteAsync(NetworkDetailDeleteDto Model);
-        Task<Response<NetworkDetail>> SelectAsync(NetworkDetailSelectDto Model);
-        Task<Response<NetworkDetail>> SelectSingleAsync(NetworkDetailSelectDto Model);
+        Task<Common.Response<Common.NetworkDetailResponse>> InsertAsync(NetworkDetailRegisterDto Model);
+        Task<Common.Response<Common.NetworkDetailResponse>> UpdateAsync(NetworkDetailUpdateDto Model);
+        Task<Common.Response<Common.NetworkDetailResponse>> DeleteAsync(NetworkDetailDeleteDto Model);
+        Task<Common.Response<Common.NetworkDetailResponse>> SelectAsync(NetworkDetailSelectDto Model);
+        Task<Common.Response<Common.NetworkDetailResponse>> SelectSingleAsync(NetworkDetailSelectDto Model);
     }
 }

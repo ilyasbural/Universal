@@ -2,10 +2,10 @@
 {
     public interface IUserAbilityService
     {
-        Task<Response<UserAbility>> InsertAsync(UserAbilityRegisterDto Model);
-        Task<Response<UserAbility>> UpdateAsync(UserAbilityUpdateDto Model);
-        Task<Response<UserAbility>> DeleteAsync(UserAbilityDeleteDto Model);
-        Task<Response<UserAbility>> SelectAsync(UserAbilitySelectDto Model);
-        Task<Response<UserAbility>> SelectSingleAsync(UserAbilitySelectDto Model);
+        Task<Common.Response<Common.UserAbilityResponse>> InsertAsync(UserAbilityRegisterDto Model);
+        Task<Common.Response<Common.UserAbilityResponse>> UpdateAsync(UserAbilityUpdateDto Model);
+        Task<Common.Response<Common.UserAbilityResponse>> DeleteAsync(UserAbilityDeleteDto Model);
+        Task<Common.Response<Common.UserAbilityResponse>> SelectAsync(UserAbilitySelectDto Model);
+        Task<Common.Response<Common.UserAbilityResponse>> SelectSingleAsync(UserAbilitySelectDto Model);
     }
 }

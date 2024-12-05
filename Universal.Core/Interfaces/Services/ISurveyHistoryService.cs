@@ -2,10 +2,10 @@
 {
     public interface ISurveyHistoryService
     {
-        Task<Response<SurveyHistory>> InsertAsync(SurveyHistoryRegisterDto Model);
-        Task<Response<SurveyHistory>> UpdateAsync(SurveyHistoryUpdateDto Model);
-        Task<Response<SurveyHistory>> DeleteAsync(SurveyHistoryDeleteDto Model);
-        Task<Response<SurveyHistory>> SelectAsync(SurveyHistorySelectDto Model);
-        Task<Response<SurveyHistory>> SelectSingleAsync(SurveyHistorySelectDto Model);
+        Task<Common.Response<Common.SurveyHistoryResponse>> InsertAsync(SurveyHistoryRegisterDto Model);
+        Task<Common.Response<Common.SurveyHistoryResponse>> UpdateAsync(SurveyHistoryUpdateDto Model);
+        Task<Common.Response<Common.SurveyHistoryResponse>> DeleteAsync(SurveyHistoryDeleteDto Model);
+        Task<Common.Response<Common.SurveyHistoryResponse>> SelectAsync(SurveyHistorySelectDto Model);
+        Task<Common.Response<Common.SurveyHistoryResponse>> SelectSingleAsync(SurveyHistorySelectDto Model);
     }
 }

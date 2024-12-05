@@ -2,10 +2,10 @@
 {
     public interface IUserNetworkService
     {
-        Task<Response<UserNetwork>> InsertAsync(UserNetworkRegisterDto Model);
-        Task<Response<UserNetwork>> UpdateAsync(UserNetworkUpdateDto Model);
-        Task<Response<UserNetwork>> DeleteAsync(UserNetworkDeleteDto Model);
-        Task<Response<UserNetwork>> SelectAsync(UserNetworkSelectDto Model);
-        Task<Response<UserNetwork>> SelectSingleAsync(UserNetworkSelectDto Model);
+        Task<Common.Response<Common.UserNetworkResponse>> InsertAsync(UserNetworkRegisterDto Model);
+        Task<Common.Response<Common.UserNetworkResponse>> UpdateAsync(UserNetworkUpdateDto Model);
+        Task<Common.Response<Common.UserNetworkResponse>> DeleteAsync(UserNetworkDeleteDto Model);
+        Task<Common.Response<Common.UserNetworkResponse>> SelectAsync(UserNetworkSelectDto Model);
+        Task<Common.Response<Common.UserNetworkResponse>> SelectSingleAsync(UserNetworkSelectDto Model);
     }
 }

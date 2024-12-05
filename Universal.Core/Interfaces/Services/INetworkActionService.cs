@@ -2,10 +2,10 @@
 {
     public interface INetworkActionService
     {
-        Task<Response<NetworkAction>> InsertAsync(NetworkActionRegisterDto Model);
-        Task<Response<NetworkAction>> UpdateAsync(NetworkActionUpdateDto Model);
-        Task<Response<NetworkAction>> DeleteAsync(NetworkActionDeleteDto Model);
-        Task<Response<NetworkAction>> SelectAsync(NetworkActionSelectDto Model);
-        Task<Response<NetworkAction>> SelectSingleAsync(NetworkActionSelectDto Model);
+        Task<Common.Response<Common.NetworkActionResponse>> InsertAsync(NetworkActionRegisterDto Model);
+        Task<Common.Response<Common.NetworkActionResponse>> UpdateAsync(NetworkActionUpdateDto Model);
+        Task<Common.Response<Common.NetworkActionResponse>> DeleteAsync(NetworkActionDeleteDto Model);
+        Task<Common.Response<Common.NetworkActionResponse>> SelectAsync(NetworkActionSelectDto Model);
+        Task<Common.Response<Common.NetworkActionResponse>> SelectSingleAsync(NetworkActionSelectDto Model);
     }
 }

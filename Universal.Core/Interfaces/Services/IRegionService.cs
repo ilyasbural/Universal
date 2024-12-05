@@ -2,10 +2,10 @@
 {
     public interface IRegionService
     {
-        Task<Response<Region>> InsertAsync(RegionRegisterDto Model);
-        Task<Response<Region>> UpdateAsync(RegionUpdateDto Model);
-        Task<Response<Region>> DeleteAsync(RegionDeleteDto Model);
-        Task<Response<Region>> SelectAsync(RegionSelectDto Model);
-        Task<Response<Region>> SelectSingleAsync(RegionSelectDto Model);
+        Task<Common.Response<Common.RegionResponse>> InsertAsync(RegionRegisterDto Model);
+        Task<Common.Response<Common.RegionResponse>> UpdateAsync(RegionUpdateDto Model);
+        Task<Common.Response<Common.RegionResponse>> DeleteAsync(RegionDeleteDto Model);
+        Task<Common.Response<Common.RegionResponse>> SelectAsync(RegionSelectDto Model);
+        Task<Common.Response<Common.RegionResponse>> SelectSingleAsync(RegionSelectDto Model);
     }
 }

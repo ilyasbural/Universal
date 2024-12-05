@@ -2,10 +2,10 @@
 {
     public interface INetworkCommentService
     {
-        Task<Response<NetworkComment>> InsertAsync(NetworkCommentRegisterDto Model);
-        Task<Response<NetworkComment>> UpdateAsync(NetworkCommentUpdateDto Model);
-        Task<Response<NetworkComment>> DeleteAsync(NetworkCommentDeleteDto Model);
-        Task<Response<NetworkComment>> SelectAsync(NetworkCommentSelectDto Model);
-        Task<Response<NetworkComment>> SelectSingleAsync(NetworkCommentSelectDto Model);
+        Task<Common.Response<Common.NetworkCommentResponse>> InsertAsync(NetworkCommentRegisterDto Model);
+        Task<Common.Response<Common.NetworkCommentResponse>> UpdateAsync(NetworkCommentUpdateDto Model);
+        Task<Common.Response<Common.NetworkCommentResponse>> DeleteAsync(NetworkCommentDeleteDto Model);
+        Task<Common.Response<Common.NetworkCommentResponse>> SelectAsync(NetworkCommentSelectDto Model);
+        Task<Common.Response<Common.NetworkCommentResponse>> SelectSingleAsync(NetworkCommentSelectDto Model);
     }
 }

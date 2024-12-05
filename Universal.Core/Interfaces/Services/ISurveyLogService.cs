@@ -2,10 +2,10 @@
 {
     public interface ISurveyLogService
     {
-        Task<Response<SurveyLog>> InsertAsync(SurveyLogRegisterDto Model);
-        Task<Response<SurveyLog>> UpdateAsync(SurveyLogUpdateDto Model);
-        Task<Response<SurveyLog>> DeleteAsync(SurveyLogDeleteDto Model);
-        Task<Response<SurveyLog>> SelectAsync(SurveyLogSelectDto Model);
-        Task<Response<SurveyLog>> SelectSingleAsync(SurveyLogSelectDto Model);
+        Task<Common.Response<Common.SurveyLogResponse>> InsertAsync(SurveyLogRegisterDto Model);
+        Task<Common.Response<Common.SurveyLogResponse>> UpdateAsync(SurveyLogUpdateDto Model);
+        Task<Common.Response<Common.SurveyLogResponse>> DeleteAsync(SurveyLogDeleteDto Model);
+        Task<Common.Response<Common.SurveyLogResponse>> SelectAsync(SurveyLogSelectDto Model);
+        Task<Common.Response<Common.SurveyLogResponse>> SelectSingleAsync(SurveyLogSelectDto Model);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Universal.Common
 {
-	internal class UserFollowerResponse
+	public class UserFollowerResponse : Response<UserFollowerResponse>
 	{
 	}
 }

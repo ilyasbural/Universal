@@ -2,10 +2,10 @@
 {
     public interface ISurveyService
     {
-        Task<Response<Survey>> InsertAsync(SurveyRegisterDto Model);
-        Task<Response<Survey>> UpdateAsync(SurveyUpdateDto Model);
-        Task<Response<Survey>> DeleteAsync(SurveyDeleteDto Model);
-        Task<Response<Survey>> SelectAsync(SurveySelectDto Model);
-        Task<Response<Survey>> SelectSingleAsync(SurveySelectDto Model);
+        Task<Common.Response<Common.SurveyResponse>> InsertAsync(SurveyRegisterDto Model);
+        Task<Common.Response<Common.SurveyResponse>> UpdateAsync(SurveyUpdateDto Model);
+        Task<Common.Response<Common.SurveyResponse>> DeleteAsync(SurveyDeleteDto Model);
+        Task<Common.Response<Common.SurveyResponse>> SelectAsync(SurveySelectDto Model);
+        Task<Common.Response<Common.SurveyResponse>> SelectSingleAsync(SurveySelectDto Model);
     }
 }
