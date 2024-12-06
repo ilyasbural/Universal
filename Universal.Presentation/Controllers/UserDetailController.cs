@@ -15,7 +15,6 @@
         }
 
 		[HttpPost]
-		[Authorize]
 		[Route("api/userdetail")]
 		public async Task<Response<UserDetailResponse>> Create([FromBody] UserDetailRegisterDto Model)
 		{
@@ -27,7 +26,6 @@
 		}
 
 		[HttpPut]
-		[Authorize]
 		[Route("api/userdetail")]
 		public async Task<Response<UserDetailResponse>> Update([FromBody] UserDetailUpdateDto Model)
 		{
@@ -38,20 +36,7 @@
 			};
 		}
 
-		[HttpPut]
-		[Authorize]
-		[Route("api/userdetailchangeprofilepicture")]
-		public async Task<Response<UserDetailResponse>> UpdateProfilePicture([FromBody] UserDetailUpdateDto Model)
-		{
-			Response<UserDetailResponse> Response = await Service.UpdateProfilePictureAsync(Model);
-			return new Response<UserDetailResponse>
-			{
-				Data = Response.Data
-			};
-		}
-
 		[HttpDelete]
-		[Authorize]
 		[Route("api/userdetail")]
 		public async Task<Response<UserDetailResponse>> Delete([FromBody] UserDetailDeleteDto Model)
 		{
@@ -63,14 +48,13 @@
 		}
 
 		[HttpGet]
-		[Authorize]
 		[Route("api/userdetail")]
 		public async Task<Response<UserDetailResponse>> Get([FromQuery] UserDetailSelectDto Model)
 		{
 			Response<UserDetailResponse> Response = await Service.SelectAsync(Model);
 			return new Response<UserDetailResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 
@@ -81,7 +65,7 @@
 			Response<UserDetailResponse> Response = await Service.SelectSingleAsync(Model);
 			return new Response<UserDetailResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

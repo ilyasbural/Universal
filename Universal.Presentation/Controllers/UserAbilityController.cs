@@ -7,70 +7,65 @@
     [ApiController]
     public class UserAbilityController : ControllerBase
     {
-        readonly IUserAddressService Service;
+        readonly IUserAbilityService Service;
 
-        public UserAbilityController(IUserAddressService service)
+        public UserAbilityController(IUserAbilityService service)
         {
             Service = service;
         }
 
 		[HttpPost]
-		[Authorize]
-		[Route("api/useraddress")]
-		public async Task<Response<UserAddressResponse>> Create([FromBody] UserAddressRegisterDto Model)
+		[Route("api/userability")]
+		public async Task<Response<UserAbilityResponse>> Create([FromBody] UserAbilityRegisterDto Model)
 		{
-			Response<UserAddressResponse> Response = await Service.InsertAsync(Model);
-			return new Response<UserAddressResponse>
+			Response<UserAbilityResponse> Response = await Service.InsertAsync(Model);
+			return new Response<UserAbilityResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Authorize]
-		[Route("api/useraddress")]
-		public async Task<Response<UserAddressResponse>> Update([FromBody] UserAddressUpdateDto Model)
+		[Route("api/userability")]
+		public async Task<Response<UserAbilityResponse>> Update([FromBody] UserAbilityUpdateDto Model)
 		{
-			Response<UserAddressResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<UserAddressResponse>
+			Response<UserAbilityResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<UserAbilityResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Authorize]
-		[Route("api/useraddress")]
-		public async Task<Response<UserAddressResponse>> Delete([FromBody] UserAddressDeleteDto Model)
+		[Route("api/userability")]
+		public async Task<Response<UserAbilityResponse>> Delete([FromBody] UserAbilityDeleteDto Model)
 		{
-			Response<UserAddressResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<UserAddressResponse>
+			Response<UserAbilityResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<UserAbilityResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/useraddress")]
-		public async Task<Response<UserAddressResponse>> Get([FromQuery] UserAddressSelectDto Model)
+		[Route("api/userability")]
+		public async Task<Response<UserAbilityResponse>> Get([FromQuery] UserAbilitySelectDto Model)
 		{
-			Response<UserAddressResponse> Response = await Service.SelectAsync(Model);
-			return new Response<UserAddressResponse>
+			Response<UserAbilityResponse> Response = await Service.SelectAsync(Model);
+			return new Response<UserAbilityResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/useraddresssingle")]
-		public async Task<Response<UserAddressResponse>> GetSingle([FromQuery] UserAddressSelectDto Model)
+		[Route("api/userabilitysingle")]
+		public async Task<Response<UserAbilityResponse>> GetSingle([FromQuery] UserAbilitySelectDto Model)
 		{
-			Response<UserAddressResponse> Response = await Service.SelectSingleAsync(Model);
-			return new Response<UserAddressResponse>
+			Response<UserAbilityResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<UserAbilityResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

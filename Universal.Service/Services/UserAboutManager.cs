@@ -78,7 +78,7 @@
             };
         }
 
-        public async Task<Response<UserAboutResponse>> SelectAsync(UserAbilitySelectDto Model)
+        public async Task<Response<UserAboutResponse>> SelectAsync(UserAboutSelectDto Model)
         {
             Collection = await UnitOfWork.UserAbout.SelectAsync(x => x.IsActive == true, x => x.User);
             return new Response<UserAboutResponse>
@@ -89,7 +89,7 @@
             };
         }
 
-        public async Task<Response<UserAboutResponse>> SelectSingleAsync(UserAbilitySelectDto Model)
+        public async Task<Response<UserAboutResponse>> SelectSingleAsync(UserAboutSelectDto Model)
         {
             Collection = await UnitOfWork.UserAbout.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.User);
             return new Response<UserAboutResponse>

@@ -27,7 +27,7 @@
 
 		[HttpPut]
 		[Route("api/language")]
-		public async Task<Response<LanguageResponse>> Update([FromBody] UserUpdateDto Model)
+		public async Task<Response<LanguageResponse>> Update([FromBody] LanguageUpdateDto Model)
 		{
 			Response<LanguageResponse> Response = await Service.UpdateAsync(Model);
 			return new Response<LanguageResponse>
@@ -38,7 +38,7 @@
 
 		[HttpDelete]
 		[Route("api/language")]
-		public async Task<Response<LanguageResponse>> Delete([FromBody] UserDeleteDto Model)
+		public async Task<Response<LanguageResponse>> Delete([FromBody] LanguageDeleteDto Model)
 		{
 			Response<LanguageResponse> Response = await Service.DeleteAsync(Model);
 			return new Response<LanguageResponse>
@@ -49,7 +49,7 @@
 
 		[HttpGet]
 		[Route("api/language")]
-		public async Task<Response<LanguageResponse>> Get([FromQuery] UserSelectDto Model)
+		public async Task<Response<LanguageResponse>> Get([FromQuery] LanguageSelectDto Model)
 		{
 			Response<LanguageResponse> Response = await Service.SelectAsync(Model);
 			return new Response<LanguageResponse>
@@ -60,7 +60,7 @@
 
 		[HttpGet]
 		[Route("api/languagesingle")]
-		public async Task<Response<LanguageResponse>> GetSingle([FromQuery] UserSelectDto Model)
+		public async Task<Response<LanguageResponse>> GetSingle([FromQuery] LanguageSelectDto Model)
 		{
 			Response<LanguageResponse> Response = await Service.SelectSingleAsync(Model);
 			return new Response<LanguageResponse>

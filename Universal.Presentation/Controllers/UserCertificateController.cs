@@ -7,70 +7,65 @@
     [ApiController]
     public class UserCertificateController : ControllerBase
     {
-        readonly IUserEmailService Service;
+        readonly IUserCertificateService Service;
 
-        public UserCertificateController(IUserEmailService service)
+        public UserCertificateController(IUserCertificateService service)
         {
             Service = service;
         }
 
 		[HttpPost]
-		[Authorize]
-		[Route("api/useremail")]
-		public async Task<Response<UserEmailResponse>> Create([FromBody] UserEmailRegisterDto Model)
+		[Route("api/usercertificate")]
+		public async Task<Response<UserCertificateResponse>> Create([FromBody] UserCertificateRegisterDto Model)
 		{
-			Response<UserEmailResponse> Response = await Service.InsertAsync(Model);
-			return new Response<UserEmailResponse>
+			Response<UserCertificateResponse> Response = await Service.InsertAsync(Model);
+			return new Response<UserCertificateResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Authorize]
-		[Route("api/useremail")]
-		public async Task<Response<UserEmailResponse>> Update([FromBody] UserEmailUpdateDto Model)
+		[Route("api/usercertificate")]
+		public async Task<Response<UserCertificateResponse>> Update([FromBody] UserCertificateUpdateDto Model)
 		{
-			Response<UserEmailResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<UserEmailResponse>
+			Response<UserCertificateResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<UserCertificateResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Authorize]
-		[Route("api/useremail")]
-		public async Task<Response<UserEmailResponse>> Delete([FromBody] UserEmailDeleteDto Model)
+		[Route("api/usercertificate")]
+		public async Task<Response<UserCertificateResponse>> Delete([FromBody] UserCertificateDeleteDto Model)
 		{
-			Response<UserEmailResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<UserEmailResponse>
+			Response<UserCertificateResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<UserCertificateResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/useremail")]
-		public async Task<Response<UserEmailResponse>> Get([FromQuery] UserEmailSelectDto Model)
+		[Route("api/usercertificate")]
+		public async Task<Response<UserCertificateResponse>> Get([FromQuery] UserCertificateSelectDto Model)
 		{
-			Response<UserEmailResponse> Response = await Service.SelectAsync(Model);
-			return new Response<UserEmailResponse>
+			Response<UserCertificateResponse> Response = await Service.SelectAsync(Model);
+			return new Response<UserCertificateResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/useremailsingle")]
-		public async Task<Response<UserEmailResponse>> GetSingle([FromQuery] UserEmailSelectDto Model)
+		[Route("api/usercertificatesingle")]
+		public async Task<Response<UserCertificateResponse>> GetSingle([FromQuery] UserCertificateSelectDto Model)
 		{
-			Response<UserEmailResponse> Response = await Service.SelectSingleAsync(Model);
-			return new Response<UserEmailResponse>
+			Response<UserCertificateResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<UserCertificateResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

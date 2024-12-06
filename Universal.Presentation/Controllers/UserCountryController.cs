@@ -7,58 +7,54 @@
     [ApiController]
     public class UserCountryController : ControllerBase
     {
-        readonly IUserPaymentService Service;
+        readonly IUserCountryService Service;
 
-        public UserCountryController(IUserPaymentService service)
+        public UserCountryController(IUserCountryService service)
         {
             Service = service;
         }
 
 		[HttpPost]
-		[Authorize]
-		[Route("api/userpayment")]
-		public async Task<Response<UserPaymentResponse>> Create([FromBody] UserPaymentRegisterDto Model)
+		[Route("api/usercountry")]
+		public async Task<Response<UserCountryResponse>> Create([FromBody] UserCountryRegisterDto Model)
 		{
-			Response<UserPaymentResponse> Response = await Service.InsertAsync(Model);
-			return new Response<UserPaymentResponse>
+			Response<UserCountryResponse> Response = await Service.InsertAsync(Model);
+			return new Response<UserCountryResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Authorize]
-		[Route("api/userpayment")]
-		public async Task<Response<UserPaymentResponse>> Update([FromBody] UserPaymentUpdateDto Model)
+		[Route("api/usercountry")]
+		public async Task<Response<UserCountryResponse>> Update([FromBody] UserCountryUpdateDto Model)
 		{
-			Response<UserPaymentResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<UserPaymentResponse>
+			Response<UserCountryResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<UserCountryResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Authorize]
-		[Route("api/userpayment")]
-		public async Task<Response<UserPaymentResponse>> Delete([FromBody] UserPaymentDeleteDto Model)
+		[Route("api/usercountry")]
+		public async Task<Response<UserCountryResponse>> Delete([FromBody] UserCountryDeleteDto Model)
 		{
-			Response<UserPaymentResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<UserPaymentResponse>
+			Response<UserCountryResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<UserCountryResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/userpayment")]
-		public async Task<Response<UserPaymentResponse>> Get([FromQuery] UserPaymentSelectDto Model)
+		[Route("api/usercountry")]
+		public async Task<Response<UserCountryResponse>> Get([FromQuery] UserCountrySelectDto Model)
 		{
-			Response<UserPaymentResponse> Response = await Service.SelectAsync(Model);
-			return new Response<UserPaymentResponse>
+			Response<UserCountryResponse> Response = await Service.SelectAsync(Model);
+			return new Response<UserCountryResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

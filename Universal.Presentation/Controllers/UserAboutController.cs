@@ -7,70 +7,65 @@
     [ApiController]
     public class UserAboutController : ControllerBase
     {
-        readonly IUserContactService Service;
+        readonly IUserAboutService Service;
 
-        public UserAboutController(IUserContactService service)
+        public UserAboutController(IUserAboutService service)
         {
             Service = service;
         }
 
 		[HttpPost]
-		[Authorize]
-		[Route("api/usercontact")]
-		public async Task<Response<UserContactResponse>> Create([FromBody] UserContactRegisterDto Model)
+		[Route("api/userabout")]
+		public async Task<Response<UserAboutResponse>> Create([FromBody] UserAboutRegisterDto Model)
 		{
-			Response<UserContactResponse> Response = await Service.InsertAsync(Model);
-			return new Response<UserContactResponse>
+			Response<UserAboutResponse> Response = await Service.InsertAsync(Model);
+			return new Response<UserAboutResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Authorize]
-		[Route("api/usercontact")]
-		public async Task<Response<UserContactResponse>> Update([FromBody] UserContactUpdateDto Model)
+		[Route("api/userabout")]
+		public async Task<Response<UserAboutResponse>> Update([FromBody] UserAboutUpdateDto Model)
 		{
-			Response<UserContactResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<UserContactResponse>
+			Response<UserAboutResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<UserAboutResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Authorize]
-		[Route("api/usercontact")]
-		public async Task<Response<UserContactResponse>> Delete([FromBody] UserContactDeleteDto Model)
+		[Route("api/userabout")]
+		public async Task<Response<UserAboutResponse>> Delete([FromBody] UserAboutDeleteDto Model)
 		{
-			Response<UserContactResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<UserContactResponse>
+			Response<UserAboutResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<UserAboutResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/usercontact")]
-		public async Task<Response<UserContactResponse>> Get([FromQuery] UserContactSelectDto Model)
+		[Route("api/userabout")]
+		public async Task<Response<UserAboutResponse>> Get([FromQuery] UserAboutSelectDto Model)
 		{
-			Response<UserContactResponse> Response = await Service.SelectAsync(Model);
-			return new Response<UserContactResponse>
+			Response<UserAboutResponse> Response = await Service.SelectAsync(Model);
+			return new Response<UserAboutResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/usercontactsingle")]
-		public async Task<Response<UserContactResponse>> GetSingle([FromQuery] UserContactSelectDto Model)
+		[Route("api/useraboutsingle")]
+		public async Task<Response<UserAboutResponse>> GetSingle([FromQuery] UserAboutSelectDto Model)
 		{
-			Response<UserContactResponse> Response = await Service.SelectSingleAsync(Model);
-			return new Response<UserContactResponse>
+			Response<UserAboutResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<UserAboutResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}
