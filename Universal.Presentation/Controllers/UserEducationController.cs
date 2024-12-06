@@ -3,63 +3,58 @@
     using Core;
     using Common;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
 
     [ApiController]
     public class UserEducationController : ControllerBase
     {
-        readonly IUserSettingsService Service;
+        readonly IUserEducationService Service;
 
-        public UserEducationController(IUserSettingsService service)
+        public UserEducationController(IUserEducationService service)
         {
             Service = service;
         }
 
 		[HttpPost]
-		[Authorize]
-		[Route("api/usersettings")]
-		public async Task<Response<UserSettingsResponse>> Create([FromBody] UserSettingsRegisterDto Model)
+		[Route("api/usereducation")]
+		public async Task<Response<UserEducationResponse>> Create([FromBody] UserEducationRegisterDto Model)
 		{
-			Response<UserSettingsResponse> Response = await Service.InsertAsync(Model);
-			return new Response<UserSettingsResponse>
+			Response<UserEducationResponse> Response = await Service.InsertAsync(Model);
+			return new Response<UserEducationResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Authorize]
-		[Route("api/usersettings")]
-		public async Task<Response<UserSettingsResponse>> Update([FromBody] UserSettingsUpdateDto Model)
+		[Route("api/usereducation")]
+		public async Task<Response<UserEducationResponse>> Update([FromBody] UserEducationUpdateDto Model)
 		{
-			Response<UserSettingsResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<UserSettingsResponse>
+			Response<UserEducationResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<UserEducationResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Authorize]
-		[Route("api/usersettings")]
-		public async Task<Response<UserSettingsResponse>> Delete([FromBody] UserSettingsDeleteDto Model)
+		[Route("api/usereducation")]
+		public async Task<Response<UserEducationResponse>> Delete([FromBody] UserEducationDeleteDto Model)
 		{
-			Response<UserSettingsResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<UserSettingsResponse>
+			Response<UserEducationResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<UserEducationResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/usersettings")]
-		public async Task<Response<UserSettingsResponse>> Get([FromQuery] UserSettingsSelectDto Model)
+		[Route("api/usereducation")]
+		public async Task<Response<UserEducationResponse>> Get([FromQuery] UserEducationSelectDto Model)
 		{
-			Response<UserSettingsResponse> Response = await Service.SelectAsync(Model);
-			return new Response<UserSettingsResponse>
+			Response<UserEducationResponse> Response = await Service.SelectAsync(Model);
+			return new Response<UserEducationResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

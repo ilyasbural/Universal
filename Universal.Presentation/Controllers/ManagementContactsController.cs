@@ -3,75 +3,69 @@
     using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
 
     [ApiController]
     public class ManagementContactsController : ControllerBase
     {
-        readonly IUserEmailService Service;
+        readonly IManagementContactService Service;
 
-        public ManagementContactsController(IUserEmailService service)
+        public ManagementContactsController(IManagementContactService service)
         {
             Service = service;
         }
 
 		[HttpPost]
-		[Authorize]
-		[Route("api/useremail")]
-		public async Task<Response<UserEmailResponse>> Create([FromBody] UserEmailRegisterDto Model)
+		[Route("api/managementcontact")]
+		public async Task<Response<ManagementContactResponse>> Create([FromBody] ManagementContactRegisterDto Model)
 		{
-			Response<UserEmailResponse> Response = await Service.InsertAsync(Model);
-			return new Response<UserEmailResponse>
+			Response<ManagementContactResponse> Response = await Service.InsertAsync(Model);
+			return new Response<ManagementContactResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Authorize]
-		[Route("api/useremail")]
-		public async Task<Response<UserEmailResponse>> Update([FromBody] UserEmailUpdateDto Model)
+		[Route("api/managementcontact")]
+		public async Task<Response<ManagementContactResponse>> Update([FromBody] ManagementContactUpdateDto Model)
 		{
-			Response<UserEmailResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<UserEmailResponse>
+			Response<ManagementContactResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<ManagementContactResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Authorize]
-		[Route("api/useremail")]
-		public async Task<Response<UserEmailResponse>> Delete([FromBody] UserEmailDeleteDto Model)
+		[Route("api/managementcontact")]
+		public async Task<Response<ManagementContactResponse>> Delete([FromBody] ManagementContactDeleteDto Model)
 		{
-			Response<UserEmailResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<UserEmailResponse>
+			Response<ManagementContactResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<ManagementContactResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/useremail")]
-		public async Task<Response<UserEmailResponse>> Get([FromQuery] UserEmailSelectDto Model)
+		[Route("api/managementcontact")]
+		public async Task<Response<ManagementContactResponse>> Get([FromQuery] ManagementContactSelectDto Model)
 		{
-			Response<UserEmailResponse> Response = await Service.SelectAsync(Model);
-			return new Response<UserEmailResponse>
+			Response<ManagementContactResponse> Response = await Service.SelectAsync(Model);
+			return new Response<ManagementContactResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/useremailsingle")]
-		public async Task<Response<UserEmailResponse>> GetSingle([FromQuery] UserEmailSelectDto Model)
+		[Route("api/managementcontactsingle")]
+		public async Task<Response<ManagementContactResponse>> GetSingle([FromQuery] ManagementContactSelectDto Model)
 		{
-			Response<UserEmailResponse> Response = await Service.SelectSingleAsync(Model);
-			return new Response<UserEmailResponse>
+			Response<ManagementContactResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<ManagementContactResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

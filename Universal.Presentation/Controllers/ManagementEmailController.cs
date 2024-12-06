@@ -3,63 +3,58 @@
     using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
 
     [ApiController]
     public class ManagementEmailController : ControllerBase
     {
-        readonly IUserPaymentService Service;
+        readonly IManagementEmailService Service;
 
-        public ManagementEmailController(IUserPaymentService service)
+        public ManagementEmailController(IManagementEmailService service)
         {
             Service = service;
         }
 
 		[HttpPost]
-		[Authorize]
-		[Route("api/userpayment")]
-		public async Task<Response<UserPaymentResponse>> Create([FromBody] UserPaymentRegisterDto Model)
+		[Route("api/managementemail")]
+		public async Task<Response<ManagementEmailResponse>> Create([FromBody] ManagementEmailRegisterDto Model)
 		{
-			Response<UserPaymentResponse> Response = await Service.InsertAsync(Model);
-			return new Response<UserPaymentResponse>
+			Response<ManagementEmailResponse> Response = await Service.InsertAsync(Model);
+			return new Response<ManagementEmailResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Authorize]
-		[Route("api/userpayment")]
-		public async Task<Response<UserPaymentResponse>> Update([FromBody] UserPaymentUpdateDto Model)
+		[Route("api/managementemail")]
+		public async Task<Response<ManagementEmailResponse>> Update([FromBody] ManagementEmailUpdateDto Model)
 		{
-			Response<UserPaymentResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<UserPaymentResponse>
+			Response<ManagementEmailResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<ManagementEmailResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Authorize]
-		[Route("api/userpayment")]
-		public async Task<Response<UserPaymentResponse>> Delete([FromBody] UserPaymentDeleteDto Model)
+		[Route("api/managementemail")]
+		public async Task<Response<ManagementEmailResponse>> Delete([FromBody] ManagementEmailDeleteDto Model)
 		{
-			Response<UserPaymentResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<UserPaymentResponse>
+			Response<ManagementEmailResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<ManagementEmailResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/userpayment")]
-		public async Task<Response<UserPaymentResponse>> Get([FromQuery] UserPaymentSelectDto Model)
+		[Route("api/managementemail")]
+		public async Task<Response<ManagementEmailResponse>> Get([FromQuery] ManagementEmailSelectDto Model)
 		{
-			Response<UserPaymentResponse> Response = await Service.SelectAsync(Model);
-			return new Response<UserPaymentResponse>
+			Response<ManagementEmailResponse> Response = await Service.SelectAsync(Model);
+			return new Response<ManagementEmailResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

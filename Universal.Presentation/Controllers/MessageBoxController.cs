@@ -3,63 +3,58 @@
     using Core;
     using Common;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
 
     [ApiController]
     public class MessageBoxController : ControllerBase
     {
-        readonly IUserSettingsService Service;
+        readonly IMessageBoxService Service;
 
-        public MessageBoxController(IUserSettingsService service)
+        public MessageBoxController(IMessageBoxService service)
         {
             Service = service;
         }
 
 		[HttpPost]
-		[Authorize]
-		[Route("api/usersettings")]
-		public async Task<Response<UserSettingsResponse>> Create([FromBody] UserSettingsRegisterDto Model)
+		[Route("api/messagebox")]
+		public async Task<Response<MessageBoxResponse>> Create([FromBody] MessageBoxRegisterDto Model)
 		{
-			Response<UserSettingsResponse> Response = await Service.InsertAsync(Model);
-			return new Response<UserSettingsResponse>
+			Response<MessageBoxResponse> Response = await Service.InsertAsync(Model);
+			return new Response<MessageBoxResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Authorize]
-		[Route("api/usersettings")]
-		public async Task<Response<UserSettingsResponse>> Update([FromBody] UserSettingsUpdateDto Model)
+		[Route("api/messagebox")]
+		public async Task<Response<MessageBoxResponse>> Update([FromBody] MessageBoxUpdateDto Model)
 		{
-			Response<UserSettingsResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<UserSettingsResponse>
+			Response<MessageBoxResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<MessageBoxResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Authorize]
-		[Route("api/usersettings")]
-		public async Task<Response<UserSettingsResponse>> Delete([FromBody] UserSettingsDeleteDto Model)
+		[Route("api/messagebox")]
+		public async Task<Response<MessageBoxResponse>> Delete([FromBody] MessageBoxDeleteDto Model)
 		{
-			Response<UserSettingsResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<UserSettingsResponse>
+			Response<MessageBoxResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<MessageBoxResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
-		[Route("api/usersettings")]
-		public async Task<Response<UserSettingsResponse>> Get([FromQuery] UserSettingsSelectDto Model)
+		[Route("api/messagebox")]
+		public async Task<Response<MessageBoxResponse>> Get([FromQuery] MessageBoxSelectDto Model)
 		{
-			Response<UserSettingsResponse> Response = await Service.SelectAsync(Model);
-			return new Response<UserSettingsResponse>
+			Response<MessageBoxResponse> Response = await Service.SelectAsync(Model);
+			return new Response<MessageBoxResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

@@ -3,7 +3,6 @@
     using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
 
     [ApiController]
     public class UserController : ControllerBase
@@ -27,7 +26,6 @@
 		}
 
 		[HttpPut]
-		[Authorize]
 		[Route("api/user")]
 		public async Task<Response<UserResponse>> Update([FromBody] UserUpdateDto Model)
 		{
@@ -39,7 +37,6 @@
 		}
 
 		[HttpDelete]
-		[Authorize]
 		[Route("api/user")]
 		public async Task<Response<UserResponse>> Delete([FromBody] UserDeleteDto Model)
 		{
@@ -50,39 +47,25 @@
 			};
 		}
 
-		[HttpPut]
-		[Authorize]
-		[Route("api/changepassword")]
-		public async Task<Response<UserResponse>> ChangePassword([FromBody] ChangePasswordDto Model)
-		{
-			Response<UserResponse> Response = await Service.ChangePasswordAsync(Model);
-			return new Response<UserResponse>
-			{
-				Data = Response.Data
-			};
-		}
-
 		[HttpGet]
-		[Authorize]
 		[Route("api/user")]
 		public async Task<Response<UserResponse>> Get([FromQuery] UserSelectDto Model)
 		{
 			Response<UserResponse> Response = await Service.SelectAsync(Model);
 			return new Response<UserResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 
 		[HttpGet]
-		[Authorize]
 		[Route("api/usersingle")]
 		public async Task<Response<UserResponse>> GetSingle([FromQuery] UserSelectDto Model)
 		{
 			Response<UserResponse> Response = await Service.SelectSingleAsync(Model);
 			return new Response<UserResponse>
 			{
-				DataSource = Response.DataSource
+				Collection = Response.Collection
 			};
 		}
 	}

@@ -1,9 +1,8 @@
-﻿namespace Philika.Presentation.Controllers
+﻿namespace Universal.Presentation.Controllers
 {
     using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
 
     [ApiController]
     public class UserDetailController : ControllerBase
