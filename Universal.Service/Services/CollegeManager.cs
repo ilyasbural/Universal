@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<College>> InsertAsync(CollegeRegisterDto Model)
+        public async Task<Response<CollegeResponse>> InsertAsync(CollegeRegisterDto Model)
         {
             Data = Mapper.Map<College>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.College.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<College>
+            return new Response<CollegeResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<College>> UpdateAsync(CollegeUpdateDto Model)
+        public async Task<Response<CollegeResponse>> UpdateAsync(CollegeUpdateDto Model)
         {
             Collection = await UnitOfWork.College.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<College>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.College.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<College>
+            return new Response<CollegeResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<College>> DeleteAsync(CollegeDeleteDto Model)
+        public async Task<Response<CollegeResponse>> DeleteAsync(CollegeDeleteDto Model)
         {
             Collection = await UnitOfWork.College.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<College>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.College.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<College>
+            return new Response<CollegeResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<College>> SelectAsync(CollegeSelectDto Model)
+        public async Task<Response<CollegeResponse>> SelectAsync(CollegeSelectDto Model)
         {
             Collection = await UnitOfWork.College.SelectAsync(x => x.IsActive == true);
-            return new Response<College>
+            return new Response<CollegeResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<College>> SelectSingleAsync(CollegeSelectDto Model)
+        public async Task<Response<CollegeResponse>> SelectSingleAsync(CollegeSelectDto Model)
         {
             Collection = await UnitOfWork.College.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<College>
+            return new Response<CollegeResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

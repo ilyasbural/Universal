@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<NetworkComment>> InsertAsync(NetworkCommentRegisterDto Model)
+        public async Task<Response<NetworkCommentResponse>> InsertAsync(NetworkCommentRegisterDto Model)
         {
             Data = Mapper.Map<NetworkComment>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.NetworkComment.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<NetworkComment>
+            return new Response<NetworkCommentResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<NetworkComment>> UpdateAsync(NetworkCommentUpdateDto Model)
+        public async Task<Response<NetworkCommentResponse>> UpdateAsync(NetworkCommentUpdateDto Model)
         {
             Collection = await UnitOfWork.NetworkComment.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<NetworkComment>(Collection[0]);
@@ -47,16 +47,15 @@
             await UnitOfWork.NetworkComment.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<NetworkComment>
+            return new Response<NetworkCommentResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<NetworkComment>> DeleteAsync(NetworkCommentDeleteDto Model)
+        public async Task<Response<NetworkCommentResponse>> DeleteAsync(NetworkCommentDeleteDto Model)
         {
             Collection = await UnitOfWork.NetworkComment.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<NetworkComment>(Collection[0]);
@@ -64,34 +63,31 @@
             await UnitOfWork.NetworkComment.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<NetworkComment>
+            return new Response<NetworkCommentResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<NetworkComment>> SelectAsync(NetworkCommentSelectDto Model)
+        public async Task<Response<NetworkCommentResponse>> SelectAsync(NetworkCommentSelectDto Model)
         {
             Collection = await UnitOfWork.NetworkComment.SelectAsync(x => x.IsActive == true);
-            return new Response<NetworkComment>
+            return new Response<NetworkCommentResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<NetworkComment>> SelectSingleAsync(NetworkCommentSelectDto Model)
+        public async Task<Response<NetworkCommentResponse>> SelectSingleAsync(NetworkCommentSelectDto Model)
         {
             Collection = await UnitOfWork.NetworkComment.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<NetworkComment>
+            return new Response<NetworkCommentResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

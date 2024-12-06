@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<ManagementEmail>> InsertAsync(ManagementEmailRegisterDto Model)
+        public async Task<Response<ManagementEmailResponse>> InsertAsync(ManagementEmailRegisterDto Model)
         {
             Data = Mapper.Map<ManagementEmail>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.ManagementEmail.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<ManagementEmail>
+            return new Response<ManagementEmailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<ManagementEmail>> UpdateAsync(ManagementEmailUpdateDto Model)
+        public async Task<Response<ManagementEmailResponse>> UpdateAsync(ManagementEmailUpdateDto Model)
         {
             Collection = await UnitOfWork.ManagementEmail.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<ManagementEmail>(Collection[0]);
@@ -47,16 +47,15 @@
             await UnitOfWork.ManagementEmail.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<ManagementEmail>
+            return new Response<ManagementEmailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<ManagementEmail>> DeleteAsync(ManagementEmailDeleteDto Model)
+        public async Task<Response<ManagementEmailResponse>> DeleteAsync(ManagementEmailDeleteDto Model)
         {
             Collection = await UnitOfWork.ManagementEmail.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<ManagementEmail>(Collection[0]);
@@ -64,34 +63,31 @@
             await UnitOfWork.ManagementEmail.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<ManagementEmail>
+            return new Response<ManagementEmailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<ManagementEmail>> SelectAsync(ManagementEmailSelectDto Model)
+        public async Task<Response<ManagementEmailResponse>> SelectAsync(ManagementEmailSelectDto Model)
         {
             Collection = await UnitOfWork.ManagementEmail.SelectAsync(x => x.IsActive == true);
-            return new Response<ManagementEmail>
+            return new Response<ManagementEmailResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<ManagementEmail>> SelectSingleAsync(ManagementEmailSelectDto Model)
+        public async Task<Response<ManagementEmailResponse>> SelectSingleAsync(ManagementEmailSelectDto Model)
         {
             Collection = await UnitOfWork.ManagementEmail.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<ManagementEmail>
+            return new Response<ManagementEmailResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

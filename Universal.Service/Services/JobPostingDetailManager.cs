@@ -1,7 +1,8 @@
 ﻿namespace Universal.Service
 {
     using Core;
-    using AutoMapper;
+	using Common;
+	using AutoMapper;
     using FluentValidation;
 
     public class JobPostingDetailManager : BusinessObject<JobPostingDetail>, IJobPostingDetailService
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<JobPostingDetail>> InsertAsync(JobPostingDetailRegisterDto Model)
+        public async Task<Response<JobPostingDetailResponse>> InsertAsync(JobPostingDetailRegisterDto Model)
         {
             List<JobPosting> JobPostingList = await UnitOfWork.JobPosting.SelectAsync(x => x.Id == Model.JobPostingId);
 
@@ -32,15 +33,14 @@
             await UnitOfWork.JobPostingDetail.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<JobPostingDetail>
+            return new Response<JobPostingDetailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<JobPostingDetail>> UpdateAsync(JobPostingDetailUpdateDto Model)
+        public async Task<Response<JobPostingDetailResponse>> UpdateAsync(JobPostingDetailUpdateDto Model)
         {
             List<JobPosting> JobPostingList = await UnitOfWork.JobPosting.SelectAsync(x => x.Id == Model.JobPostingId);
             Collection = await UnitOfWork.JobPostingDetail.SelectAsync(x => x.Id == Model.Id);
@@ -52,16 +52,15 @@
             await UnitOfWork.JobPostingDetail.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<JobPostingDetail>
+            return new Response<JobPostingDetailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<JobPostingDetail>> DeleteAsync(JobPostingDetailDeleteDto Model)
+        public async Task<Response<JobPostingDetailResponse>> DeleteAsync(JobPostingDetailDeleteDto Model)
         {
             Collection = await UnitOfWork.JobPostingDetail.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<JobPostingDetail>(Collection[0]);
@@ -69,34 +68,31 @@
             await UnitOfWork.JobPostingDetail.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<JobPostingDetail>
+            return new Response<JobPostingDetailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<JobPostingDetail>> SelectAsync(JobPostingDetailSelectDto Model)
+        public async Task<Response<JobPostingDetailResponse>> SelectAsync(JobPostingDetailSelectDto Model)
         {
             Collection = await UnitOfWork.JobPostingDetail.SelectAsync(x => x.IsActive == true, x => x.JobPosting);
-            return new Response<JobPostingDetail>
+            return new Response<JobPostingDetailResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<JobPostingDetail>> SelectSingleAsync(JobPostingDetailSelectDto Model)
+        public async Task<Response<JobPostingDetailResponse>> SelectSingleAsync(JobPostingDetailSelectDto Model)
         {
             Collection = await UnitOfWork.JobPostingDetail.SelectAsync(x => x.Id == Model.Id && x.IsActive == true, x => x.JobPosting);
-            return new Response<JobPostingDetail>
+            return new Response<JobPostingDetailResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

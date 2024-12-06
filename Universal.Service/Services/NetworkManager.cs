@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<Network>> InsertAsync(NetworkRegisterDto Model)
+        public async Task<Response<NetworkResponse>> InsertAsync(NetworkRegisterDto Model)
         {
             Data = Mapper.Map<Network>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.Network.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Network>
+            return new Response<NetworkResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Network>> UpdateAsync(NetworkUpdateDto Model)
+        public async Task<Response<NetworkResponse>> UpdateAsync(NetworkUpdateDto Model)
         {
             Collection = await UnitOfWork.Network.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Network>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.Network.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Network>
+            return new Response<NetworkResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Network>> DeleteAsync(NetworkDeleteDto Model)
+        public async Task<Response<NetworkResponse>> DeleteAsync(NetworkDeleteDto Model)
         {
             Collection = await UnitOfWork.Network.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Network>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.Network.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Network>
+            return new Response<NetworkResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Network>> SelectAsync(NetworkSelectDto Model)
+        public async Task<Response<NetworkResponse>> SelectAsync(NetworkSelectDto Model)
         {
             Collection = await UnitOfWork.Network.SelectAsync(x => x.IsActive == true);
-            return new Response<Network>
+            return new Response<NetworkResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Network>> SelectSingleAsync(NetworkSelectDto Model)
+        public async Task<Response<NetworkResponse>> SelectSingleAsync(NetworkSelectDto Model)
         {
             Collection = await UnitOfWork.Network.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<Network>
+            return new Response<NetworkResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

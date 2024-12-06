@@ -1,7 +1,8 @@
 ﻿namespace Universal.Service
 {
     using Core;
-    using AutoMapper;
+	using Common;
+	using AutoMapper;
     using FluentValidation;
 
     public class CompanyFollowerManager : BusinessObject<CompanyFollower>, ICompanyFollowerService
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<CompanyFollower>> InsertAsync(CompanyFollowerRegisterDto Model)
+        public async Task<Response<CompanyFollowerResponse>> InsertAsync(CompanyFollowerRegisterDto Model)
         {
             Data = Mapper.Map<CompanyFollower>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.CompanyFollower.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<CompanyFollower>
+            return new Response<CompanyFollowerResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<CompanyFollower>> UpdateAsync(CompanyFollowerUpdateDto Model)
+        public async Task<Response<CompanyFollowerResponse>> UpdateAsync(CompanyFollowerUpdateDto Model)
         {
             Collection = await UnitOfWork.CompanyFollower.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<CompanyFollower>(Collection[0]);
@@ -47,16 +47,15 @@
             await UnitOfWork.CompanyFollower.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<CompanyFollower>
+            return new Response<CompanyFollowerResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<CompanyFollower>> DeleteAsync(CompanyFollowerDeleteDto Model)
+        public async Task<Response<CompanyFollowerResponse>> DeleteAsync(CompanyFollowerDeleteDto Model)
         {
             Collection = await UnitOfWork.CompanyFollower.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<CompanyFollower>(Collection[0]);
@@ -64,34 +63,31 @@
             await UnitOfWork.CompanyFollower.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<CompanyFollower>
+            return new Response<CompanyFollowerResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<CompanyFollower>> SelectAsync(CompanyFollowerSelectDto Model)
+        public async Task<Response<CompanyFollowerResponse>> SelectAsync(CompanyFollowerSelectDto Model)
         {
             Collection = await UnitOfWork.CompanyFollower.SelectAsync(x => x.IsActive == true);
-            return new Response<CompanyFollower>
+            return new Response<CompanyFollowerResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<CompanyFollower>> SelectSingleAsync(CompanyFollowerSelectDto Model)
+        public async Task<Response<CompanyFollowerResponse>> SelectSingleAsync(CompanyFollowerSelectDto Model)
         {
             Collection = await UnitOfWork.CompanyFollower.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<CompanyFollower>
+            return new Response<CompanyFollowerResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

@@ -1,7 +1,8 @@
 ﻿namespace Universal.Service
 {
     using Core;
-    using AutoMapper;
+	using Common;
+	using AutoMapper;
     using FluentValidation;
 
     public class CompanyDetailManager : BusinessObject<CompanyDetail>, ICompanyDetailService
@@ -17,7 +18,7 @@
             Validator = validator;
         }    
 
-        public async Task<Response<CompanyDetail>> InsertAsync(CompanyDetailRegisterDto Model)
+        public async Task<Response<CompanyDetailResponse>> InsertAsync(CompanyDetailRegisterDto Model)
         {
             Data = Mapper.Map<CompanyDetail>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.CompanyDetail.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<CompanyDetail>
+            return new Response<CompanyDetailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<CompanyDetail>> UpdateAsync(CompanyDetailUpdateDto Model)
+        public async Task<Response<CompanyDetailResponse>> UpdateAsync(CompanyDetailUpdateDto Model)
         {
             Collection = await UnitOfWork.CompanyDetail.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<CompanyDetail>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.CompanyDetail.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<CompanyDetail>
+            return new Response<CompanyDetailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<CompanyDetail>> DeleteAsync(CompanyDetailDeleteDto Model)
+        public async Task<Response<CompanyDetailResponse>> DeleteAsync(CompanyDetailDeleteDto Model)
         {
             Collection = await UnitOfWork.CompanyDetail.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<CompanyDetail>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.CompanyDetail.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<CompanyDetail>
+            return new Response<CompanyDetailResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<CompanyDetail>> SelectAsync(CompanyDetailSelectDto Model)
+        public async Task<Response<CompanyDetailResponse>> SelectAsync(CompanyDetailSelectDto Model)
         {
             Collection = await UnitOfWork.CompanyDetail.SelectAsync(x => x.IsActive == true);
-            return new Response<CompanyDetail>
+            return new Response<CompanyDetailResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<CompanyDetail>> SelectSingleAsync(CompanyDetailSelectDto Model)
+        public async Task<Response<CompanyDetailResponse>> SelectSingleAsync(CompanyDetailSelectDto Model)
         {
             Collection = await UnitOfWork.CompanyDetail.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<CompanyDetail>
+            return new Response<CompanyDetailResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

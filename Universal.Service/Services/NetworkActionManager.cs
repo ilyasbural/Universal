@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<NetworkAction>> InsertAsync(NetworkActionRegisterDto Model)
+        public async Task<Response<NetworkActionResponse>> InsertAsync(NetworkActionRegisterDto Model)
         {
             Data = Mapper.Map<NetworkAction>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.NetworkAction.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<NetworkAction>
+            return new Response<NetworkActionResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<NetworkAction>> UpdateAsync(NetworkActionUpdateDto Model)
+        public async Task<Response<NetworkActionResponse>> UpdateAsync(NetworkActionUpdateDto Model)
         {
             Collection = await UnitOfWork.NetworkAction.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<NetworkAction>(Collection[0]);
@@ -47,16 +47,15 @@
             await UnitOfWork.NetworkAction.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<NetworkAction>
+            return new Response<NetworkActionResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<NetworkAction>> DeleteAsync(NetworkActionDeleteDto Model)
+        public async Task<Response<NetworkActionResponse>> DeleteAsync(NetworkActionDeleteDto Model)
         {
             Collection = await UnitOfWork.NetworkAction.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<NetworkAction>(Collection[0]);
@@ -64,34 +63,31 @@
             await UnitOfWork.NetworkAction.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<NetworkAction>
+            return new Response<NetworkActionResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<NetworkAction>> SelectAsync(NetworkActionSelectDto Model)
+        public async Task<Response<NetworkActionResponse>> SelectAsync(NetworkActionSelectDto Model)
         {
             Collection = await UnitOfWork.NetworkAction.SelectAsync(x => x.IsActive == true);
-            return new Response<NetworkAction>
+            return new Response<NetworkActionResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<NetworkAction>> SelectSingleAsync(NetworkActionSelectDto Model)
+        public async Task<Response<NetworkActionResponse>> SelectSingleAsync(NetworkActionSelectDto Model)
         {
             Collection = await UnitOfWork.NetworkAction.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<NetworkAction>
+            return new Response<NetworkActionResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

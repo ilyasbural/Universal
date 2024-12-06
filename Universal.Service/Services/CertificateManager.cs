@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<Certificate>> InsertAsync(CertificateRegisterDto Model)
+        public async Task<Response<CertificateResponse>> InsertAsync(CertificateRegisterDto Model)
         {
             Data = Mapper.Map<Certificate>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.Certificate.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Certificate>
+            return new Response<CertificateResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Certificate>> UpdateAsync(CertificateUpdateDto Model)
+        public async Task<Response<CertificateResponse>> UpdateAsync(CertificateUpdateDto Model)
         {
             Collection = await UnitOfWork.Certificate.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Certificate>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.Certificate.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Certificate>
+            return new Response<CertificateResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Certificate>> DeleteAsync(CertificateDeleteDto Model)
+        public async Task<Response<CertificateResponse>> DeleteAsync(CertificateDeleteDto Model)
         {
             Collection = await UnitOfWork.Certificate.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<Certificate>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.Certificate.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<Certificate>
+            return new Response<CertificateResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Certificate>> SelectAsync(CertificateSelectDto Model)
+        public async Task<Response<CertificateResponse>> SelectAsync(CertificateSelectDto Model)
         {
             Collection = await UnitOfWork.Certificate.SelectAsync(x => x.IsActive == true);
-            return new Response<Certificate>
+            return new Response<CertificateResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<Certificate>> SelectSingleAsync(CertificateSelectDto Model)
+        public async Task<Response<CertificateResponse>> SelectSingleAsync(CertificateSelectDto Model)
         {
             Collection = await UnitOfWork.Certificate.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<Certificate>
+            return new Response<CertificateResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };

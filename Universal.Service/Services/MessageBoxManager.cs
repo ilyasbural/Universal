@@ -1,6 +1,7 @@
 ﻿namespace Universal.Service
 {
     using Core;
+    using Common;
     using AutoMapper;
     using FluentValidation;
 
@@ -17,7 +18,7 @@
             Validator = validator;
         }
 
-        public async Task<Response<MessageBox>> InsertAsync(MessageBoxRegisterDto Model)
+        public async Task<Response<MessageBoxResponse>> InsertAsync(MessageBoxRegisterDto Model)
         {
             Data = Mapper.Map<MessageBox>(Model);
             Data.Id = Guid.NewGuid();
@@ -29,15 +30,14 @@
             await UnitOfWork.MessageBox.InsertAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<MessageBox>
+            return new Response<MessageBoxResponse>
             {
                 Message = "Success",
-                Data = Data,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<MessageBox>> UpdateAsync(MessageBoxUpdateDto Model)
+        public async Task<Response<MessageBoxResponse>> UpdateAsync(MessageBoxUpdateDto Model)
         {
             Collection = await UnitOfWork.MessageBox.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<MessageBox>(Collection[0]);
@@ -48,16 +48,15 @@
             await UnitOfWork.MessageBox.UpdateAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<MessageBox>
+            return new Response<MessageBoxResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<MessageBox>> DeleteAsync(MessageBoxDeleteDto Model)
+        public async Task<Response<MessageBoxResponse>> DeleteAsync(MessageBoxDeleteDto Model)
         {
             Collection = await UnitOfWork.MessageBox.SelectAsync(x => x.Id == Model.Id);
             Data = Mapper.Map<MessageBox>(Collection[0]);
@@ -65,34 +64,31 @@
             await UnitOfWork.MessageBox.DeleteAsync(Data);
             await UnitOfWork.SaveChangesAsync();
 
-            return new Response<MessageBox>
+            return new Response<MessageBoxResponse>
             {
                 Message = "Success",
-                Data = Data,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<MessageBox>> SelectAsync(MessageBoxSelectDto Model)
+        public async Task<Response<MessageBoxResponse>> SelectAsync(MessageBoxSelectDto Model)
         {
             Collection = await UnitOfWork.MessageBox.SelectAsync(x => x.IsActive == true);
-            return new Response<MessageBox>
+            return new Response<MessageBoxResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
         }
 
-        public async Task<Response<MessageBox>> SelectSingleAsync(MessageBoxSelectDto Model)
+        public async Task<Response<MessageBoxResponse>> SelectSingleAsync(MessageBoxSelectDto Model)
         {
             Collection = await UnitOfWork.MessageBox.SelectAsync(x => x.Id == Model.Id && x.IsActive == true);
-            return new Response<MessageBox>
+            return new Response<MessageBoxResponse>
             {
                 Message = "Success",
-                Collection = Collection,
                 Success = 1,
                 IsValidationError = false
             };
