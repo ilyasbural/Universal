@@ -1,11 +1,28 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Universal.Presentation.Controllers
+﻿namespace Universal.Presentation.Controllers
 {
-	[Route("api/[controller]")]
+	using Core;
+	using Common;
+	using Microsoft.AspNetCore.Mvc;
+
 	[ApiController]
 	public class UserPublishController : ControllerBase
 	{
+		readonly IUserPublishService Service;
+
+		public UserPublishController(IUserPublishService service)
+		{
+			Service = service;
+		}
+
+		[HttpPost]
+		[Route("api/userpublish")]
+		public async Task<Response<UserPublishResponse>> Create([FromBody] UserPublishRegisterDto Model)
+		{
+			Response<UserPublishResponse> Response = await Service.InsertAsync(Model);
+			return new Response<UserPublishResponse>
+			{
+				Data = Response.Data
+			};
+		}
 	}
 }

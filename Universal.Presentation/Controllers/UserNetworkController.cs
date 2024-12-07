@@ -1,11 +1,28 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Universal.Presentation.Controllers
+﻿namespace Universal.Presentation.Controllers
 {
-	[Route("api/[controller]")]
+	using Core;
+	using Common;
+	using Microsoft.AspNetCore.Mvc;
+
 	[ApiController]
 	public class UserNetworkController : ControllerBase
 	{
+		readonly IUserNetworkService Service;
+
+		public UserNetworkController(IUserNetworkService service)
+		{
+			Service = service;
+		}
+
+		[HttpPost]
+		[Route("api/usernetwork")]
+		public async Task<Response<UserNetworkResponse>> Create([FromBody] UserNetworkRegisterDto Model)
+		{
+			Response<UserNetworkResponse> Response = await Service.InsertAsync(Model);
+			return new Response<UserNetworkResponse>
+			{
+				Data = Response.Data
+			};
+		}
 	}
 }

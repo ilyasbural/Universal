@@ -1,11 +1,28 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Universal.Presentation.Controllers
+﻿namespace Universal.Presentation.Controllers
 {
-	[Route("api/[controller]")]
+	using Core;
+	using Common;
+	using Microsoft.AspNetCore.Mvc;
+
 	[ApiController]
 	public class UserSettingsController : ControllerBase
 	{
+		readonly IUserSettingsService Service;
+
+		public UserSettingsController(IUserSettingsService service)
+		{
+			Service = service;
+		}
+
+		[HttpPost]
+		[Route("api/usersettings")]
+		public async Task<Response<UserSettingsResponse>> Create([FromBody] UserSettingsRegisterDto Model)
+		{
+			Response<UserSettingsResponse> Response = await Service.InsertAsync(Model);
+			return new Response<UserSettingsResponse>
+			{
+				Data = Response.Data
+			};
+		}
 	}
 }

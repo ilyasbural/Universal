@@ -1,11 +1,28 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Universal.Presentation.Controllers
+﻿namespace Universal.Presentation.Controllers
 {
-	[Route("api/[controller]")]
+	using Core;
+	using Common;
+	using Microsoft.AspNetCore.Mvc;
+
 	[ApiController]
 	public class UserTypeController : ControllerBase
 	{
+		readonly IUserTypeService Service;
+
+		public UserTypeController(IUserTypeService service)
+		{
+			Service = service;
+		}
+
+		[HttpPost]
+		[Route("api/usertype")]
+		public async Task<Response<UserTypeResponse>> Create([FromBody] UserTypeRegisterDto Model)
+		{
+			Response<UserTypeResponse> Response = await Service.InsertAsync(Model);
+			return new Response<UserTypeResponse>
+			{
+				Data = Response.Data
+			};
+		}
 	}
 }

@@ -1,11 +1,28 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Universal.Presentation.Controllers
+﻿namespace Universal.Presentation.Controllers
 {
-	[Route("api/[controller]")]
+	using Core;
+	using Common;
+	using Microsoft.AspNetCore.Mvc;
+
 	[ApiController]
 	public class UserReferanceController : ControllerBase
 	{
+		readonly IUserReferanceService Service;
+
+		public UserReferanceController(IUserReferanceService service)
+		{
+			Service = service;
+		}
+
+		[HttpPost]
+		[Route("api/userreferance")]
+		public async Task<Response<UserReferanceResponse>> Create([FromBody] UserReferanceRegisterDto Model)
+		{
+			Response<UserReferanceResponse> Response = await Service.InsertAsync(Model);
+			return new Response<UserReferanceResponse>
+			{
+				Data = Response.Data
+			};
+		}
 	}
 }
