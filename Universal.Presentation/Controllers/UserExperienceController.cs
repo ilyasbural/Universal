@@ -24,5 +24,49 @@
 				Data = Response.Data
 			};
 		}
+
+		[HttpPut]
+		[Route("api/userexperience")]
+		public async Task<Response<UserExperienceResponse>> Update([FromBody] UserExperienceUpdateDto Model)
+		{
+			Response<UserExperienceResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<UserExperienceResponse>
+			{
+				Data = Response.Data
+			};
+		}
+
+		[HttpDelete]
+		[Route("api/userexperience")]
+		public async Task<Response<UserExperienceResponse>> Delete([FromBody] UserExperienceDeleteDto Model)
+		{
+			Response<UserExperienceResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<UserExperienceResponse>
+			{
+				Data = Response.Data
+			};
+		}
+
+		[HttpGet]
+		[Route("api/userexperience")]
+		public async Task<Response<UserExperienceResponse>> Get([FromQuery] UserExperienceSelectDto Model)
+		{
+			Response<UserExperienceResponse> Response = await Service.SelectAsync(Model);
+			return new Response<UserExperienceResponse>
+			{
+				Collection = Response.Collection
+			};
+		}
+
+		[HttpGet]
+		[Route("api/userexperiencesingle")]
+		public async Task<Response<UserExperienceResponse>> GetSingle([FromQuery] UserExperienceSelectDto Model)
+		{
+			Response<UserExperienceResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<UserExperienceResponse>
+			{
+				Collection = Response.Collection
+			};
+		}
 	}
 }

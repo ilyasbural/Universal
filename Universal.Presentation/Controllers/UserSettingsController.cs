@@ -24,5 +24,49 @@
 				Data = Response.Data
 			};
 		}
+
+		[HttpPut]
+		[Route("api/usersettings")]
+		public async Task<Response<UserSettingsResponse>> Update([FromBody] UserSettingsUpdateDto Model)
+		{
+			Response<UserSettingsResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<UserSettingsResponse>
+			{
+				Data = Response.Data
+			};
+		}
+
+		[HttpDelete]
+		[Route("api/usersettings")]
+		public async Task<Response<UserSettingsResponse>> Delete([FromBody] UserSettingsDeleteDto Model)
+		{
+			Response<UserSettingsResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<UserSettingsResponse>
+			{
+				Data = Response.Data
+			};
+		}
+
+		[HttpGet]
+		[Route("api/usersettings")]
+		public async Task<Response<UserSettingsResponse>> Get([FromQuery] UserSettingsSelectDto Model)
+		{
+			Response<UserSettingsResponse> Response = await Service.SelectAsync(Model);
+			return new Response<UserSettingsResponse>
+			{
+				Collection = Response.Collection
+			};
+		}
+
+		[HttpGet]
+		[Route("api/usersettingssingle")]
+		public async Task<Response<UserSettingsResponse>> GetSingle([FromQuery] UserSettingsSelectDto Model)
+		{
+			Response<UserSettingsResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<UserSettingsResponse>
+			{
+				Collection = Response.Collection
+			};
+		}
 	}
 }
