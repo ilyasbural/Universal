@@ -1,18 +1,17 @@
 ﻿namespace Universal.Presentation.Controllers
 {
-    using Core;
+	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
 
-    [ApiController]
-    public class JobPostingDetailController : ControllerBase
-    {
-        readonly IJobPostingDetailService Service;
-
-        public JobPostingDetailController(IJobPostingDetailService service)
-        {
-            Service = service;
-        }
+	[ApiController]
+	public class JobPostingDetailController : ControllerBase
+	{
+		readonly IJobPostingDetailService Service;
+		public JobPostingDetailController(IJobPostingDetailService service)
+		{
+			Service = service;
+		}
 
 		[HttpPost]
 		[Route("api/jobpostingdetail")]
