@@ -8,7 +8,6 @@
 	public class UserPublishController : ControllerBase
 	{
 		readonly IUserPublishService Service;
-
 		public UserPublishController(IUserPublishService service)
 		{
 			Service = service;

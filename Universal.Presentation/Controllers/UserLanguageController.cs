@@ -8,7 +8,6 @@
 	public class UserLanguageController : ControllerBase
 	{
 		readonly IUserLanguageService Service;
-
 		public UserLanguageController(IUserLanguageService service)
 		{
 			Service = service;

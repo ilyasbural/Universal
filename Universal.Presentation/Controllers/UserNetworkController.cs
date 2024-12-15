@@ -8,7 +8,6 @@
 	public class UserNetworkController : ControllerBase
 	{
 		readonly IUserNetworkService Service;
-
 		public UserNetworkController(IUserNetworkService service)
 		{
 			Service = service;

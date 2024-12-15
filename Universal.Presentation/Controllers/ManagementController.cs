@@ -8,7 +8,6 @@
 	public class ManagementController : ControllerBase
 	{
 		readonly IManagementService Service;
-
 		public ManagementController(IManagementService service)
 		{
 			Service = service;

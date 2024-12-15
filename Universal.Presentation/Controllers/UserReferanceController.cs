@@ -8,7 +8,6 @@
 	public class UserReferanceController : ControllerBase
 	{
 		readonly IUserReferanceService Service;
-
 		public UserReferanceController(IUserReferanceService service)
 		{
 			Service = service;

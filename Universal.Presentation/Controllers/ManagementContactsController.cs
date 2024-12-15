@@ -1,18 +1,17 @@
 ﻿namespace Universal.Presentation.Controllers
 {
-    using Core;
+	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
 
-    [ApiController]
-    public class ManagementContactsController : ControllerBase
-    {
-        readonly IManagementContactService Service;
-
-        public ManagementContactsController(IManagementContactService service)
-        {
-            Service = service;
-        }
+	[ApiController]
+	public class ManagementContactsController : ControllerBase
+	{
+		readonly IManagementContactService Service;
+		public ManagementContactsController(IManagementContactService service)
+		{
+			Service = service;
+		}
 
 		[HttpPost]
 		[Route("api/managementcontact")]

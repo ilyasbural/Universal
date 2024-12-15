@@ -8,7 +8,6 @@
 	public class UserVideoController : ControllerBase
 	{
 		readonly IUserVideoService Service;
-
 		public UserVideoController(IUserVideoService service)
 		{
 			Service = service;

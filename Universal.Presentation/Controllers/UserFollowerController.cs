@@ -8,7 +8,6 @@
 	public class UserFollowerController : ControllerBase
 	{
 		readonly IUserFollowerService Service;
-
 		public UserFollowerController(IUserFollowerService service)
 		{
 			Service = service;

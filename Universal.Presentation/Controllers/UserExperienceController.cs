@@ -8,7 +8,6 @@
 	public class UserExperienceController : ControllerBase
 	{
 		readonly IUserExperienceService Service;
-
 		public UserExperienceController(IUserExperienceService service)
 		{
 			Service = service;

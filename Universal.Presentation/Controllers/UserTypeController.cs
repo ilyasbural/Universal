@@ -8,7 +8,6 @@
 	public class UserTypeController : ControllerBase
 	{
 		readonly IUserTypeService Service;
-
 		public UserTypeController(IUserTypeService service)
 		{
 			Service = service;

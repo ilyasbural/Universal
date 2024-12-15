@@ -1,18 +1,17 @@
 ﻿namespace Universal.Presentation.Controllers
 {
-    using Core;
+	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
 
-    [ApiController]
-    public class UserDetailController : ControllerBase
-    {
-        readonly IUserDetailService Service;
-
-        public UserDetailController(IUserDetailService service)
-        {
-            Service = service;
-        }
+	[ApiController]
+	public class UserDetailController : ControllerBase
+	{
+		readonly IUserDetailService Service;
+		public UserDetailController(IUserDetailService service)
+		{
+			Service = service;
+		}
 
 		[HttpPost]
 		[Route("api/userdetail")]

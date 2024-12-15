@@ -1,18 +1,17 @@
 ﻿namespace Universal.Presentation.Controllers
 {
-    using Core;
+	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
 
-    [ApiController]
-    public class UserController : ControllerBase
-    {
-        readonly IUserService Service;
-
-        public UserController(IUserService service)
-        {
-            Service = service;
-        }
+	[ApiController]
+	public class UserController : ControllerBase
+	{
+		readonly IUserService Service;
+		public UserController(IUserService service)
+		{
+			Service = service;
+		}
 
 		[HttpPost]
 		[Route("api/user")]

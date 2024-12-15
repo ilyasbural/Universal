@@ -1,18 +1,17 @@
 ﻿namespace Universal.Presentation.Controllers
 {
-    using Core;
+	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
 
-    [ApiController]
-    public class ManagementDetailController : ControllerBase
-    {
-        readonly IManagementDetailService Service;
-
-        public ManagementDetailController(IManagementDetailService service)
-        {
-            Service = service;
-        }
+	[ApiController]
+	public class ManagementDetailController : ControllerBase
+	{
+		readonly IManagementDetailService Service;
+		public ManagementDetailController(IManagementDetailService service)
+		{
+			Service = service;
+		}
 
 		[HttpPost]
 		[Route("api/managementdetail")]

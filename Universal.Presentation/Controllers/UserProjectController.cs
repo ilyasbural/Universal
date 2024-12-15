@@ -8,7 +8,6 @@
 	public class UserProjectController : ControllerBase
 	{
 		readonly IUserProjectService Service;
-
 		public UserProjectController(IUserProjectService service)
 		{
 			Service = service;

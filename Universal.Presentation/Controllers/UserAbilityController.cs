@@ -1,18 +1,17 @@
 ﻿namespace Universal.Presentation.Controllers
 {
-    using Core;
+	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
 
-    [ApiController]
-    public class UserAbilityController : ControllerBase
-    {
-        readonly IUserAbilityService Service;
-
-        public UserAbilityController(IUserAbilityService service)
-        {
-            Service = service;
-        }
+	[ApiController]
+	public class UserAbilityController : ControllerBase
+	{
+		readonly IUserAbilityService Service;
+		public UserAbilityController(IUserAbilityService service)
+		{
+			Service = service;
+		}
 
 		[HttpPost]
 		[Route("api/userability")]

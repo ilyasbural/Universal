@@ -1,18 +1,17 @@
 ﻿namespace Universal.Presentation.Controllers
 {
-    using Core;
+	using Core;
 	using Common;
 	using Microsoft.AspNetCore.Mvc;
 
-    [ApiController]
-    public class ManagementEmailController : ControllerBase
-    {
-        readonly IManagementEmailService Service;
-
-        public ManagementEmailController(IManagementEmailService service)
-        {
-            Service = service;
-        }
+	[ApiController]
+	public class ManagementEmailController : ControllerBase
+	{
+		readonly IManagementEmailService Service;
+		public ManagementEmailController(IManagementEmailService service)
+		{
+			Service = service;
+		}
 
 		[HttpPost]
 		[Route("api/managementemail")]

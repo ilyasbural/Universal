@@ -8,7 +8,6 @@
 	public class UserSettingsController : ControllerBase
 	{
 		readonly IUserSettingsService Service;
-
 		public UserSettingsController(IUserSettingsService service)
 		{
 			Service = service;

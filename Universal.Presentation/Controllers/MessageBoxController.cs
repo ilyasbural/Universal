@@ -1,18 +1,17 @@
 ﻿namespace Universal.Presentation.Controllers
 {
-    using Core;
-    using Common;
-    using Microsoft.AspNetCore.Mvc;
+	using Core;
+	using Common;
+	using Microsoft.AspNetCore.Mvc;
 
-    [ApiController]
-    public class MessageBoxController : ControllerBase
-    {
-        readonly IMessageBoxService Service;
-
-        public MessageBoxController(IMessageBoxService service)
-        {
-            Service = service;
-        }
+	[ApiController]
+	public class MessageBoxController : ControllerBase
+	{
+		readonly IMessageBoxService Service;
+		public MessageBoxController(IMessageBoxService service)
+		{
+			Service = service;
+		}
 
 		[HttpPost]
 		[Route("api/messagebox")]
