@@ -8,7 +8,6 @@
 	public class AnnounceDetailController : ControllerBase
 	{
 		readonly IAnnounceDetailService Service;
-
 		public AnnounceDetailController(IAnnounceDetailService service)
 		{
 			Service = service;

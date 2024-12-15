@@ -8,7 +8,6 @@
 	public class AnnounceLogController : ControllerBase
 	{
 		readonly IAnnounceLogService Service;
-
 		public AnnounceLogController(IAnnounceLogService service)
 		{
 			Service = service;

@@ -8,7 +8,6 @@
 	public class CertificateController : ControllerBase
 	{
 		readonly ICertificateService Service;
-
 		public CertificateController(ICertificateService service)
 		{
 			Service = service;

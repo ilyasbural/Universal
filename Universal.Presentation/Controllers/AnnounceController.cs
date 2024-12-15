@@ -8,7 +8,6 @@
 	public class AnnounceController : ControllerBase
 	{
 		readonly IAnnounceService Service;
-
 		public AnnounceController(IAnnounceService service)
 		{
 			Service = service;
