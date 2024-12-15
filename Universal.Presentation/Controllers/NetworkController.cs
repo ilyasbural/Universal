@@ -1,11 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Universal.Presentation.Controllers
+﻿namespace Universal.Presentation.Controllers
 {
-	[Route("api/[controller]")]
+	using Core;
+	using Common;
+	using Microsoft.AspNetCore.Mvc;
+
 	[ApiController]
 	public class NetworkController : ControllerBase
 	{
+		readonly INetworkService Service;
+		public NetworkController(INetworkService service)
+		{
+			Service = service;
+		}
 	}
 }

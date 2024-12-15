@@ -8,7 +8,6 @@
 	public class AbilityController : ControllerBase
 	{
 		readonly IAbilityService Service;
-
 		public AbilityController(IAbilityService service)
 		{
 			Service = service;
