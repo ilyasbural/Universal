@@ -8,7 +8,6 @@
 	public class CompanyDetailController : ControllerBase
 	{
 		readonly ICompanyDetailService Service;
-
 		public CompanyDetailController(ICompanyDetailService service)
 		{
 			Service = service;
