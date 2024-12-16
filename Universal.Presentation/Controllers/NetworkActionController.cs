@@ -14,55 +14,55 @@
 		}
 
 		[HttpPost]
-		[Route("api/management")]
-		public async Task<Response<ManagementResponse>> Create([FromBody] ManagementRegisterDto Model)
+		[Route("api/networkaction")]
+		public async Task<Response<NetworkActionResponse>> Create([FromBody] NetworkActionRegisterDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.InsertAsync(Model);
-			return new Response<ManagementResponse>
+			Response<NetworkActionResponse> Response = await Service.InsertAsync(Model);
+			return new Response<NetworkActionResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Route("api/management")]
-		public async Task<Response<ManagementResponse>> Update([FromBody] ManagementUpdateDto Model)
+		[Route("api/networkaction")]
+		public async Task<Response<NetworkActionResponse>> Update([FromBody] NetworkActionUpdateDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<ManagementResponse>
+			Response<NetworkActionResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<NetworkActionResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Route("api/management")]
-		public async Task<Response<ManagementResponse>> Delete([FromBody] ManagementDeleteDto Model)
+		[Route("api/networkaction")]
+		public async Task<Response<NetworkActionResponse>> Delete([FromBody] NetworkActionDeleteDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<ManagementResponse>
+			Response<NetworkActionResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<NetworkActionResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Route("api/management")]
-		public async Task<Response<ManagementResponse>> Get([FromQuery] ManagementSelectDto Model)
+		[Route("api/networkaction")]
+		public async Task<Response<NetworkActionResponse>> Get([FromQuery] NetworkActionSelectDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.SelectAsync(Model);
-			return new Response<ManagementResponse>
+			Response<NetworkActionResponse> Response = await Service.SelectAsync(Model);
+			return new Response<NetworkActionResponse>
 			{
 				Collection = Response.Collection
 			};
 		}
 
 		[HttpGet]
-		[Route("api/managementsingle")]
-		public async Task<Response<ManagementResponse>> GetSingle([FromQuery] ManagementSelectDto Model)
+		[Route("api/networkactionsingle")]
+		public async Task<Response<NetworkActionResponse>> GetSingle([FromQuery] NetworkActionSelectDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.SelectSingleAsync(Model);
-			return new Response<ManagementResponse>
+			Response<NetworkActionResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<NetworkActionResponse>
 			{
 				Collection = Response.Collection
 			};

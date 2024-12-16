@@ -14,55 +14,55 @@
 		}
 
 		[HttpPost]
-		[Route("api/management")]
-		public async Task<Response<ManagementResponse>> Create([FromBody] ManagementRegisterDto Model)
+		[Route("api/survey")]
+		public async Task<Response<SurveyResponse>> Create([FromBody] SurveyRegisterDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.InsertAsync(Model);
-			return new Response<ManagementResponse>
+			Response<SurveyResponse> Response = await Service.InsertAsync(Model);
+			return new Response<SurveyResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Route("api/management")]
-		public async Task<Response<ManagementResponse>> Update([FromBody] ManagementUpdateDto Model)
+		[Route("api/survey")]
+		public async Task<Response<SurveyResponse>> Update([FromBody] SurveyUpdateDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<ManagementResponse>
+			Response<SurveyResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<SurveyResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Route("api/management")]
-		public async Task<Response<ManagementResponse>> Delete([FromBody] ManagementDeleteDto Model)
+		[Route("api/survey")]
+		public async Task<Response<SurveyResponse>> Delete([FromBody] SurveyDeleteDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<ManagementResponse>
+			Response<SurveyResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<SurveyResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Route("api/management")]
-		public async Task<Response<ManagementResponse>> Get([FromQuery] ManagementSelectDto Model)
+		[Route("api/survey")]
+		public async Task<Response<SurveyResponse>> Get([FromQuery] SurveySelectDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.SelectAsync(Model);
-			return new Response<ManagementResponse>
+			Response<SurveyResponse> Response = await Service.SelectAsync(Model);
+			return new Response<SurveyResponse>
 			{
 				Collection = Response.Collection
 			};
 		}
 
 		[HttpGet]
-		[Route("api/managementsingle")]
-		public async Task<Response<ManagementResponse>> GetSingle([FromQuery] ManagementSelectDto Model)
+		[Route("api/surveysingle")]
+		public async Task<Response<SurveyResponse>> GetSingle([FromQuery] SurveySelectDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.SelectSingleAsync(Model);
-			return new Response<ManagementResponse>
+			Response<SurveyResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<SurveyResponse>
 			{
 				Collection = Response.Collection
 			};

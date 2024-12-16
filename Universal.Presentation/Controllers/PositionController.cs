@@ -14,55 +14,55 @@
 		}
 
 		[HttpPost]
-		[Route("api/management")]
-		public async Task<Response<ManagementResponse>> Create([FromBody] ManagementRegisterDto Model)
+		[Route("api/position")]
+		public async Task<Response<PositionResponse>> Create([FromBody] PositionRegisterDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.InsertAsync(Model);
-			return new Response<ManagementResponse>
+			Response<PositionResponse> Response = await Service.InsertAsync(Model);
+			return new Response<PositionResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpPut]
-		[Route("api/management")]
-		public async Task<Response<ManagementResponse>> Update([FromBody] ManagementUpdateDto Model)
+		[Route("api/position")]
+		public async Task<Response<PositionResponse>> Update([FromBody] PositionUpdateDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.UpdateAsync(Model);
-			return new Response<ManagementResponse>
+			Response<PositionResponse> Response = await Service.UpdateAsync(Model);
+			return new Response<PositionResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpDelete]
-		[Route("api/management")]
-		public async Task<Response<ManagementResponse>> Delete([FromBody] ManagementDeleteDto Model)
+		[Route("api/position")]
+		public async Task<Response<PositionResponse>> Delete([FromBody] PositionDeleteDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.DeleteAsync(Model);
-			return new Response<ManagementResponse>
+			Response<PositionResponse> Response = await Service.DeleteAsync(Model);
+			return new Response<PositionResponse>
 			{
 				Data = Response.Data
 			};
 		}
 
 		[HttpGet]
-		[Route("api/management")]
-		public async Task<Response<ManagementResponse>> Get([FromQuery] ManagementSelectDto Model)
+		[Route("api/position")]
+		public async Task<Response<PositionResponse>> Get([FromQuery] PositionSelectDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.SelectAsync(Model);
-			return new Response<ManagementResponse>
+			Response<PositionResponse> Response = await Service.SelectAsync(Model);
+			return new Response<PositionResponse>
 			{
 				Collection = Response.Collection
 			};
 		}
 
 		[HttpGet]
-		[Route("api/managementsingle")]
-		public async Task<Response<ManagementResponse>> GetSingle([FromQuery] ManagementSelectDto Model)
+		[Route("api/positionsingle")]
+		public async Task<Response<PositionResponse>> GetSingle([FromQuery] PositionSelectDto Model)
 		{
-			Response<ManagementResponse> Response = await Service.SelectSingleAsync(Model);
-			return new Response<ManagementResponse>
+			Response<PositionResponse> Response = await Service.SelectSingleAsync(Model);
+			return new Response<PositionResponse>
 			{
 				Collection = Response.Collection
 			};

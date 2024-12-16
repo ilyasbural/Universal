@@ -5,10 +5,10 @@
 	using Microsoft.AspNetCore.Mvc;
 
 	[ApiController]
-	public class ManagementContactsController : ControllerBase
+	public class ManagementContactController : ControllerBase
 	{
 		readonly IManagementContactService Service;
-		public ManagementContactsController(IManagementContactService service)
+		public ManagementContactController(IManagementContactService service)
 		{
 			Service = service;
 		}
