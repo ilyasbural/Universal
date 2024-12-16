@@ -78,11 +78,24 @@
         public async Task<Response<UserResponse>> SelectAsync(UserSelectDto Model)
         {
             Collection = await UnitOfWork.User.SelectAsync(x => x.IsActive == true);
-            return new Response<UserResponse>
+            foreach (User user in Collection)
             {
-                Message = "Success",
-                Success = 1,
-                IsValidationError = false
+                
+            }
+
+			return new Response<UserResponse>
+            {
+
+
+    //            Data = new UserResponse
+    //            {
+
+
+
+    //            },
+				//Message = "Success",
+				//Success = 1,
+				//IsValidationError = false
             };
         }
 

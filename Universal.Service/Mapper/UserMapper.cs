@@ -6,6 +6,7 @@
         {
             CreateMap<Core.UserRegisterDto, Core.User>().ReverseMap();
             CreateMap<Core.UserUpdateDto, Core.User>().ReverseMap();
-        }
+			CreateMap<Common.UserResponse, Core.User>().ReverseMap();
+		}
     }
 }
