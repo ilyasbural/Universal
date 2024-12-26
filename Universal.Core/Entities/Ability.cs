@@ -2,7 +2,7 @@
 {
     public class Ability : Base<Ability>, IEntity
     {
-        public string Name { get; set; } = string.Empty;
+        public String Name { get; set; } = String.Empty;
 
         public Ability()
         {

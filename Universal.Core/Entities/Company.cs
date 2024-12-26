@@ -2,7 +2,7 @@
 {
     public class Company : Base<Company>, IEntity
     {
-        public string Name { get; set; } = String.Empty;
+        public String Name { get; set; } = String.Empty;
 
         public Company()
         {
